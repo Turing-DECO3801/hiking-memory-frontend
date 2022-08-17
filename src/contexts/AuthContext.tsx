@@ -25,15 +25,15 @@ export const useAuthState = (): AuthState => {
     setAuthed(true);
   };
 
-  function login() {
+  const login = () => {
     setAuthed(true);
     // Navigate to home upon successful login
     navigate('/');
-  }
+  };
 
-  function logout() {
+  const logout = () => {
     setAuthed(false);
-  }
+  };
 
   return { isAuthed: authed, checkAuth, login, logout };
 };

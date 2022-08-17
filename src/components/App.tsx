@@ -3,7 +3,7 @@ import Navbar from './layout/Navbar/Navbar';
 import Routing from './Routing';
 import { useAuthState, AuthContext } from '../contexts/AuthContext';
 
-function App() {
+const App = () => {
   const authState = useAuthState();
   
   return (
@@ -14,6 +14,6 @@ function App() {
       </div>
     </AuthContext.Provider>
   );
-}
+};
 
 export default App;

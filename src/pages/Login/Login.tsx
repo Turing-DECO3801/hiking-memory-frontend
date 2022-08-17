@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
-function Login() {
+const Login = () => {
   const { login } = useContext(AuthContext);
   
   return (
@@ -10,6 +10,6 @@ function Login() {
       <button onClick={login}>Login</button>
     </>
   );
-}
+};
 
 export default Login;

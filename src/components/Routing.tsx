@@ -33,7 +33,7 @@ export const routes: RouteConfig[] = [
 /**
  * Map over and render routes + handle navigation.
  */
-function Routing() {
+const Routing = () => {
   return (
     <Routes>
       {routes.map(({ path, Component, secured }) => (
@@ -49,6 +49,6 @@ function Routing() {
       ))}
     </Routes>
   );
-}
+};
 
 export default Routing;

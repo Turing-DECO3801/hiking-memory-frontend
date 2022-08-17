@@ -1,8 +1,8 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-function NoMatch() {
+const NoMatch = () => {
   return <Navigate to="/" replace />;
-}
+};
 
 export default NoMatch;

@@ -2,7 +2,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthContext';
 
-function Navbar() {
+const Navbar = () => {
   // Logout functionality here
   const { logout } = useContext(AuthContext);
   function performLogout(e: { preventDefault: () => void }) {
@@ -15,6 +15,6 @@ function Navbar() {
       <button onClick={performLogout}>Logout</button>
     </nav>
   );
-}
+};
 
 export default Navbar;

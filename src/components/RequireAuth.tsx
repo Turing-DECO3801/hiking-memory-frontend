@@ -16,7 +16,7 @@ interface RequireAuthProps {
  *
  * Source: https://ui.dev/react-router-protected-routes-authentication
  */
-function RequireAuth({ children, secured, redirectTo }: RequireAuthProps): React.ReactElement {
+const RequireAuth = ({ children, secured, redirectTo }: RequireAuthProps): React.ReactElement => {
   const { isAuthed, checkAuth } = useContext(AuthContext);
   
   useEffect(() => {
@@ -31,6 +31,6 @@ function RequireAuth({ children, secured, redirectTo }: RequireAuthProps): React
   }
 
   return <div className="spinner-border" role="status" />;
-}
+};
 
 export default RequireAuth;
