@@ -1,18 +1,26 @@
 import React from 'react';
-import { useContext } from 'react';
-import { AuthContext } from '../../../contexts/AuthContext';
+import './Navbar.scss'
+
+import { FiUser } from 'react-icons/fi/'
+import { FaMountain } from 'react-icons/fa/'
+import { FaCalendarCheck } from 'react-icons/fa/'
 
 const Navbar = () => {
-  // Logout functionality here
-  const { logout } = useContext(AuthContext);
-  function performLogout(e: { preventDefault: () => void }) {
-    e.preventDefault();
-    logout();
-  }
 
   return (
     <nav>
-      <button onClick={performLogout}>Logout</button>
+        <button>
+        <FiUser className="icon"/>
+          Memories
+        </button>
+        <button>
+          <FaCalendarCheck className="icon"/>
+          Memories
+        </button>
+        <button>
+          <FaMountain className="icon"/>
+          Hikes
+        </button>
     </nav>
   );
 };
