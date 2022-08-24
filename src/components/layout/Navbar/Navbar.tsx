@@ -11,7 +11,7 @@ const Navbar = () => {
     <nav>
         <button>
         <FiUser className="icon"/>
-          Memories
+          Account
         </button>
         <button>
           <FaCalendarCheck className="icon"/>

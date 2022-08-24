@@ -6,13 +6,16 @@ import "../styles/index.scss"
 
 const App = () => {
   const authState = useAuthState();
+  const hikeState = useAuthState();
   
   return (
     <AuthContext.Provider value={authState}>
-      <Navbar />
-      <div>
-        <Routing />
-      </div>
+      <AuthContext.Provider value={hikeState}>
+        <Navbar />
+        <div>
+          <Routing />
+        </div>
+      </AuthContext.Provider>
     </AuthContext.Provider>
   );
 };
