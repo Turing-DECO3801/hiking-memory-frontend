@@ -1,61 +1,68 @@
-import React from 'react'
+import React from 'react';
+import {useMemo} from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import "./Map.scss"
+
 
 const containerStyle = {
-  width: '400px',
-  height: '400px'
+  width: '100%',
+  height: '200px',
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
+
 
 interface MapProps {
-    coordinates: any[];
-}
+  zoom: number,
+  center: {lat: number; lng: number},
+  coordinates: {lat: number, lng: number}[]
+};
 
-function Map({ coordinates }: MapProps) {
+function Map(mapInfo: MapProps) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyBDYINIldIZy3ssEzrMpAvRA6Rdd_GN020"
-  })
+    googleMapsApiKey: 'AIzaSyBDYINIldIZy3ssEzrMpAvRA6Rdd_GN020'
+  });
 
-  const [map, setMap] = React.useState(null)
+  const [map, setMap] = React.useState(null);
 
   const onLoad = React.useCallback(function callback(map: any) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-    setMap(map)
-    const flightPlanCoordinates = coordinates;
-      const flightPath = new google.maps.Polyline({
-        path: flightPlanCoordinates,
-        geodesic: true,
-        strokeColor: "#FF0000",
-        strokeOpacity: 1.0,
-        strokeWeight: 2,
-      });
-    
-      flightPath.setMap(map);
-
-  }, [])
+    const flightPlanCoordinates = mapInfo.coordinates;
+    const flightPath = new google.maps.Polyline({
+      path: flightPlanCoordinates,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+    });  
+    flightPath.setMap(map);
+  },[]);
 
   const onUnmount = React.useCallback(function callback(map: any) {
-    setMap(null)
-  }, [])
+    setMap(null);
+  }, []);
+
+  const options = useMemo(
+    () => ({
+      disableDefaultUI: true,
+      clickableIcons: false,
+      mapId: 'ID645ff0c21ec8c305',
+    }),
+    []
+  );
 
   return isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
-      </GoogleMap>
-  ) : <></>
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={mapInfo.center}
+      zoom={mapInfo.zoom}
+      onLoad={onLoad}
+      onUnmount={onUnmount}
+      options = {options}
+    >
+      { /* Child components, such as markers, info windows, etc. */ }
+      <></>
+    </GoogleMap>
+  ) : <></>;
 }
 
-export default React.memo(Map)
+export default React.memo(Map);
