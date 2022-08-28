@@ -15,10 +15,10 @@ interface Hike {
 const Home = () => {
   const hikeContext = useContext(HikeContext);
 
-  const pathExample = [{ lat: 37.772, lng: -122.214 },
-    { lat: 21.291, lng: -157.821 },
-    { lat: -18.142, lng: 178.431 },
-    { lat: -27.467, lng: 153.027 }];
+  const pathExample = [{ lat: 37, lng: -122 },
+    { lat: 37, lng: -121 },
+    { lat: 38, lng: -121 },
+    { lat: 38, lng: -122 }];
 
   const hikeInfo = [ 
     {title: 'Hike 1', path: pathExample, center: {lat: -10, lng: -38.523}, zoom: 10}, 

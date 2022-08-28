@@ -2,6 +2,7 @@ import React from 'react';
 import {useMemo} from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import "./Map.scss"
+import { createTextSpanFromBounds } from 'typescript';
 
 
 const containerStyle = {
@@ -26,6 +27,11 @@ function Map(mapInfo: MapProps) {
   const [map, setMap] = React.useState(null);
 
   const onLoad = React.useCallback(function callback(map: any) {
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0; i < mapInfo.coordinates.length; i++) {
+      bounds.extend(mapInfo.coordinates[i]);
+    }
+    map.fitBounds(bounds);
     const flightPlanCoordinates = mapInfo.coordinates;
     const flightPath = new google.maps.Polyline({
       path: flightPlanCoordinates,
