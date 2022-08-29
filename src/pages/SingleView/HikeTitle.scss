@@ -1,0 +1,17 @@
+.mapDiv{
+    height: 100%;
+    width: 100%;
+}
+
+.MapIndex{
+    z-index: 100;
+    width: 150px;
+    position: fixed;
+    left: 30px;
+    top: 30px;
+    background-color: rgb(255, 255, 255);
+    padding: 1em;
+    border-radius: 20px;
+    border: 3px solid rgb(100, 100, 100);
+    font-family: "Times New Roman", Times, serif;
+}

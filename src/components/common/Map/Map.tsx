@@ -7,7 +7,7 @@ import { createTextSpanFromBounds } from 'typescript';
 
 const containerStyle = {
   width: '100%',
-  height: '200px',
+  height: '844px',
 };
 
 
@@ -15,7 +15,8 @@ const containerStyle = {
 interface MapProps {
   zoom: number,
   center: {lat: number; lng: number},
-  coordinates: {lat: number, lng: number}[]
+  path: {lat: number, lng: number}[]
+  audio: {lat: number, lng: number}[]
 };
 
 function Map(mapInfo: MapProps) {
@@ -28,18 +29,22 @@ function Map(mapInfo: MapProps) {
 
   const onLoad = React.useCallback(function callback(map: any) {
     var bounds = new google.maps.LatLngBounds();
-    for (var i = 0; i < mapInfo.coordinates.length; i++) {
-      bounds.extend(mapInfo.coordinates[i]);
+    for (var i = 0; i < mapInfo.path.length; i++) {
+      bounds.extend(mapInfo.path[i]);
     }
     map.fitBounds(bounds);
-    const flightPlanCoordinates = mapInfo.coordinates;
+    map.setMapTypeId(google.maps.MapTypeId.TERRAIN)
+    const flightPlanCoordinates = mapInfo.path;
     const flightPath = new google.maps.Polyline({
       path: flightPlanCoordinates,
       geodesic: true,
-      strokeColor: '#FF0000',
+      strokeColor: '#7600bc',
       strokeOpacity: 1.0,
-      strokeWeight: 2,
+      strokeWeight: 3,
     });  
+    for (var i = 0; i < mapInfo.audio.length; i++) {
+        const marker = new google.maps.Marker({position: mapInfo.audio[i], map: map})
+    }
     flightPath.setMap(map);
   },[]);
 

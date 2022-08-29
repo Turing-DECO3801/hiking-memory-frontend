@@ -3,7 +3,7 @@ import Navbar from '../../components/layout/Navbar/Navbar';
 import Map from '../../components/common/Map/Map';
 import { HikeContext } from '../../contexts/HikeContext';
 import Card from 'react-bootstrap/Card';
-import "./Box.scss"
+import "./HikeTitle.scss"
 import { readFile } from 'fs/promises';
 
 interface Hike {
@@ -16,7 +16,7 @@ interface Hike {
 
 const Home = () => {
   
-  /*
+  
   const pathExample = [
     { lat: -27.376209, lng: 152.951320 },
     { lat: -27.376153, lng: 152.950598 },
@@ -36,9 +36,9 @@ const Home = () => {
     </div>
   )
   
-  */
-
   
+
+  /*
   const hikeContext = useContext(HikeContext);
 
   const pathExample = [{ lat: 37, lng: -122 },
@@ -57,7 +57,7 @@ const Home = () => {
   const renderCard = (hike: Hike, index: number) => {
     return( 
       <Card style={{ width: '18rem' }} key={index} className="box">
-        <Map center={hike.center} zoom={hike.zoom} path={hike.path} audio={hike.path}/>
+        <Map center={hike.center} zoom={hike.zoom} coordinates={hike.path}/>
         <Card.Body>
           <Card.Title className="title">{hike.title}</Card.Title>
         </Card.Body>
@@ -70,7 +70,7 @@ const Home = () => {
         {hikeInfo.map(renderCard)}
     </div>
   );
-  
+  */
 };
 
 export default Home;

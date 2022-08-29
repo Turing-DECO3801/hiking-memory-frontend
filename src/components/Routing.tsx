@@ -4,6 +4,7 @@ import RequireAuth from './RequireAuth';
 import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
 import NoMatch from '../pages/NoMatch/NoMatch';
+import SingleView from '../pages/SingleView/SingleView';
 
 /** All routes */
 export const routes: RouteConfig[] = [
@@ -27,6 +28,13 @@ export const routes: RouteConfig[] = [
     exact: false,
     Component: NoMatch,
     secured: false
+  },
+  {
+    path: '/singleView',
+    name: 'SingleView',
+    exact: true,
+    Component: SingleView,
+    secured: true
   }
 ];
 
