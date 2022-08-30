@@ -2981,7 +2981,7 @@ const SingleView = () => {
   const singleHikeInfo = {title: 'Afternoon Hike', date: "31/08/2022", path: pathExample, center: {lat: -10, lng: -38.523}, zoom: 10, audio: audioEx};
 
   return(
-    <div>
+    <div className="mapContainer">
       <div className="HikeDescription"> 
         <div className="HikeTitle"> {singleHikeInfo.title} </div>
         <div className="HikeDate"> {singleHikeInfo.date} </div>

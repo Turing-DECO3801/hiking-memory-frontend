@@ -11,8 +11,8 @@ import AudioModal from '../AudioModal/AudioModal';
 
 
 const containerStyle = {
-  width: '100%',
-  height: '844px',
+  width: '100vw',
+  height: '100vh'
 };
 
 
@@ -51,7 +51,7 @@ function Map(mapInfo: MapProps) {
       strokeWeight: 7,
     });  
     for (var i = 0; i < mapInfo.audio.length; i++) {
-        const marker = new google.maps.Marker({position: mapInfo.audio[i].location, map: map})
+        const marker = new google.maps.Marker({position: mapInfo.audio[i].location, icon: "http://maps.google.com/mapfiles/kml/paddle/purple-circle.png" ,map: map})
         const aFile = mapInfo.audio[i].audioFile;
         const iFile = mapInfo.audio[i].imageFile;
         marker.addListener("click", () => {
