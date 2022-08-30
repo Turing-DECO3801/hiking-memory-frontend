@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {useMemo} from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import "./Map.scss"
 import { createTextSpanFromBounds } from 'typescript';
 import { render } from '@testing-library/react';
 import { FaPlay } from 'react-icons/fa';
-import AudioModal from '../AudioModal/AudioModal';
+import Modal from 'react-bootstrap/Modal';
+import { Button } from 'react-bootstrap';
 
 
 const containerStyle = {
@@ -21,6 +22,11 @@ interface MapProps {
 };
 
 function Map(mapInfo: MapProps) {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyBDYINIldIZy3ssEzrMpAvRA6Rdd_GN020'
@@ -48,7 +54,7 @@ function Map(mapInfo: MapProps) {
     for (var i = 0; i < mapInfo.audio.length; i++) {
         const marker = new google.maps.Marker({position: mapInfo.audio[i], map: map})
         marker.addListener("click", () => {
-          audio.play();
+          setShow(true);
         })
     }
     flightPath.setMap(map);
@@ -66,18 +72,38 @@ function Map(mapInfo: MapProps) {
     }),
     []
   );
-
+  
+  const start = () => {
+    audio.play();
+  }
+  
   return isLoaded ? (
-    <GoogleMap
+    <div>
+          <GoogleMap
       mapContainerStyle={containerStyle}
       onLoad={onLoad}
       onUnmount={onUnmount}
       options = {options}
-    >
-      { /* Child components, such as markers, info windows, etc. */ }
-      <></>
-    </GoogleMap>
+    >    </GoogleMap>
+      <>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Audio Memo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>You recored a voice Memo at this Location</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={start}>
+            Play Audio
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+    </div>
   ) : <></>;
+  
 }
 
 export default React.memo(Map);
