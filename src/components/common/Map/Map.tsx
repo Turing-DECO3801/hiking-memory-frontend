@@ -7,6 +7,7 @@ import { render } from '@testing-library/react';
 import { FaPlay } from 'react-icons/fa';
 import Modal from 'react-bootstrap/Modal';
 import { Button } from 'react-bootstrap';
+import AudioModal from '../AudioModal/AudioModal';
 
 
 const containerStyle = {
@@ -23,8 +24,7 @@ interface MapProps {
 
 function Map(mapInfo: MapProps) {
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [audioFile, setAudioFile] = useState("hello");
 
 
   const { isLoaded } = useJsApiLoader({
@@ -54,6 +54,7 @@ function Map(mapInfo: MapProps) {
     for (var i = 0; i < mapInfo.audio.length; i++) {
         const marker = new google.maps.Marker({position: mapInfo.audio[i], map: map})
         marker.addListener("click", () => {
+          setAudioFile("./test.mp3")
           setShow(true);
         })
     }
@@ -73,10 +74,6 @@ function Map(mapInfo: MapProps) {
     []
   );
   
-  const start = () => {
-    audio.play();
-  }
-  
   return isLoaded ? (
     <div>
           <GoogleMap
@@ -85,25 +82,10 @@ function Map(mapInfo: MapProps) {
       onUnmount={onUnmount}
       options = {options}
     >    </GoogleMap>
-      <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Audio Memo</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>You recored a voice Memo at this Location</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={start}>
-            Play Audio
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+      <AudioModal show={show} handleClose={()=>setShow(false)} handleOpen={() => setShow(true)} audioFile={audioFile} ></AudioModal>
     </div>
   ) : <></>;
   
 }
 
-export default React.memo(Map);
+export default Map;
