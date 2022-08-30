@@ -19,7 +19,7 @@ const containerStyle = {
 
 interface MapProps {
   path: {lat: number, lng: number}[];
-  audio: {lat: number, lng: number}[];
+  audio: {location: {lat: number, lng: number}, file: string}[];
 };
 
 function Map(mapInfo: MapProps) {
@@ -31,8 +31,6 @@ function Map(mapInfo: MapProps) {
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyBDYINIldIZy3ssEzrMpAvRA6Rdd_GN020'
   });
-
-  let audio = new Audio("/test.mp3");
 
   const [map, setMap] = React.useState(null);
 
@@ -52,9 +50,10 @@ function Map(mapInfo: MapProps) {
       strokeWeight: 7,
     });  
     for (var i = 0; i < mapInfo.audio.length; i++) {
-        const marker = new google.maps.Marker({position: mapInfo.audio[i], map: map})
+        const marker = new google.maps.Marker({position: mapInfo.audio[i].location, map: map})
+        const file = mapInfo.audio[i].file
         marker.addListener("click", () => {
-          setAudioFile("./test.mp3")
+          setAudioFile(file)
           setShow(true);
         })
     }

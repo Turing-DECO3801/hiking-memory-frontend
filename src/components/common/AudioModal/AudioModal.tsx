@@ -17,10 +17,11 @@ function AudioModel(p: Props) {
 
     return(      
     <>
-        <Modal show={p.show} onHide={p.handleClose}>
+        <Modal show={p.show} onHide={p.handleClose} size="lg" aria-labelledy="contained-modal-title-vcenter" centered>
           <Modal.Header closeButton>
             <Modal.Title>Audio Memo</Modal.Title>
           </Modal.Header>
+          <img src="./logo192.png"></img>
           <Modal.Body>You recored a voice Memo at this Location</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={p.handleClose}>
