@@ -19,12 +19,13 @@ const containerStyle = {
 
 interface MapProps {
   path: {lat: number, lng: number}[];
-  audio: {location: {lat: number, lng: number}, file: string}[];
+  audio: {location: {lat: number, lng: number}, audioFile: string, imageFile: string}[];
 };
 
 function Map(mapInfo: MapProps) {
   const [show, setShow] = useState(false);
   const [audioFile, setAudioFile] = useState("hello");
+  const [imageFile, setImageFile] = useState("hello");
 
 
   const { isLoaded } = useJsApiLoader({
@@ -51,9 +52,11 @@ function Map(mapInfo: MapProps) {
     });  
     for (var i = 0; i < mapInfo.audio.length; i++) {
         const marker = new google.maps.Marker({position: mapInfo.audio[i].location, map: map})
-        const file = mapInfo.audio[i].file
+        const aFile = mapInfo.audio[i].audioFile;
+        const iFile = mapInfo.audio[i].imageFile;
         marker.addListener("click", () => {
-          setAudioFile(file)
+          setAudioFile(aFile);
+          setImageFile(iFile);
           setShow(true);
         })
     }
@@ -81,7 +84,7 @@ function Map(mapInfo: MapProps) {
       onUnmount={onUnmount}
       options = {options}
     >    </GoogleMap>
-      <AudioModal show={show} handleClose={()=>setShow(false)} handleOpen={() => setShow(true)} audioFile={audioFile} ></AudioModal>
+      <AudioModal show={show} handleClose={()=>setShow(false)} handleOpen={() => setShow(true)} audioFile={audioFile} imageFile={imageFile}></AudioModal>
     </div>
   ) : <></>;
   

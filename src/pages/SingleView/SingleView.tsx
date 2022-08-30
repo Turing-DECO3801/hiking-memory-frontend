@@ -2972,8 +2972,8 @@ const SingleView = () => {
 
 
    
-  const audioEx = [{location: {lat: -27.360349, lng: 152.963009}, file: "./test.mp3"}, 
-                    {location: {lat: -27.346084, lng: 152.975356}, file: "./test2.mp3"}];
+  const audioEx = [{location: {lat: -27.360349, lng: 152.963009}, audioFile: "./test.mp3", imageFile: "./image1.jpg"}, 
+                    {location: {lat: -27.346084, lng: 152.975356}, audioFile: "./test2.mp3", imageFile: "./image2.jpg"}];
    
 
                 

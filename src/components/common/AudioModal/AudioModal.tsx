@@ -1,10 +1,12 @@
 import { Button, Modal } from "react-bootstrap";
+import { StringLiteral } from "typescript";
 
 interface Props {
     show: boolean;
     handleClose: () => void;
     handleOpen: () => void;
     audioFile: string;
+    imageFile: string;
 }
 
 function AudioModel(p: Props) {
@@ -21,7 +23,7 @@ function AudioModel(p: Props) {
           <Modal.Header closeButton>
             <Modal.Title>Audio Memo</Modal.Title>
           </Modal.Header>
-          <img src="./logo192.png"></img>
+          <img src={p.imageFile}></img>
           <Modal.Body>You recored a voice Memo at this Location</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={p.handleClose}>
