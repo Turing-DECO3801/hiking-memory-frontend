@@ -3,6 +3,9 @@ import {useMemo} from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import "./Map.scss"
 import { createTextSpanFromBounds } from 'typescript';
+import { render } from '@testing-library/react';
+import { FaPlay } from 'react-icons/fa';
+import AudioModal from '../AudioModal/AudioModal';
 
 
 const containerStyle = {
@@ -13,10 +16,8 @@ const containerStyle = {
 
 
 interface MapProps {
-  zoom: number,
-  center: {lat: number; lng: number},
-  path: {lat: number, lng: number}[]
-  audio: {lat: number, lng: number}[]
+  path: {lat: number, lng: number}[];
+  audio: {lat: number, lng: number}[];
 };
 
 function Map(mapInfo: MapProps) {
@@ -24,6 +25,8 @@ function Map(mapInfo: MapProps) {
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyBDYINIldIZy3ssEzrMpAvRA6Rdd_GN020'
   });
+
+  let audio = new Audio("/test.mp3");
 
   const [map, setMap] = React.useState(null);
 
@@ -40,10 +43,13 @@ function Map(mapInfo: MapProps) {
       geodesic: true,
       strokeColor: '#7600bc',
       strokeOpacity: 1.0,
-      strokeWeight: 3,
+      strokeWeight: 7,
     });  
     for (var i = 0; i < mapInfo.audio.length; i++) {
         const marker = new google.maps.Marker({position: mapInfo.audio[i], map: map})
+        marker.addListener("click", () => {
+          audio.play();
+        })
     }
     flightPath.setMap(map);
   },[]);
@@ -64,8 +70,6 @@ function Map(mapInfo: MapProps) {
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={mapInfo.center}
-      zoom={mapInfo.zoom}
       onLoad={onLoad}
       onUnmount={onUnmount}
       options = {options}
