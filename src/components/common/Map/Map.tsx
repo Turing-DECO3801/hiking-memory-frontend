@@ -46,7 +46,7 @@ function Map(mapInfo: MapProps) {
     const flightPath = new google.maps.Polyline({
       path: flightPlanCoordinates,
       geodesic: true,
-      strokeColor: '#7600bc',
+      strokeColor: '#8d5a97',
       strokeOpacity: 1.0,
       strokeWeight: 7,
     });  

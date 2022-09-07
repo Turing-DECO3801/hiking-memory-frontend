@@ -21,10 +21,10 @@ function AudioModel(p: Props) {
     <>
         <Modal show={p.show} onHide={p.handleClose} size="lg" aria-labelledy="contained-modal-title-vcenter" centered>
           <Modal.Header closeButton>
-            <Modal.Title>Audio Memo</Modal.Title>
+            <Modal.Title>Voice Recording</Modal.Title>
           </Modal.Header>
           <img src={p.imageFile}></img>
-          <Modal.Body>You recored a voice Memo at this Location</Modal.Body>
+          <Modal.Body>You have recored a voice memo at this location.</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={p.handleClose}>
               Close
