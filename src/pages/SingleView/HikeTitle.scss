@@ -1,0 +1,37 @@
+.HikeDescription{
+    z-index: 100;
+    width: 225px;
+    position: fixed;
+    left: 30px;
+    top: 30px;
+    background-color: rgb(255, 255, 255);
+    padding: 1em;
+    border-radius: 20px;
+    border: 3px solid rgb(100, 100, 100);
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0px 12px 18px -6px rgba(0,0,0,0.3);
+}
+
+.HikeTitle{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.HikeDate{
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.HikeInstructions{
+    font-style: italic;
+    font-size: 13px;
+
+}
+
+.mapContainer{
+    position:absolute;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+}
