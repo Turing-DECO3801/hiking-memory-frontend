@@ -1,10 +1,17 @@
 import React from 'react';
 import './Button.scss';
 
-const Button = () => {
+interface ButtonProps {
+    onClick: () => (void)
+    children: React.ReactNode
+}
+
+const Button = ({ onClick, children }: ButtonProps) => {
 
   return (
-    <div className="logo"></div>
+    <button onClick={onClick}>
+        { children }
+    </button>
   );
 };
 

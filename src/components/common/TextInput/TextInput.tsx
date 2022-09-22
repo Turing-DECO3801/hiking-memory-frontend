@@ -6,9 +6,10 @@ import { FiUser, FiLock } from 'react-icons/fi/'
 interface TextInputProps {
   icon?: string
   placeholder?: string
+  type?: string
 }
 
-const TextInput = ({ icon, placeholder }: TextInputProps) => {
+const TextInput = ({ icon, placeholder, type }: TextInputProps) => {
 
   const getIcon = () => {
     if (icon === "user") {
@@ -24,11 +25,13 @@ const TextInput = ({ icon, placeholder }: TextInputProps) => {
     }
     return ""
   }
+
+  
   
   return (
     <div className="input-border">
       {getIcon()}
-      <input placeholder={getByPlaceholderText()} spellCheck="false"/>
+      <input placeholder={getByPlaceholderText()} spellCheck="false" type={type ? type : ""}/>
     </div>
   );
 };
