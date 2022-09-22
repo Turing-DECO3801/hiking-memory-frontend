@@ -20,12 +20,11 @@ const Login = () => {
       <TextInput placeholder="Password" icon="lock" type="password"/>
       <br/>
       <Button onClick={login}>Log in</Button>
-      {/* <button onClick={login}>Login</button> */}
       <br/>
       <div>
         Don't have an account?
       </div>
-      <a className="">
+      <a className="link">
         Sign up here
       </a>
       <br/>
