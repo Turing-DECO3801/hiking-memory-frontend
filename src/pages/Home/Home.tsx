@@ -31,10 +31,11 @@ const Home = () => {
   const renderCard = (hike: Hike, index: number) => {
     return( 
       <Card style={{ width: '18rem' }} key={index} className="box">
-        <Map path={hike.path} audio={hike.path}/>
+        <Navbar />
+        {/* <Map path={hike.path} audio={hike.path}/>
         <Card.Body>
           <Card.Title className="title">{hike.title}</Card.Title>
-        </Card.Body>
+        </Card.Body> */}
       </Card>
     )
   }
