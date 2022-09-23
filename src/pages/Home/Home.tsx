@@ -1,7 +1,10 @@
 import React from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
 import { FiArrowRight, FiVolume2, FiCamera } from 'react-icons/fi/'
+import { Pagination, Navigation } from "swiper";
 import "./Home.scss"
+import Notifications from './Notifications/Notifications';
+import PhotoCollection from './PhotoCollection/PhotoCollection';
 
 const Home = () => { 
 
@@ -43,14 +46,14 @@ const Home = () => {
         <h4>Notifications</h4>
         <span>edit</span>
       </div>
+      <Notifications />
       <br />
-      <div className="notifications">
-      </div>
       <br />
       <div className="section-header">
         <h4>Photo Collections</h4>
         <span>see all</span>
       </div>
+      <PhotoCollection />
     </div>
   );
   
