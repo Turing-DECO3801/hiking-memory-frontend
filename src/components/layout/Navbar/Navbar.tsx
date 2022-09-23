@@ -9,18 +9,20 @@ const Navbar = () => {
 
   return (
     <nav>
-        <button>
-        <FiUser className="icon"/>
-          Account
-        </button>
-        <button>
-          <FaCalendarCheck className="icon"/>
-          Memories
-        </button>
-        <button>
-          <FaMountain className="icon"/>
-          Hikes
-        </button>
+        <div className="user-border">
+          <FiUser className="user-icon"/>
+        </div>
+        {/* Account */}
+        <div className="pages">
+          <button>
+            {/* <FaCalendarCheck className="icon"/> */}
+            Home
+          </button>
+          <button>
+            {/* <FaMountain className="icon"/> */}
+            Hikes
+          </button>
+        </div>
     </nav>
   );
 };

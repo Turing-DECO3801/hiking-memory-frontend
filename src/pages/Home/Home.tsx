@@ -14,6 +14,7 @@ const Home = () => {
 
   return (
     <div className="home">
+      <Navbar />
       <br />
       <br />
       <h3>Welcome Back {getName()}!</h3>
