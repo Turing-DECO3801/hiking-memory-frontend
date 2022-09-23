@@ -4,6 +4,7 @@ import TextInput from '../../components/common/TextInput/TextInput';
 import Logo from '../../components/common/Logo/Logo';
 import Button from '../../components/common/Button/Button';
 import "./Login.scss"
+import Loading from '../../components/common/Loading/Loading';
 
 
 const Login = () => {
@@ -13,7 +14,7 @@ const Login = () => {
     <>
     <div className="login">
       <Logo />
-      <h1>memory trail</h1>
+      <h1>hiking memory maker</h1>
       <br/>
       <TextInput placeholder="Username" icon="user"/>
       <br/>
@@ -30,6 +31,7 @@ const Login = () => {
       <br/>
       <br/>
       <br/>
+      <Loading />
     </div>
     </>
   );
