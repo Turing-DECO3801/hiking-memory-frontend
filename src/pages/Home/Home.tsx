@@ -1,48 +1,56 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
-import Map from '../../components/common/Map/Map';
-import { HikeContext } from '../../contexts/HikeContext';
-import Card from 'react-bootstrap/Card';
-import "./Box.scss"
-import { readFile } from 'fs/promises';
-
-interface Hike {
-  title: string,
-  path: any[],
-};
-
+import { FiArrowRight, FiVolume2, FiCamera } from 'react-icons/fi/'
+import "./Home.scss"
 
 const Home = () => { 
-  const hikeContext = useContext(HikeContext);
 
-  const pathExample = [{ lat: 37, lng: -122 },
-    { lat: 37, lng: -121 },
-    { lat: 38, lng: -121 },
-    { lat: 38, lng: -122 }];
-
-  const hikeInfo = [ 
-    {title: 'Hike 1', path: pathExample}, 
-    {title: 'Hike 2', path: pathExample},
-    {title: 'Hike 3', path: pathExample} 
-  ];
-
-
-
-  const renderCard = (hike: Hike, index: number) => {
-    return( 
-      <Card style={{ width: '18rem' }} key={index} className="box">
-        <Navbar />
-        {/* <Map path={hike.path} audio={hike.path}/>
-        <Card.Body>
-          <Card.Title className="title">{hike.title}</Card.Title>
-        </Card.Body> */}
-      </Card>
-    )
+  const getName = () => {
+    return "Ella"
   }
 
   return (
-    <div className="grid">
-        {hikeInfo.map(renderCard)}
+    <div className="home">
+      <br />
+      <br />
+      <h3>Welcome Back {getName()}!</h3>
+      <br />
+
+      {/** Latest Hike Tab, could be abstracted later */}
+      <div className="latest-hike">
+        <div className="left-half">
+          <h5>View your latest hike</h5>
+          <text className="thin-text">Mount Coo-tha 15/08</text>
+        </div>
+        <div className="notification-button">
+          <FiArrowRight className="arrow-right"/>
+        </div>
+        <div className="icons">
+          <div className="camera-icon-container">
+            <FiCamera className="camera-icon" />
+          </div>
+          <div className="sound-icon-container">
+            <FiVolume2 className="volume-icon" />
+          </div>
+        </div>
+      </div>
+
+      <br />
+      <br />
+
+      {/** Notifications Tab */}
+      <div className="section-header">
+        <h4>Notifications</h4>
+        <span>edit</span>
+      </div>
+      <br />
+      <div className="notifications">
+      </div>
+      <br />
+      <div className="section-header">
+        <h4>Photo Collections</h4>
+        <span>see all</span>
+      </div>
     </div>
   );
   
