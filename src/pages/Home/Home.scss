@@ -16,7 +16,8 @@ h4 {
     color: $orange;
 }
 
-span {
+.section-header a {
+    text-decoration: none;
     color: $dark-grey;
     cursor: pointer;
 }

@@ -1,0 +1,32 @@
+@import '../../styles/index';
+
+.header {
+    margin: 10%;
+    margin-bottom: 5%;
+}
+
+.photo-card {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: $dark-blue;
+    margin: 30px 0px;
+    border-radius: 25px;
+}
+
+.photo-card .banner {
+    position: absolute;
+    top: 25px;
+    width: 100%;
+    height: 38px;
+    background: $high-opacity-orange;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner .banner-header {
+    color: $white;
+    font-size: 30px;
+}

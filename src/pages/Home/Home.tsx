@@ -45,14 +45,14 @@ const Home = () => {
       {/** Notifications Tab */}
       <div className="section-header">
         <h4>Notifications</h4>
-        <span>edit</span>
+        <a href="/">edit</a>
       </div>
       <Notifications />
       <br />
       <br />
       <div className="section-header">
         <h4>Photo Collections</h4>
-        <span>see all</span>
+        <a href="/photos">see all</a>
       </div>
       <PhotoCollection />
     </div>
