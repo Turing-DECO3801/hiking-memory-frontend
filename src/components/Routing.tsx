@@ -5,6 +5,7 @@ import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
 import NoMatch from '../pages/NoMatch/NoMatch';
 import SingleView from '../pages/SingleView/SingleView';
+import AllHikes from '../pages/AllHikes/AllHikes';
 
 /** All routes */
 export const routes: RouteConfig[] = [
@@ -30,10 +31,17 @@ export const routes: RouteConfig[] = [
     secured: false
   },
   {
-    path: '/singleView',
+    path: '/singleview',
     name: 'SingleView',
     exact: true,
     Component: SingleView,
+    secured: true
+  },
+  {
+    path: '/allhikes',
+    name: 'AllHikes',
+    exact: true,
+    Component: AllHikes,
     secured: true
   }
 ];
