@@ -7,7 +7,7 @@ import "./Photos.scss"
 
 const PhotoCollection = () => {
 
-  const [selected, setSelected] = useState(true);
+  const [selected, setSelected] = useState(false);
   const [selectionIndex, setSelectionIndex] = useState(0);
 
   const photos = [
@@ -20,6 +20,11 @@ const PhotoCollection = () => {
     } else {
       return <a href="/">Back</a>;
     }
+  }
+
+  const selectCollection = (index: number) => {
+    setSelected(true);
+    setSelectionIndex(index);
   }
 
   return (
@@ -36,7 +41,7 @@ const PhotoCollection = () => {
             if (selected && index === selectionIndex) {
               return <PhotoGallery />
             } else if (!selected){
-              return <PhotoCard />
+              return <PhotoCard onClick={() => selectCollection(index)}/>
             }
           }
           )
