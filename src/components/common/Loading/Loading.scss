@@ -2,7 +2,6 @@
 
 .loading-container {
     position: relative;
-    transform: scale(200%);
 }
 
 .loading {
@@ -83,7 +82,7 @@
     20% {
         transform: translate(2px, 6px) scale(0%)
     }
-    50% {
+    40% {
         transform: translate(0px, 0px) scale(100%)
     }
 

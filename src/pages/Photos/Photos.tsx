@@ -10,6 +10,7 @@ const PhotoCollection = () => {
 
   const [selected, setSelected] = useState(false);
   const [selectionIndex, setSelectionIndex] = useState(0);
+  const [galleryDisplayed, setGalleryDisplayed] = useState(false);
 
   const photos = [
     1,2,3,4,5
@@ -28,6 +29,17 @@ const PhotoCollection = () => {
     setSelectionIndex(index);
   }
 
+  const displayGallery = () => {
+    console.log("here");
+    setGalleryDisplayed(true);
+  }
+
+  const getGalleryDisplay = () => {
+    if (galleryDisplayed) {
+      return <LightBox removeGallery={() => setGalleryDisplayed(false)}/>
+    }
+  }
+
   return (
     <div className="photo-collection">
       <Navbar />
@@ -40,17 +52,18 @@ const PhotoCollection = () => {
         {
           photos.map((collections, index) => {
             if (selected && index === selectionIndex) {
-              return <PhotoGallery />
+              return <PhotoGallery onClick={displayGallery}/>
             } else if (!selected){
               return <PhotoCard onClick={() => selectCollection(index)}/>
             }
-          }
-          )
+          })
         }
-        {/* <LightBox /> */}
+      {
+        getGalleryDisplay()
+      }
     </div>
   );
-
+  
 };
 
 export default PhotoCollection;
