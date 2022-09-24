@@ -1,0 +1,35 @@
+@import '../../../styles/index';
+
+.loading {
+    height: 160px;
+    width: 160px;
+    background: $dark-blue;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    mask-image: url('../../../images/logo.png');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: 70%;
+}
+
+.moving {
+    background: $orange;
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+
+    animation: phase 2s ease-in-out infinite;
+}
+
+@keyframes phase {
+    0% {
+        transform: translateX(-100%)
+    }
+
+    100% {
+        transform: translateX(100%)
+    }
+}

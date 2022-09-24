@@ -1,7 +1,13 @@
 @import 'variables';
 @import 'global';
+@import url('https://fonts.googleapis.com/css2?family=Alata&family=Open+Sans:ital,wght@1,300&display=swap');
 
 * {
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Alata', sans-serif;
+}
+
+.thin-text {
+    font-family: 'Open Sans', sans-serif;
 }
