@@ -12,7 +12,6 @@ const App = () => {
   return (
     <AuthContext.Provider value={authState}>
       <AuthContext.Provider value={hikeState}>
-        <Navbar />
         <div>
           <Routing />
         </div>
