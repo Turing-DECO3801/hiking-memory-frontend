@@ -1,31 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Navbar from '../../components/layout/Navbar/Navbar';
 
 import PhotoCard from './PhotoCard';
+import PhotoGallery from './PhotoGallery';
 import "./Photos.scss"
 
 const PhotoCollection = () => {
 
+  const [selected, setSelected] = useState(true);
+  const [selectionIndex, setSelectionIndex] = useState(0);
+
   const photos = [
-    1,
-    2,
-    3,
-    4,
-    5
+    1,2,3,4,5
   ]
+
+  const getBackButton = () => {
+    if (selected) {
+      return <div className="back-button" onClick={() => setSelected(false)}>Back</div>
+    } else {
+      return <a href="/">Back</a>;
+    }
+  }
 
   return (
     <div className="photo-collection">
+      <Navbar />
       <div className="header">
-        <a href="/">Back</a>
-        <br />
-        <br />
-        <h3>Photo Collections </h3>
+        {
+          getBackButton()
+        }
+        <h2>Photo Collections </h2>
       </div>
-      {
-        photos.map(() => (
-          <PhotoCard />
-        ))
-      }
+        {
+          photos.map((collections, index) => {
+            if (selected && index === selectionIndex) {
+              return <PhotoGallery />
+            } else if (!selected){
+              return <PhotoCard />
+            }
+          }
+          )
+        }
     </div>
   );
 

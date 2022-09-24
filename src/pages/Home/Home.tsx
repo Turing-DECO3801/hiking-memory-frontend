@@ -17,7 +17,7 @@ const Home = () => {
       <Navbar />
       <br />
       <br />
-      <h3>Welcome Back {getName()}!</h3>
+      <h2>Welcome Back {getName()}!</h2>
       <br />
 
       {/** Latest Hike Tab, could be abstracted later */}
