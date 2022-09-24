@@ -47,7 +47,7 @@ const PhotoCollection = () => {
           }
           )
         }
-        <LightBox />
+        {/* <LightBox /> */}
     </div>
   );
 
