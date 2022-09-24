@@ -62,3 +62,12 @@
 .photo-gallery .banner .banner-header {
     font-size: 25px;
 }
+
+.light-box {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: $high-opacity-black;
+    top: 0;
+    z-index: 101;
+}

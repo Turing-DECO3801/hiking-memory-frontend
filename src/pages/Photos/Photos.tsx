@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
+import LightBox from './Lightbox';
 
 import PhotoCard from './PhotoCard';
 import PhotoGallery from './PhotoGallery';
@@ -46,6 +47,7 @@ const PhotoCollection = () => {
           }
           )
         }
+        <LightBox />
     </div>
   );
 
