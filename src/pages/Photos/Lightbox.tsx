@@ -5,28 +5,30 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper";
 import GalleryImage from './GalleryImage';
+import { Image } from "react-grid-gallery";
 
 interface LightBoxProps {
   removeGallery: () => void;
+  images: Image[]
 }
 
-const LightBox = ({ removeGallery }: LightBoxProps) => {
+const LightBox = ({ removeGallery, images }: LightBoxProps) => {
 
+  
+  console.log(images);
   return (
     <div className="light-box">
       <div className="gallery">
         <Swiper navigation={true} modules={[Navigation]} loop={true} className="mySwiper">
-          <SwiperSlide><GalleryImage /></SwiperSlide>
-          <SwiperSlide><GalleryImage /></SwiperSlide>
-          <SwiperSlide><GalleryImage /></SwiperSlide>
-          <SwiperSlide><GalleryImage /></SwiperSlide>
-          <SwiperSlide><GalleryImage /></SwiperSlide>
-          <SwiperSlide><GalleryImage /></SwiperSlide>
-          <SwiperSlide><GalleryImage /></SwiperSlide>
+          {
+            images.map((image, index) => 
+            <SwiperSlide key={index}>
+                <GalleryImage image={image} onClick={removeGallery}/>
+                </SwiperSlide>
+            )
+          }
         </Swiper>
       </div>
-      <div className="bot-margin" onClick={removeGallery}></div>
-      <div className="top-margin" onClick={removeGallery}></div>
     </div>
   );
 

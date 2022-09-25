@@ -4,7 +4,7 @@ import { Gallery } from "react-grid-gallery";
 import { images as IMAGES } from "./images";
 
 interface PhotoGalleryProps {
-    onClick: () => void;
+    onClick: (index: number) => void;
 }
 
 const PhotoGallery = ({ onClick }: PhotoGalleryProps) => {
