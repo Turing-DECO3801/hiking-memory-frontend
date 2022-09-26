@@ -10,16 +10,10 @@ import { Button } from 'react-bootstrap';
 import AudioModal from '../AudioModal/AudioModal';
 
 
-const containerStyle = {
-  width: '100vw',
-  height: '100vh'
-};
-
-
-
 interface MapProps {
   path: {lat: number, lng: number}[];
   audio: {location: {lat: number, lng: number}, audioFile: string, imageFile: string}[];
+  containerStyle: {width: string, height: string}
 };
 
 function Map(mapInfo: MapProps) {
@@ -79,7 +73,7 @@ function Map(mapInfo: MapProps) {
   return isLoaded ? (
     <div>
           <GoogleMap
-      mapContainerStyle={containerStyle}
+      mapContainerStyle={mapInfo.containerStyle}
       onLoad={onLoad}
       onUnmount={onUnmount}
       options = {options}

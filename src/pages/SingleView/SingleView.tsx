@@ -2980,15 +2980,26 @@ const SingleView = () => {
 
   const singleHikeInfo = {title: 'Afternoon Hike', date: "31/08/2022", path: pathExample, center: {lat: -10, lng: -38.523}, zoom: 10, audio: audioEx};
 
+  const containerStyle = {
+    width: '100vw',
+    height: '100vh'
+  };
+  
+
+
   return(
-    <div className="mapContainer">
-      <div className="HikeDescription"> 
-        <div className="HikeTitle"> {singleHikeInfo.title} </div>
-        <div className="HikeDate"> {singleHikeInfo.date} </div>
-        <div className="HikeInstructions"> Tap Memories to Upload Photos </div>
+    <div>
+      <Navbar/>
+      <div className="mapContainer">
+        <div className="HikeDescription"> 
+          <div className="HikeTitle"> {singleHikeInfo.title} </div>
+          <div className="HikeDate"> {singleHikeInfo.date} </div>
+          <div className="HikeInstructions"> Tap Memories to Upload Photos </div>
+        </div>
+        {/*<Map path={singleHikeInfo.path} audio={singleHikeInfo.audio} containerStyle={containerStyle}></Map>*/}
       </div>
-      <Map path={singleHikeInfo.path} audio={singleHikeInfo.audio}></Map>
     </div>
+
   )
 };
 
