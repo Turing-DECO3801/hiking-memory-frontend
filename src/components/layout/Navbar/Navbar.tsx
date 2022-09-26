@@ -9,15 +9,15 @@ const Navbar = () => {
 
   return (
     <nav>
-        <div className="user-border">
+        <a href="/account" className="user-border">
           <FiUser className="user-icon"/>
-        </div>
+        </a>
         {/* Account */}
         <div className="pages">
-          <button>
+          <a href="/">
             {/* <FaCalendarCheck className="icon"/> */}
             Home
-          </button>
+          </a>
           <button>
             {/* <FaMountain className="icon"/> */}
             Hikes

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { StringLiteral } from "typescript";
 import { FiImage, FiEdit3, FiFileText, FiHeadphones } from "react-icons/fi";
+import { useSwipeable, DOWN, SwipeEventData } from 'react-swipeable'; 
+import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
 
 import "./AudioModal.scss"
 
@@ -36,14 +38,13 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
         <div className="audio-modal-image">
         </div>
       );
-    } else {
-      return (
-        <div className="modal-option">
-          <FiImage className="modal-option-icon"/>
-          <h5>Add Image</h5>
-        </div>
-      );
     }
+    return (
+      <div className="modal-option">
+        <FiImage className="modal-option-icon"/>
+        <h5>Add Image</h5>
+      </div>
+    );
   }
 
   const hideModal = () => {
@@ -52,12 +53,24 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
       setHidden(true);
     }
   }
+
+  const handleSwiped = (eventData: SwipeEventData) => {
+    if (eventData.dir === DOWN) {
+      hideModal();
+    }
+  }
+
+  const handlers = useSwipeable({
+    onSwiped: handleSwiped,
+    touchEventOptions: { passive: false },
+    preventScrollOnSwipe: true,
+  });
   
-  return(      
-    <div className={`audio-modal-container ${show ? "" : "behind"}`} >
+  return(
+    <div className={`audio-modal-container ${show ? "" : "behind"}`} {...handlers}>
       <div className={`audio-modal ${show ? "" : "hidden"}`} onClick={(e) => preventPropogation(e)}>
         <div className="bar-container">
-          <div className="bar" onClick={hideModal}/>
+          <div className="bar"/>
         </div>
         {
           getImage()
@@ -98,7 +111,7 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
             <h5>Listen to Audio Memo</h5>
           </div>
           <div className="audio-modal-memo audio-modal-content">
-            Helo
+            <AudioPlayer audioFile={audioFile}/>
           </div>
         </div>
       </div>

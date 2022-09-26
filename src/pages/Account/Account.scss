@@ -1,0 +1,56 @@
+@import '../../styles/index';
+
+.account {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.profile-image {
+    margin-top: 100px;
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;
+    background: $dark-blue;
+    margin-bottom: 20px;
+}
+
+.account-options {
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0px 0px 5px $low-opacity-black;
+}
+
+.account-options .divider {
+    height: 1px;
+    width: 100%;
+    background: $off-white;
+}
+
+.account-option {
+    padding: 40px;
+    font-size: 18px;
+}
+
+.account-options .logout {
+    width: 80%;
+    padding-top: 2px;
+    height: 30px;
+    border-radius: 15px;
+    background: $orange;
+    margin: 20px 0;
+    text-align: center;
+    color: $white;
+    text-decoration: none;
+}
