@@ -17,7 +17,7 @@ const Home = () => {
       <Navbar />
       <br />
       <br />
-      <h3>Welcome Back {getName()}!</h3>
+      <h2>Welcome Back {getName()}!</h2>
       <br />
 
       {/** Latest Hike Tab, could be abstracted later */}
@@ -45,14 +45,14 @@ const Home = () => {
       {/** Notifications Tab */}
       <div className="section-header">
         <h4>Notifications</h4>
-        <span>edit</span>
+        <a href="/">edit</a>
       </div>
       <Notifications />
       <br />
       <br />
       <div className="section-header">
         <h4>Photo Collections</h4>
-        <span>see all</span>
+        <a href="/photos">see all</a>
       </div>
       <PhotoCollection />
     </div>

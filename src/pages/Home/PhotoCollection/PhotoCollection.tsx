@@ -6,12 +6,12 @@ import "swiper/css";
 import { FreeMode } from "swiper";
 
 import "./PhotoCollection.scss"
-import PhotoCard from './PhotoCard';
+import PhotoIcon from './PhotoIcon';
 
 const PhotoCollection = () => {
 
   return (
-    <div className="photo-collection">
+    <div className="home-photo-collection">
       <Swiper
         slidesPerView={2}
         spaceBetween={30}
@@ -19,13 +19,13 @@ const PhotoCollection = () => {
         modules={[FreeMode]}
         className="mySwiper photos"
       >
-        <SwiperSlide><PhotoCard /></SwiperSlide>
-        <SwiperSlide><PhotoCard /></SwiperSlide>
-        <SwiperSlide><PhotoCard /></SwiperSlide>
-        <SwiperSlide><PhotoCard /></SwiperSlide>
-        <SwiperSlide><PhotoCard /></SwiperSlide>
-        <SwiperSlide><PhotoCard /></SwiperSlide>
-        <SwiperSlide><PhotoCard /></SwiperSlide>
+        <SwiperSlide><PhotoIcon /></SwiperSlide>
+        <SwiperSlide><PhotoIcon /></SwiperSlide>
+        <SwiperSlide><PhotoIcon /></SwiperSlide>
+        <SwiperSlide><PhotoIcon /></SwiperSlide>
+        <SwiperSlide><PhotoIcon /></SwiperSlide>
+        <SwiperSlide><PhotoIcon /></SwiperSlide>
+        <SwiperSlide><PhotoIcon /></SwiperSlide>
       </Swiper>
     </div>
   );

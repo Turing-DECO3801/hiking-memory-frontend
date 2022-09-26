@@ -12,10 +12,13 @@
 
 $dark-blue: #1E2C5E;
 $light-blue: #4784DE;
-$orange: #FF7222;
+$orange: rgb(255, 114, 34);
+$high-opacity-orange: rgba(255, 114, 34, 0.80);
 $grey: #515151;
 $light-grey: #CCCCCC;
 $off-white: #F8F8F8;
 $white: #FFFFFF;
 $dark-grey: #787878;
 $low-opacity-black: rgba(0, 0, 0, 0.25);
+$high-opacity-black: rgba(0, 0, 0, 0.75);
+$transparent: rgba(0, 0, 0, 0);

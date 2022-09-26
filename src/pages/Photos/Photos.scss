@@ -1,0 +1,122 @@
+@import '../../styles/index';
+
+.header {
+    margin: 10%;
+    margin-bottom: 3%;
+}
+
+.header .back-button, .header a {
+    text-decoration: none;
+    width: fit-content;
+    color: $light-blue;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.photo-card {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: $dark-blue;
+    margin-bottom: 30px;
+    border-radius: 25px;
+}
+
+.photo-gallery {
+    position: relative;
+}
+
+.photo-card .banner {
+    position: absolute;
+    top: 25px;
+    width: 100%;
+    height: 38px;
+    background: $high-opacity-orange;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner .banner-header {
+    color: $white;
+    font-size: 30px;
+}
+
+.photo-gallery .banner {
+    position: absolute;
+    top: 0;
+    color: $white;
+    width: 100%;
+    height: 70px;
+    padding: 10px 15px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background: $high-opacity-orange;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.photo-gallery .banner .banner-header {
+    font-size: 25px;
+}
+
+.light-box {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: $high-opacity-black;
+    top: 0;
+    z-index: 101;
+}
+
+.gallery {
+    height: 100%;
+    background: clear;
+}
+
+.light-box .swiper-slide {
+    background: $transparent;
+}
+
+.light-box .swiper-button-prev, .light-box .swiper-button-next {
+    color: $white;
+    background: $orange;
+    border-radius: 100%;
+    height: 70px;
+    width: 70px;
+    transform: scale(50%);
+    box-shadow: 0px 4px 4px $low-opacity-black;
+}
+
+.light-box .swiper-button-prev {
+    transform: scale(50%) translate(-60%, -20%);
+}
+
+.light-box .swiper-button-next {
+    transform: scale(50%) translate(60%, -20%);
+}
+
+.gallery-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-card .gallery-image-caption {
+    position: absolute;
+    color: $white;
+    font-size: 30px;
+    top: 25%;
+}
+
+.gallery-card img {
+    width: 90%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px $low-opacity-black;
+}
