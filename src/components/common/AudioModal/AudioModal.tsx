@@ -54,10 +54,10 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
   }
   
   return(      
-    <div className={`audio-modal-container ${show ? "" : "behind"}`} onClick={hideModal}>
+    <div className={`audio-modal-container ${show ? "" : "behind"}`} >
       <div className={`audio-modal ${show ? "" : "hidden"}`} onClick={(e) => preventPropogation(e)}>
         <div className="bar-container">
-          <div className="bar"/>
+          <div className="bar" onClick={hideModal}/>
         </div>
         {
           getImage()
