@@ -81,9 +81,9 @@ function Map(mapInfo: MapProps) {
           setAudioFile(aFile);
           setImageFile(iFile);
           setShow(true);
-          marker.setIcon(selectedSVGMarker)
-          marker.setAnimation(null);
-          marker.setAnimation(google.maps.Animation.BOUNCE);
+          // marker.setIcon(selectedSVGMarker)
+          // marker.setAnimation(null);
+          // marker.setAnimation(google.maps.Animation.BOUNCE);
         })
     }
 
@@ -103,19 +103,19 @@ function Map(mapInfo: MapProps) {
     []
   );
   
-  return true ? (
+  return isLoaded ? (
     <div>
-          <GoogleMap
+      <AudioModal show={show}
+        handleClose={() => setShow(false)}
+        handleOpen={() => setShow(true)}
+        audioFile={audioFile}
+        imageFile={imageFile}
+      />
+    <GoogleMap
       mapContainerStyle={mapInfo.containerStyle}
       onLoad={onLoad}
       onUnmount={onUnmount}
       options = {options}
-    >    </GoogleMap>
-    <AudioModal show={show}
-      handleClose={() => setShow(false)}
-      handleOpen={() => setShow(true)}
-      audioFile={audioFile}
-      imageFile={imageFile}
     />
     </div>
   ) : <></>;

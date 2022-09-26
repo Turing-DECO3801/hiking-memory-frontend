@@ -20,11 +20,11 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
   const [transcriptDisplayed, setTranscriptDisplayed] = useState(false);
   const [memoDisplayed, setMemoDisplayed] = useState(false);
 
-  // let audio = new Audio(p.audioFile);
+  let audio = new Audio(audioFile);
 
-  // const start = () => {
-  //   audio.play();
-  // }
+  const start = () => {
+    audio.play();
+  }
 
   const preventPropogation = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
@@ -47,15 +47,15 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
   }
 
   const hideModal = () => {
-    if (!hidden) {
+    if (show) {
       handleClose();
       setHidden(true);
     }
   }
   
   return(      
-    <div className={`audio-modal-container`} onClick={hideModal}>
-      <div className={`audio-modal ${hidden ? "hidden" : ""}`} onClick={(e) => preventPropogation(e)}>
+    <div className={`audio-modal-container ${show ? "" : "behind"}`} onClick={hideModal}>
+      <div className={`audio-modal ${show ? "" : "hidden"}`} onClick={(e) => preventPropogation(e)}>
         <div className="bar-container">
           <div className="bar"/>
         </div>
@@ -103,23 +103,23 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
         </div>
       </div>
     </div>
+    // <Modal show={show} onHide={handleClose} size="lg" aria-labelledy="contained-modal-title-vcenter" centered>
+    //   <Modal.Header closeButton>
+    //     <Modal.Title>Voice Recording</Modal.Title>
+    //   </Modal.Header>
+    //   <img src={imageFile}></img>
+    //   <Modal.Body>You have recored a voice memo at this location.</Modal.Body>
+    //   <Modal.Footer>
+    //     <Button variant="secondary" onClick={handleClose}>
+    //       Close
+    //     </Button>
+    //     <Button variant="primary" onClick={start}>
+    //       Play Audio
+    //     </Button>
+    //   </Modal.Footer>
+    // </Modal>
   );
 }
 
-      {/* <Modal show={p.show} onHide={p.handleClose} size="lg" aria-labelledy="contained-modal-title-vcenter" centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Voice Recording</Modal.Title>
-        </Modal.Header>
-        <img src={p.imageFile}></img>
-        <Modal.Body>You have recored a voice memo at this location.</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={p.handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={start}>
-            Play Audio
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
 
 export default AudioModal;
