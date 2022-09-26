@@ -1,0 +1,91 @@
+@import '../../../styles/index';
+
+.audio-modal-container {
+    display: block;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+}
+
+.audio-modal {
+    position: absolute;
+    width: 100%;
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    bottom: 0;
+
+    background: $white;
+    margin-bottom: 55px;
+    box-shadow: 0px 0px 5px $low-opacity-black;
+    transition: transform 1s ease;
+}
+
+.modal-section {
+    max-height: 64px;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.audio-modal-image {
+    margin: 0 10%;
+    height: 200px;
+    background: $dark-blue;
+    border-radius: 20px;
+}
+
+.audio-modal .bar-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.audio-modal .bar {
+    position: relative;
+    width: 80px;
+    height: 4px;
+    background: $dark-blue;
+    border-radius: 2px;
+}
+
+.audio-modal .divider {
+    height: 1px;
+    width: 100%;
+    background: $off-white;
+}
+
+.audio-modal .modal-option {
+    width: auto;
+    color: $dark-blue;
+    padding: 5% 10%;
+    display: flex;
+    align-items: center;
+
+    height: 64px;
+}
+
+.modal-option-icon {
+    font-size: 25px;
+    margin-right: 15px;
+}
+
+.modal-option h5 {
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+.audio-modal-content {
+    margin: 0% 10%;
+    color: $black;
+    margin-bottom: 20px;
+}
+
+.show-section {
+    max-height: 170px;
+}
+
+.hidden {
+    transform: translateY(100%);
+}
