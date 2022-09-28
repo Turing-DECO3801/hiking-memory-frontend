@@ -102,8 +102,6 @@ function Map(mapInfo: MapProps) {
   //   }),
   //   []
   // );
-
-  console.log(audioFile);
   
   return true ? (
     <div>
