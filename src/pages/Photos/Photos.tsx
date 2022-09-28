@@ -56,15 +56,22 @@ const PhotoCollection = () => {
         }
         <h2>Photo Collections </h2>
       </div>
+      {
+        photos.map((collections, index) => {
+          if (selected && index === selectionIndex) {
+            return <PhotoGallery onClick={displayGallery}/>
+          }
+        })
+      }
+      <div className="collection-selection">
         {
           photos.map((collections, index) => {
-            if (selected && index === selectionIndex) {
-              return <PhotoGallery onClick={displayGallery}/>
-            } else if (!selected){
+            if (!selected) {
               return <PhotoCard onClick={() => selectCollection(index)}/>
             }
           })
         }
+      </div>
       {
         getGalleryDisplay()
       }

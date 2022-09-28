@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import './PopUp.scss';
 
 interface NewHikeProps {
-  date: string
+  date: string,
+  close: () => void,
 }
 
-const NewHike = ({ date }: NewHikeProps) => {
+const NewHike = ({ date, close }: NewHikeProps) => {
 
   return (
     <div className="popup-content">
@@ -16,7 +17,7 @@ const NewHike = ({ date }: NewHikeProps) => {
       </div> 
       <input placeholder="Hike location name..."/>
       <div className="buttons">
-        <div className="cancel-button">Cancel</div>
+        <div className="cancel-button" onClick={close}>Cancel</div>
         <div className="action-button">Submit</div>
       </div>
     </div>

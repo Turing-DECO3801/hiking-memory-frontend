@@ -56,7 +56,7 @@ const Home = () => {
         <a href="/photos">see all</a>
       </div>
       <PhotoCollection />
-      <PopUp show={true}>
+      <PopUp show={true} type="new">
         Hello
         Hello
         Hello

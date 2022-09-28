@@ -7,6 +7,7 @@ import "./HikeTitle.scss"
 import { readFile } from 'fs/promises';
 import Modal from 'react-bootstrap/Modal';
 import { pathExample } from './pathExample';
+import MapMenu from '../../components/common/MapMenu/MapMenu';
 
 
 
@@ -47,6 +48,7 @@ const SingleView = () => {
           <div className="hike-instructions thin-text"> Tap Memories to Upload Photos </div>
         </div>
         <Map path={singleHikeInfo.path} audio={singleHikeInfo.audio} containerStyle={containerStyle}></Map>
+        <MapMenu />
       </div>
     </div>
 

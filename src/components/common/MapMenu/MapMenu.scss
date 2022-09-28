@@ -1,0 +1,82 @@
+@import '../../../styles/index';
+
+.map-menu-container {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: $low-opacity-black;
+    z-index: 100;
+    padding: 5%;
+    transition: background-color 0.5s ease;    
+}
+
+.map-menu {
+    position: absolute;
+    right: 5%;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.menu-button-container {
+    height: 44px;
+    width: 44px;
+    border-radius: 22px;
+    background: $dark-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 4px $low-opacity-black;
+}
+
+.menu-control {
+    margin-left: auto;
+    margin-bottom: 25px;
+    border-radius: 22px;
+    pointer-events: all;
+}
+
+.menu-option {
+    margin-left: auto;
+    margin-bottom: 25px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background: $high-opacity-blue;
+    border-radius: 22px;
+    padding-left: 20px;
+    transition: opacity 0.5s ease;
+    pointer-events: all;
+}
+
+.option-label {
+    margin-right: 10px;
+    color: $white;
+    font-size: 18px;
+}
+
+.menu-button {
+    position: absolute;
+    font-size: 25px;
+    color: $white;
+}
+
+.no-filter {
+    background: $transparent;
+    pointer-events: none;
+}
+
+.hide-option {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.option-2 {
+    transition-delay: 0.1s;
+}
+
+.option-3 {
+    transition-delay: 0.2s;
+}

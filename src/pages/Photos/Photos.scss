@@ -13,10 +13,14 @@
     display: block;
 }
 
+.collection-selection {
+    margin: 10%;
+}
+
 .photo-card {
     position: relative;
-    width: 100%;
-    height: 300px;
+    width: 40%;
+    height: 100px;
     background: $dark-blue;
     margin-bottom: 30px;
     border-radius: 25px;
