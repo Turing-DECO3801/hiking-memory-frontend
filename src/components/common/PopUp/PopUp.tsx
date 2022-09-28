@@ -1,7 +1,7 @@
 import React from 'react';
 import './PopUp.scss';
 
-const Logo = () => {
+const PopUp = () => {
 
   return (
     <div className="popup-screen">
@@ -12,4 +12,4 @@ const Logo = () => {
   );
 };
 
-export default Logo;
+export default PopUp;

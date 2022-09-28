@@ -5,6 +5,7 @@ import { Pagination, Navigation } from "swiper";
 import "./Home.scss"
 import Notifications from './Notifications/Notifications';
 import PhotoCollection from './PhotoCollection/PhotoCollection';
+import PopUp from '../../components/common/PopUp/PopUp';
 
 const Home = () => { 
 
@@ -55,6 +56,7 @@ const Home = () => {
         <a href="/photos">see all</a>
       </div>
       <PhotoCollection />
+      <PopUp />
     </div>
   );
   
