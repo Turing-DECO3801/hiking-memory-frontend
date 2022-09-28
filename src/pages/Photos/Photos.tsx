@@ -17,7 +17,7 @@ const PhotoCollection = () => {
   const [imageIndex, setImageIndex] = useState(0);
 
   const photos = [
-    1,2,3,4,5
+    1,2,3,4,5,6,7,8,9,10,11,12
   ]
 
   const getBackButton = () => {
@@ -59,7 +59,7 @@ const PhotoCollection = () => {
       {
         photos.map((collections, index) => {
           if (selected && index === selectionIndex) {
-            return <PhotoGallery onClick={displayGallery}/>
+            return <PhotoGallery key={index} onClick={displayGallery}/>
           }
         })
       }
@@ -67,7 +67,7 @@ const PhotoCollection = () => {
         {
           photos.map((collections, index) => {
             if (!selected) {
-              return <PhotoCard onClick={() => selectCollection(index)}/>
+              return <PhotoCard key={index} onClick={() => selectCollection(index)}/>
             }
           })
         }

@@ -1,27 +1,33 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom'
 import './Navbar.scss'
 
-import { FiUser } from 'react-icons/fi/'
-import { FaMountain } from 'react-icons/fa/'
-import { FaCalendarCheck } from 'react-icons/fa/'
+import { FiUser, FiHome, FiBell } from 'react-icons/fi/'
+import { GiWalkingBoot } from 'react-icons/gi'
 
 const Navbar = () => {
+  
+  const location = useLocation();
 
   return (
     <nav>
-        <a href="/account" className="user-border">
-          <FiUser className="user-icon"/>
-        </a>
-        {/* Account */}
         <div className="pages">
           <a href="/">
-            {/* <FaCalendarCheck className="icon"/> */}
+            <FiHome className={`icon ${location.pathname === "/" ? "active" : ""}`}/>
             Home
           </a>
-          <button>
-            {/* <FaMountain className="icon"/> */}
+          <a href="/account">
+            <FiUser className={`icon ${location.pathname === "/account" ? "active" : ""}`}/>
+            Account
+          </a>
+          <a href="/allhikes">
+            <GiWalkingBoot className={`icon ${location.pathname === "/allhikes" ? "active" : ""}`}/>
             Hikes
-          </button>
+          </a>
+          <a href="/allhikes">
+            <FiBell className={`icon ${location.pathname === "/allhikes" ? "active" : ""}`}/>
+            Notifications
+          </a>
         </div>
     </nav>
   );

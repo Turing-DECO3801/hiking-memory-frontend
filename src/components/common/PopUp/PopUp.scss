@@ -24,6 +24,7 @@
     background: $white;
     border-radius: 20px;
     box-shadow: 0px 4px 4px $low-opacity-black;
+    animation: fade-in 1s ease;
 }
 
 .no-popup {

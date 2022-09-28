@@ -12,7 +12,7 @@ const PhotoGallery = ({ onClick }: PhotoGalleryProps) => {
   const [images, setImages] = useState(IMAGES);
 
   return (
-    <div className="photo-gallery">
+    <div className="photo-gallery transition">
       <br />
       <Gallery images={images} enableImageSelection={false} onClick={onClick}/>
       <div className="banner">

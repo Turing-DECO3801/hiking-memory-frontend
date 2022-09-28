@@ -25,7 +25,7 @@ const Home = () => {
       <div className="latest-hike">
         <div className="left-half">
           <h5>View your latest hike</h5>
-          <text className="thin-text">Mount Coo-tha 15/08</text>
+          <div className="thin-text">Mount Coo-tha 15/08</div>
         </div>
         <div className="notification-button">
           <FiArrowRight className="arrow-right"/>
