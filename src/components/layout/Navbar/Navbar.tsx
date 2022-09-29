@@ -21,7 +21,7 @@ const Navbar = () => {
             Account
           </a>
           <a href="/allhikes">
-            <GiWalkingBoot className={`icon ${location.pathname === "/allhikes" ? "active" : ""}`}/>
+            <GiWalkingBoot className={`icon ${location.pathname === "/allhikes" || location.pathname === "/singleview" ? "active" : ""}`}/>
             Hikes
           </a>
           <a href="/allhikes">
