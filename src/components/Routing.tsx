@@ -6,6 +6,10 @@ import Login from '../pages/Login/Login';
 import NoMatch from '../pages/NoMatch/NoMatch';
 import SingleView from '../pages/SingleView/SingleView';
 import PhotoCollection from '../pages/Photos/Photos';
+import AllHikes from '../pages/AllHikes/AllHikes';
+import Account from '../pages/Account/Account';
+import Noitifications from '../pages/Notifications/Notifications';
+
 
 /** All routes */
 export const routes: RouteConfig[] = [
@@ -31,7 +35,7 @@ export const routes: RouteConfig[] = [
     secured: false
   },
   {
-    path: '/singleView',
+    path: '/singleview',
     name: 'SingleView',
     exact: true,
     Component: SingleView,
@@ -42,6 +46,27 @@ export const routes: RouteConfig[] = [
     name: 'PhotoCollection',
     exact: true,
     Component: PhotoCollection,
+    secured: true
+  },
+  {
+    path: '/allhikes',
+    name: 'AllHikes',
+    exact: true,
+    Component: AllHikes,
+    secured: true
+  },
+  {
+    path: '/account',
+    name: 'Account',
+    exact: true,
+    Component: Account,
+    secured: true
+  },
+  {
+    path: '/notifications',
+    name: 'Notifications',
+    exact: true,
+    Component: Noitifications,
     secured: true
   }
 ];

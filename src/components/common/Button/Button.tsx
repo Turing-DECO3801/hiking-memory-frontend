@@ -4,12 +4,13 @@ import './Button.scss';
 interface ButtonProps {
     onClick: () => (void)
     children: React.ReactNode
+    className: string
 }
 
-const Button = ({ onClick, children }: ButtonProps) => {
+const Button = ({ onClick, children, className }: ButtonProps) => {
 
   return (
-    <div className="button" onClick={onClick}>
+    <div className={`button ${className}`} onClick={onClick}>
         { children }
     </div>
   );

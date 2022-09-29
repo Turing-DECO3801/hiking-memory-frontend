@@ -1,34 +1,36 @@
-.HikeDescription{
+@import '../../styles/index';
+
+.hike-description{
     z-index: 100;
     width: 225px;
     position: fixed;
     left: 30px;
     top: 30px;
-    background-color: rgb(255, 255, 255);
+    background-color: $white;
     padding: 1em;
     border-radius: 20px;
-    border: 3px solid rgb(100, 100, 100);
-    font-family: Arial, Helvetica, sans-serif;
-    box-shadow: 0px 12px 18px -6px rgba(0,0,0,0.3);
+    box-shadow: 0px 3px 5px $low-opacity-black;
+    animation: fade-in 1s ease;
 }
 
-.HikeTitle{
-    font-weight: bold;
+.hike-description .back-button {
+    margin-bottom: 0px;
+}
+
+.hike-title{
     font-size: 20px;
 }
 
-.HikeDate{
-    font-weight: bold;
+.hike-date{
     font-size: 13px;
 }
 
-.HikeInstructions{
+.hike-instructions{
     font-style: italic;
     font-size: 13px;
-
 }
 
-.mapContainer{
+.map-container{
     position:absolute;
     top:0px;
     right:0px;
