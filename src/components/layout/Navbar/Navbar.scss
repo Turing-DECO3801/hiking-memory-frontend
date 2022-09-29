@@ -14,7 +14,6 @@ nav {
     box-shadow: 0px -1px 2px $low-opacity-black;
     background-color: $dark-blue;
     z-index: 101;
-    animation: appear 1s ease;
 }
 
 nav button {
@@ -53,7 +52,7 @@ nav button {
     align-items: center;
 }
 
-.pages a {
+.pages .link {
     text-decoration: none;
     color: $white;
     display: flex;
@@ -71,7 +70,7 @@ nav button {
     margin-bottom: 5px;
 }
 
-.pages a:hover, .pages a:active {
+.pages .link:hover, .pages .link:active {
     color: $white;
 }
 

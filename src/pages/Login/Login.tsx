@@ -13,19 +13,23 @@ const Login = () => {
   return (
     <>
     <div className="login">
-      <Logo />
-      <h1>hiking memory maker</h1>
+      <div className="section">
+        <Logo />
+        <h1>memory trail</h1>
+      </div>
       <br/>
-      <TextInput placeholder="Username" icon="user"/>
+      <div className="section delay-1">
+        <TextInput placeholder="Username" icon="user"/>
+        <br/>
+        <TextInput placeholder="Password" icon="lock" type="password"/>
+        <br/>
+      </div>
+      <Button className="section delay-2" onClick={login}>Log in</Button>
       <br/>
-      <TextInput placeholder="Password" icon="lock" type="password"/>
-      <br/>
-      <Button onClick={login}>Log in</Button>
-      <br/>
-      <div>
+      <div className="section delay-3">
         Don't have an account?
       </div>
-      <a className="link">
+      <a className="link section delay-3">
         Sign up here
       </a>
       <br/>

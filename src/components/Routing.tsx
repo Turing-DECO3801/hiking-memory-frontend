@@ -8,6 +8,8 @@ import SingleView from '../pages/SingleView/SingleView';
 import PhotoCollection from '../pages/Photos/Photos';
 import AllHikes from '../pages/AllHikes/AllHikes';
 import Account from '../pages/Account/Account';
+import Noitifications from '../pages/Notifications/Notifications';
+
 
 /** All routes */
 export const routes: RouteConfig[] = [
@@ -58,6 +60,13 @@ export const routes: RouteConfig[] = [
     name: 'Account',
     exact: true,
     Component: Account,
+    secured: true
+  },
+  {
+    path: '/notifications',
+    name: 'Notifications',
+    exact: true,
+    Component: Noitifications,
     secured: true
   }
 ];

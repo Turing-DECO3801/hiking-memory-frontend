@@ -6,6 +6,12 @@
     overflow: hidden;
 }
 
+.section {
+    animation: fade-in 1s ease forwards;
+    opacity: 0%;
+    transform: translateY(20px);
+}
+
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -16,7 +22,7 @@ h4 {
     color: $orange;
 }
 
-.section-header a {
+.section-header .link {
     text-decoration: none;
     color: $dark-grey;
     cursor: pointer;

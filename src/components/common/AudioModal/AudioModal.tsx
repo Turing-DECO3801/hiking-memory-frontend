@@ -175,21 +175,6 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
         }
       </div>
     </div>
-    // <Modal show={show} onHide={handleClose} size="lg" aria-labelledy="contained-modal-title-vcenter" centered>
-    //   <Modal.Header closeButton>
-    //     <Modal.Title>Voice Recording</Modal.Title>
-    //   </Modal.Header>
-    //   <img src={imageFile}></img>
-    //   <Modal.Body>You have recored a voice memo at this location.</Modal.Body>
-    //   <Modal.Footer>
-    //     <Button variant="secondary" onClick={handleClose}>
-    //       Close
-    //     </Button>
-    //     <Button variant="primary" onClick={start}>
-    //       Play Audio
-    //     </Button>
-    //   </Modal.Footer>
-    // </Modal>
   );
 }
 

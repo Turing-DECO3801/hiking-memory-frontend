@@ -6,6 +6,8 @@ import { images as IMAGES } from "./images";
 import PhotoCard from './PhotoCard';
 import PhotoGallery from './PhotoGallery';
 import "./Photos.scss"
+import { useNavigate } from 'react-router-dom';
+import { FiChevronLeft } from 'react-icons/fi';
 
 const PhotoCollection = () => {
 
@@ -20,11 +22,19 @@ const PhotoCollection = () => {
     1,2,3,4,5,6,7,8,9,10,11,12
   ]
 
+  const navigate = useNavigate();
+
   const getBackButton = () => {
     if (selected) {
-      return <div className="back-button" onClick={() => setSelected(false)}>Back</div>
+      return <div className="back-button" onClick={() => setSelected(false)}>
+        <FiChevronLeft className="back-icon"/>
+        Back
+      </div>
     } else {
-      return <a href="/">Back</a>;
+      return <div className="back-button" onClick={() => navigate("/")}>
+        <FiChevronLeft className="back-icon"/>
+        Back
+      </div>;
     }
   }
 
@@ -54,7 +64,7 @@ const PhotoCollection = () => {
         {
           getBackButton()
         }
-        <h2>Photo Collections </h2>
+        <h2 className="section">Photo Collections </h2>
       </div>
       {
         photos.map((collections, index) => {
@@ -63,7 +73,7 @@ const PhotoCollection = () => {
           }
         })
       }
-      <div className="collection-selection">
+      <div className="collection-selection section delay-1">
         {
           photos.map((collections, index) => {
             if (!selected) {

@@ -6,6 +6,7 @@ import "./Home.scss"
 import Notifications from './Notifications/Notifications';
 import PhotoCollection from './PhotoCollection/PhotoCollection';
 import PopUp from '../../components/common/PopUp/PopUp';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => { 
 
@@ -13,16 +14,17 @@ const Home = () => {
     return "Ella"
   }
 
+  const navigate = useNavigate();
+
   return (
     <div className="home">
       <Navbar />
       <br />
-      <br />
-      <h2>Welcome Back {getName()}!</h2>
+      <h2 className="section">Welcome Back {getName()}!</h2>
       <br />
 
       {/** Latest Hike Tab, could be abstracted later */}
-      <div className="latest-hike">
+      <div className="latest-hike section delay-1">
         <div className="left-half">
           <h5>View your latest hike</h5>
           <div className="thin-text latest-hike-name">Mount Coo-tha 15/08</div>
@@ -44,23 +46,23 @@ const Home = () => {
       <br />
 
       {/** Notifications Tab */}
-      <div className="section-header">
-        <h4>Notifications</h4>
-        <a href="/">edit</a>
+      <div className="section delay-2">
+        <div className="section-header">
+          <h4>Notifications</h4>
+          <div className="link" onClick={() => navigate("/notifications")}>edit</div>
+        </div>
+        <Notifications />
       </div>
-      <Notifications />
       <br />
       <br />
-      <div className="section-header">
-        <h4>Photo Collections</h4>
-        <a href="/photos">see all</a>
+      <div className="section delay-3">
+        <div className="section-header">
+          <h4>Photo Collections</h4>
+          <div className="link" onClick={() => navigate("/photos")}>see all</div>
+        </div>
+        <PhotoCollection />
       </div>
-      <PhotoCollection />
-      <PopUp show={true} type="new">
-        Hello
-        Hello
-        Hello
-      </PopUp>
+      {/* <PopUp show={true} type="new" /> */}
     </div>
   );
   

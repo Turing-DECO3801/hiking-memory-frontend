@@ -7,8 +7,8 @@ const Account = () => {
 
   return (
     <div className="account">
-      <div className="profile-image"></div>
-      <h2>Ella Smith</h2>
+      <div className="profile-image section"></div>
+      <h2 className="section">Ella Smith</h2>
       <div className="account-options">
         <div className="account-option">
           Privacy &amp; Accessibility

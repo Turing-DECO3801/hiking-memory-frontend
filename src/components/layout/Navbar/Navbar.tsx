@@ -4,30 +4,33 @@ import './Navbar.scss'
 
 import { FiUser, FiHome, FiBell } from 'react-icons/fi/'
 import { GiWalkingBoot } from 'react-icons/gi'
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   
   const location = useLocation();
 
+  const navigate = useNavigate();
+
   return (
     <nav>
         <div className="pages">
-          <a href="/">
+          <div className="link" onClick={() => navigate("/")}>
             <FiHome className={`icon ${location.pathname === "/" ? "active" : ""}`}/>
             Home
-          </a>
-          <a href="/account">
+          </div>
+          <div className="link" onClick={() => navigate("/account")}>
             <FiUser className={`icon ${location.pathname === "/account" ? "active" : ""}`}/>
             Account
-          </a>
-          <a href="/allhikes">
+          </div>
+          <div className="link" onClick={() => navigate("/allhikes")}>
             <GiWalkingBoot className={`icon ${location.pathname === "/allhikes" || location.pathname === "/singleview" ? "active" : ""}`}/>
             Hikes
-          </a>
-          <a href="/allhikes">
-            <FiBell className={`icon ${location.pathname === "/allhikes" ? "active" : ""}`}/>
+          </div>
+          <div className="link" onClick={() => navigate("/notifications")}>
+            <FiBell className={`icon ${location.pathname === "/notifications" ? "active" : ""}`}/>
             Notifications
-          </a>
+          </div>
         </div>
     </nav>
   );

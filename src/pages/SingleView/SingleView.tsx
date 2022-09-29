@@ -4,11 +4,10 @@ import Map from '../../components/common/Map/Map';
 import { HikeContext } from '../../contexts/HikeContext';
 import Card from 'react-bootstrap/Card';
 import "./HikeTitle.scss"
-import { readFile } from 'fs/promises';
-import Modal from 'react-bootstrap/Modal';
 import { pathExample } from './pathExample';
 import MapMenu from '../../components/common/MapMenu/MapMenu';
-
+import { FiChevronLeft } from 'react-icons/fi/'
+import { useNavigate } from 'react-router-dom';
 
 
 interface Hike {
@@ -36,13 +35,18 @@ const SingleView = () => {
     height: '100vh'
   };
   
-
+    const navigate = useNavigate();
+  
 
   return(
     <div>
       <Navbar/>
       <div className="map-container">
-        <div className="hike-description"> 
+        <div className="hike-description">
+          <div className="back-button" onClick={() => navigate("/allhikes")}>
+            <FiChevronLeft className="back-icon"/>
+            Back
+          </div>
           <div className="hike-title"> {singleHikeInfo.title} </div>
           <div className="hike-date"> {singleHikeInfo.date} </div>
           <div className="hike-instructions thin-text"> Tap Memories to Upload Photos </div>
