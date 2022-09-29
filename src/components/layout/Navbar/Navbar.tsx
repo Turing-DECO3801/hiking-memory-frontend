@@ -19,10 +19,6 @@ const Navbar = () => {
             <FiHome className={`icon ${location.pathname === "/" ? "active" : ""}`}/>
             Home
           </div>
-          <div className="link" onClick={() => navigate("/account")}>
-            <FiUser className={`icon ${location.pathname === "/account" ? "active" : ""}`}/>
-            Account
-          </div>
           <div className="link" onClick={() => navigate("/allhikes")}>
             <GiWalkingBoot className={`icon ${location.pathname === "/allhikes" || location.pathname === "/singleview" ? "active" : ""}`}/>
             Hikes
@@ -30,6 +26,10 @@ const Navbar = () => {
           <div className="link" onClick={() => navigate("/notifications")}>
             <FiBell className={`icon ${location.pathname === "/notifications" ? "active" : ""}`}/>
             Notifications
+          </div>
+          <div className="link" onClick={() => navigate("/account")}>
+            <FiUser className={`icon ${location.pathname === "/account" ? "active" : ""}`}/>
+            Account
           </div>
         </div>
     </nav>

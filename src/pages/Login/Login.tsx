@@ -15,7 +15,7 @@ const Login = () => {
     <div className="login">
       <div className="section">
         <Logo />
-        <h1>memory trail</h1>
+        <h1>hiking memory maker</h1>
       </div>
       <br/>
       <div className="section delay-1">
