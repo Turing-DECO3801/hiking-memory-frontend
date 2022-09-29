@@ -52,7 +52,7 @@ const AllHikes = () => {
     return( 
       <div className="hike-card">
         <div className="hike-map">
-          {/*<Map path={hike.path} audio={hike.path} containerStyle={containerStyle}/>*/}
+          {/* <Map path={hike.path} audio={hike.path} containerStyle={containerStyle}/> */}
         </div>
         <div className="hike-info">
           <div className="hike-date-time"> 

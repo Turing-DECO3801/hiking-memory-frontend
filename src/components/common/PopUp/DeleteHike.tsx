@@ -3,11 +3,12 @@ import './PopUp.scss';
 import { FiTrash2 } from 'react-icons/fi';
 
 interface DeleteHikeProps {
-  hikeName: string
-  date: string
+  hikeName: string,
+  date: string,
+  close: () => void
 }
 
-const DeleteHike = ({ hikeName, date }: DeleteHikeProps) => {
+const DeleteHike = ({ hikeName, date, close }: DeleteHikeProps) => {
 
   return (
     <div className="popup-content">
@@ -17,7 +18,7 @@ const DeleteHike = ({ hikeName, date }: DeleteHikeProps) => {
         { hikeName } { date }
       </div> 
       <div className="buttons">
-        <div className="cancel-button">Cancel</div>
+        <div className="cancel-button" onClick={close}>Cancel</div>
         <div className="action-button">Update</div>
       </div>
     </div>

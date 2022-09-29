@@ -14,3 +14,10 @@
 .link:hover {
     cursor: pointer;
 }
+
+.login-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
