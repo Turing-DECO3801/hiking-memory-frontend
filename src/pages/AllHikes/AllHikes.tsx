@@ -3,7 +3,7 @@ import Navbar from '../../components/layout/Navbar/Navbar';
 import Map from '../../components/common/Map/Map';
 import { HikeContext } from '../../contexts/HikeContext';
 import "./AllHikes.scss"
-import { FiSearch } from 'react-icons/fi/'
+import { FiSearch, FiCheck } from 'react-icons/fi/'
 
 
 interface Hike {
@@ -17,20 +17,24 @@ interface Hike {
 const AllHikes = () => { 
   const hikeContext = useContext(HikeContext);
 
+  const [selectionType, setSelectionType] = useState("all");
+  const [sortType, setSortType] = useState("recent");
+  const [searchOpen, setSearchOpen] = useState(false);
+
   const pathExample = [{ lat: 37, lng: -122 },
     { lat: 37, lng: -121 },
     { lat: 38, lng: -121 },
     { lat: 38, lng: -122 }];
 
   const hikeInfo = [ 
-    {title: 'Hike 1', date: '26/01/2022', time: '8:30am', path: pathExample}, 
-    {title: 'Hike 2', date: '26/01/2022', time: '8:30am', path: pathExample},
-    {title: 'Hike 3', date: '26/01/2022', time: '8:30am', path: pathExample}, 
-    {title: 'Hike 4', date: '26/01/2022', time: '8:30am', path: pathExample}, 
-    {title: 'Hike 5', date: '26/01/2022', time: '8:30am', path: pathExample},
-    {title: 'Hike 6', date: '26/01/2022', time: '8:30am', path: pathExample},
-    {title: 'Hike 7', date: '26/01/2022', time: '8:30am', path: pathExample},
-    {title: 'Hike 8', date: '26/01/2022', time: '8:30am', path: pathExample}
+    {title: 'Kondalilla Falls', date: '26/01/2022', time: '8:30am', path: pathExample}, 
+    {title: 'Mount Coot-Tha', date: '26/01/2022', time: '8:30am', path: pathExample},
+    {title: 'Kondalilla Falls', date: '26/01/2022', time: '8:30am', path: pathExample}, 
+    {title: 'Mount Coot-Tha', date: '26/01/2022', time: '8:30am', path: pathExample},
+    {title: 'Kondalilla Falls', date: '26/01/2022', time: '8:30am', path: pathExample}, 
+    {title: 'Mount Coot-Tha', date: '26/01/2022', time: '8:30am', path: pathExample},
+    {title: 'Kondalilla Falls', date: '26/01/2022', time: '8:30am', path: pathExample}, 
+    {title: 'Mount Coot-Tha', date: '26/01/2022', time: '8:30am', path: pathExample},
   ];
 
   const containerStyle = {
@@ -74,50 +78,82 @@ const AllHikes = () => {
   return (
     <div className="content">
       <Navbar />
-      <br/>
-      <br/>
+      <br />
       <div className="filters section">
-          <div className="all-favourites">
-            <div className="all-favourites-card">
-              <div className="all">
-                All
-              </div>
-              <div className="favourites">
-                Favourites
-              </div>
+        <div className="all-favourites">
+          <div className="all-favourites-card">
+            <div 
+              className={`all ${selectionType === "all" ? "selected" : ""}`}
+              onClick={() => setSelectionType("all")}
+            >
+              All
+            </div>
+            <div
+              className={`favourites ${selectionType === "all" ? "" : "selected"}`}
+              onClick={() => setSelectionType("favourites")}  
+            >
+              Favourites
             </div>
           </div>
-          <div className="sort-by">
-            <div onClick={handleClick} className="sort-by-card">
-              Sort By
-            </div>
+        </div>
+        <div className="sort-by">
+          <div
+            onClick={handleClick}
+            className={`sort-by-card ${isShown ? "sort-by-active" : ""}`}>
+            Sort By
           </div>
+          {isShown ? (
+          <div className="drop-down">
+            <div
+              className={`selection-option ${sortType === "recent" ? "selected" : ""}`}
+              onClick={() => setSortType("recent")}
+            >
+              Most Recent
+              <FiCheck className={`selection-icon ${sortType === "recent" ? "tick-active" : ""}`}/>
+            </div>
+            <div className="divider" />
+            <div
+              className={`selection-option ${sortType === "longest" ? "selected" : ""}`}
+              onClick={() => setSortType("longest")}
+            >
+              Longest Distance
+              <FiCheck className={`selection-icon ${sortType === "longest" ? "tick-active" : ""}`}/>
+            </div>
+            <div className="divider" />
+            <div
+              className={`selection-option ${sortType === "shortest" ? "selected" : ""}`}
+              onClick={() => setSortType("shortest")}
+            >
+              Shortest Distance
+              <FiCheck className={`selection-icon ${sortType === "shortest" ? "tick-active" : ""}`}/>
+            </div>
+            <div className="divider" />
+            <div
+              className={`selection-option ${sortType === "most" ? "selected" : ""}`}
+              onClick={() => setSortType("most")}
+            >
+              Most Travelled
+              <FiCheck className={`selection-icon ${sortType === "most" ? "tick-active" : ""}`}/>
+            </div>
+            <div className="divider" />
+          </div>
+          ): <></>}
           <div className="search">
-            <div className="search-card">
-              <FiSearch className="search-icon"/>
+            <input
+              className={`search-bar ${searchOpen ? "search-bar-active" : ""}`}
+            /> 
+            <div
+              className={`search-card ${searchOpen ? "search-active" : ""}`}
+              onClick={() => setSearchOpen(!searchOpen)}
+            >
+              <FiSearch className={`search-icon ${searchOpen ? "search-icon-active" : ""}`}/>
             </div>
           </div>
+        </div>
       </div>
       <div className="select section">
         Select
       </div>
-
-      {isShown ? (
-        <div className="drop-down">
-          <div>
-            Longest Distance
-          </div>
-          <div>
-            Shortest Distance
-          </div>
-          <div>
-            Most Travelled
-          </div>
-          <div>
-            Most Recent
-          </div>
-        </div>
-        ): <></>}
 
       
 
