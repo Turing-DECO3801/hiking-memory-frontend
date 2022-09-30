@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
 import Map from '../../components/common/Map/Map';
 import { HikeContext } from '../../contexts/HikeContext';
-import "./Box.scss"
+import "./AllHikes.scss"
 import { FiSearch } from 'react-icons/fi/'
 
 
@@ -76,7 +76,7 @@ const AllHikes = () => {
       <Navbar />
       <br/>
       <br/>
-      <div className="filters">
+      <div className="filters section">
           <div className="all-favourites">
             <div className="all-favourites-card">
               <div className="all">
@@ -98,30 +98,30 @@ const AllHikes = () => {
             </div>
           </div>
       </div>
-
-      {isShown && (
-                <div className="drop-down">
-                  <div>
-                    Longest Distance
-                  </div>
-                  <div>
-                    Shortest Distance
-                  </div>
-                  <div>
-                    Most Travelled
-                  </div>
-                  <div>
-                    Most Recent
-                  </div>
-                </div>
-              )}
-
-      <div className="select">
+      <div className="select section">
         Select
       </div>
+
+      {isShown ? (
+        <div className="drop-down">
+          <div>
+            Longest Distance
+          </div>
+          <div>
+            Shortest Distance
+          </div>
+          <div>
+            Most Travelled
+          </div>
+          <div>
+            Most Recent
+          </div>
+        </div>
+        ): <></>}
+
       
 
-      <div className="grid">
+      <div className="grid section delay-2">
           {hikeInfo.map(renderCard)}
       </div>
     </div>
