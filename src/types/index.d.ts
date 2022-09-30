@@ -6,6 +6,7 @@ declare global {
     Component: () => React.ReactElement;
     secured: boolean;
   }
+  module '*.png'
 }
 
 export {};

@@ -10,9 +10,9 @@ interface HikeContext {
 
 export const HikeContext = createContext<HikeContext>({
   isAuthed: undefined,
-  checkAuth: () => {},
-  login: () => {},
-  logout: () => {}
+  checkAuth: () => undefined,
+  login: () => undefined,
+  logout: () => undefined
 });
 
 export const useHikeContext = (): HikeContext => {

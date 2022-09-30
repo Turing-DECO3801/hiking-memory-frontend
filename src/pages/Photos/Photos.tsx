@@ -45,8 +45,8 @@ const PhotoCollection = () => {
 
   const displayGallery = (index: number) => {
 
-    let start = images.slice(index, images.length);
-    let end = images.slice(0, index);
+    const start = images.slice(index, images.length);
+    const end = images.slice(0, index);
     setOrderedImages(start.concat(end))
     setGalleryDisplayed(true);
   }

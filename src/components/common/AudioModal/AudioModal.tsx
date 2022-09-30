@@ -23,23 +23,23 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
   const [memoDisplayed, setMemoDisplayed] = useState(false);
   const [tabDisplay, setTabDisplay] = useState(0);
 
-  let audio = new Audio(audioFile);
+  // const audio = new Audio(audioFile);
 
-  const start = () => {
-    audio.play();
-  }
+  // const start = () => {
+  //   audio.play();
+  // }
 
   const preventPropogation = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
   }
 
   const getImage = () => {
-    if (false) {
-      return (
-        <div className="audio-modal-image">
-        </div>
-      );
-    }
+    // if (false) {
+    //   return (
+    //     <div className="audio-modal-image">
+    //     </div>
+    //   );
+    // }
     return (
       <div className="modal-option">
         <FiImage className="modal-option-icon"/>

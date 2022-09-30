@@ -10,9 +10,9 @@ interface AuthState {
 
 export const AuthContext = createContext<AuthState>({
   isAuthed: undefined,
-  checkAuth: () => {},
-  login: () => {},
-  logout: () => {}
+  checkAuth: () => undefined,
+  login: () => undefined,
+  logout: () => undefined
 });
 
 export const useAuthState = (): AuthState => {

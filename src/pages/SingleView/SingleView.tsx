@@ -17,7 +17,7 @@ interface Hike {
   center: {lat: number, lng: number},
   zoom: number;
   audio: any[]
-};
+}
 
 
 const SingleView = () => {
