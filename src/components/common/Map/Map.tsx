@@ -15,6 +15,7 @@ interface MapProps {
   path: {lat: number, lng: number}[];
   audio: {location: {lat: number, lng: number}, audioFile: string, imageFile: string}[];
   containerStyle: {width: string, height: string}
+  mini?: boolean
 }
 
 function Map(mapInfo: MapProps) {
@@ -140,15 +141,26 @@ function Map(mapInfo: MapProps) {
       setCurrentSelection(null);
     }
   }
-  
-  return isLoaded ? (
-    <div>
+
+  const getModal = () => {
+    if (mapInfo.mini) {
+      return null
+    }
+    return (
       <AudioModal show={show}
         handleClose={() => closeModal()}
         handleOpen={() => setShow(true)}
         audioFile={audioFile}
         imageFile={imageFile}
       />
+    );
+  }
+  
+  return isLoaded ? (
+    <div>
+      {
+        getModal()
+      }
     <GoogleMap
       mapContainerStyle={mapInfo.containerStyle}
       onLoad={onLoad}

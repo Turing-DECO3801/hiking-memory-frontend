@@ -216,6 +216,11 @@
     z-index: 0;
 }
 
+.hike-card-container {
+    position: relative;
+    width: 100%;
+}
+
 .hike-card {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -225,6 +230,33 @@
     height: 80px;
     position: relative;
     overflow: hidden;
+    background-color: $white;
+    transition: all 0.5s ease;
+}
+
+.hike-card-delete {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: $lighter-grey;
+    width: 100%;
+    border-radius: 27px;
+    height: 80px;
+    position: absolute;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.delete-icon {
+    margin-right: 20px;
+    color: $dark-blue;
+    font-size: 40px;
+    
+}
+
+.hike-card-selected {
+    transform: translateX(-25%);
 }
 
 .hike-card .hike-map {
@@ -239,7 +271,7 @@
     float: right;
     width: 80%;
     height: 100%;
-    padding-left: 10px;
+    padding-left: 15px;
     padding-right: 10px;
     transform: translateY(-5px);
 }

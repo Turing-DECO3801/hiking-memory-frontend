@@ -19,7 +19,7 @@ const DeleteHike = ({ hikeName, date, close }: DeleteHikeProps) => {
       </div> 
       <div className="buttons">
         <div className="cancel-button" onClick={close}>Cancel</div>
-        <div className="action-button">Update</div>
+        <div className="action-button">Confirm</div>
       </div>
     </div>
   );

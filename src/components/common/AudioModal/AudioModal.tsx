@@ -1,6 +1,4 @@
 import React, { useState, useRef } from "react";
-import { Button, Modal } from "react-bootstrap";
-import { isNotEmittedStatement, StringLiteral } from "typescript";
 import { FiImage, FiEdit3, FiFileText, FiHeadphones, FiChevronLeft } from "react-icons/fi";
 import { useSwipeable, DOWN, SwipeEventData } from 'react-swipeable'; 
 import { AudioPlayer } from "../AudioPlayer/AudioPlayer";

@@ -1,18 +1,10 @@
 import React, { useContext, useState } from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
-import Map from '../../components/common/Map/Map';
 import { HikeContext } from '../../contexts/HikeContext';
 import "./AllHikes.scss"
 import { FiSearch, FiCheck } from 'react-icons/fi/'
-
-
-interface Hike {
-  title: string,
-  date: string,
-  time: string,
-  path: any[],
-}
-
+import HikeCard from './HikeCard';
+import PopUp from '../../components/common/PopUp/PopUp';
 
 const AllHikes = () => { 
   const hikeContext = useContext(HikeContext);
@@ -20,6 +12,7 @@ const AllHikes = () => {
   const [selectionType, setSelectionType] = useState("all");
   const [sortType, setSortType] = useState("recent");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [displayPopUp, setDisplayPopUp] = useState(false);
 
   const pathExample = [{ lat: 37, lng: -122 },
     { lat: 37, lng: -121 },
@@ -37,11 +30,6 @@ const AllHikes = () => {
     {title: 'Mount Coot-Tha', date: '26/01/2022', time: '8:30am', path: pathExample},
   ];
 
-  const containerStyle = {
-    width: '100%',
-    height: '110px'
-  };
-
   const [isShown, setIsShown] = useState(false);
 
   const handleClick = (event: any) => {
@@ -51,32 +39,16 @@ const AllHikes = () => {
     // 👇️ or simply set it to true
     // setIsShown(true);
   };
-  
-  const renderCard = (hike: Hike, index: number) => {
-    return( 
-      <div className="hike-card">
-        <div className="hike-map">
-          {/* <Map path={hike.path} audio={hike.path} containerStyle={containerStyle}/> */}
-        </div>
-        <div className="hike-info">
-          <div className="hike-date-time"> 
-            <div className="hike-date">
-              <span className="hike-date-time-text"> {hike.date}</span>
-            </div>
-            <div className="hike-time">
-              <span>{hike.time}</span>
-            </div>
-          </div>
-          <div className="hike-title">
-              {hike.title}
-           </div>
-        </div>
-      </div>
-    )
+
+  const getPopUp = () => {
+    return <PopUp show={displayPopUp} type={"delete"} closeHandler={() => setDisplayPopUp(false)}/>
   }
 
   return (
     <div className="content">
+      {
+        getPopUp()
+      }
       <Navbar />
       <br />
       <div className="filters section">
@@ -158,7 +130,7 @@ const AllHikes = () => {
       
 
       <div className="grid section delay-2">
-          {hikeInfo.map(renderCard)}
+          {hikeInfo.map((hike, index) => <HikeCard hike={hike} displayPopUp={setDisplayPopUp}/>)}
       </div>
     </div>
   );
