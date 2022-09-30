@@ -38,11 +38,21 @@
     transition: height 0.5s ease;
 }
 
-.audio-modal-image {
-    margin: 0 5%;
-    height: 200px;
-    background: $dark-blue;
+.image-container {
+    width: 90%;
+    margin: 0% 5%;
+    height: auto;
     border-radius: 20px;
+    background: red;
+    overflow: hidden;
+}
+
+.image-container .modal-image {
+    width: 100%;
+    max-height: 300px;
+    height: auto;
+    transform: scale(107%);
+    object-fit: cover;
 }
 
 .audio-modal .bar-container {
@@ -127,7 +137,9 @@
     z-index: 0;
 }
 
-
+input[type="file"] {
+    display: none;
+}
 
 
 

@@ -3,6 +3,7 @@ import "./AllHikes.scss"
 import { useSwipeable, LEFT, RIGHT, SwipeEventData } from 'react-swipeable'; 
 import Map from '../../components/common/Map/Map';
 import { FiX } from 'react-icons/fi'
+import { useNavigate } from 'react-router-dom';
 
 interface HikeCardProps {
   hike: Hike,
@@ -20,6 +21,7 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
 
   const [swiped, setSwiped] = useState(false);
 
+  const navigate = useNavigate();
 
   const handleSwiped = (eventData: SwipeEventData) => {
     if (eventData.dir === LEFT) {
@@ -41,10 +43,8 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
   const handlers = useSwipeable({
     onSwiped: handleSwiped,
     touchEventOptions: { passive: false },
-    preventScrollOnSwipe: true,
+    preventScrollOnSwipe: false,
   });
-
-
 
   return( 
     <div className="hike-card-container">
@@ -53,7 +53,10 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
           onClick={() => displayPopUp(true)}
         />
       </div>
-      <div className={`hike-card ${swiped ? "hike-card-selected" : ""}`} {...handlers}>
+      <div
+        className={`hike-card ${swiped ? "hike-card-selected" : ""}`} {...handlers}
+        onClick={() => navigate("/singleview")}
+      >
         <div className="hike-map">
           {/* <Map path={hike.path} audio={hike.path} containerStyle={containerStyle} mini={true}/> */}
         </div>
