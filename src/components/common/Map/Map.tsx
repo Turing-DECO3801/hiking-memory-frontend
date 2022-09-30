@@ -70,7 +70,6 @@ function Map(mapInfo: MapProps) {
     };
 
     map.fitBounds(bounds);
-    map.setMapTypeId(google.maps.MapTypeId.TERRAIN)
     const flightPlanCoordinates = mapInfo.path;
     const flightPath = new google.maps.Polyline({
       path: flightPlanCoordinates,
@@ -120,7 +119,7 @@ function Map(mapInfo: MapProps) {
     () => ({
       disableDefaultUI: true,
       clickableIcons: false,
-      mapId: 'ID645ff0c21ec8c305',
+      mapId: 'fd5aa0c3d939886a',
     }),
     []
   );
