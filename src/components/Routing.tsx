@@ -9,6 +9,7 @@ import PhotoCollection from '../pages/Photos/Photos';
 import AllHikes from '../pages/AllHikes/AllHikes';
 import Account from '../pages/Account/Account';
 import Noitifications from '../pages/Notifications/Notifications';
+import SignUp from '../pages/SignUp/SignUp';
 
 
 /** All routes */
@@ -67,6 +68,13 @@ export const routes: RouteConfig[] = [
     name: 'Notifications',
     exact: true,
     Component: Noitifications,
+    secured: true
+  },
+  {
+    path: '/signup',
+    name: 'SignUp',
+    exact: true,
+    Component: SignUp,
     secured: true
   }
 ];

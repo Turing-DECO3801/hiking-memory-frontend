@@ -6,12 +6,6 @@
     overflow: hidden;
 }
 
-.section {
-    animation: fade-in 1s ease forwards;
-    opacity: 0%;
-    transform: translateY(20px);
-}
-
 .section-header {
     display: flex;
     justify-content: space-between;

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
 import Map from '../../components/common/Map/Map';
 import { HikeContext } from '../../contexts/HikeContext';
@@ -37,12 +37,22 @@ const AllHikes = () => {
     width: '100%',
     height: '110px'
   };
+
+  const [isShown, setIsShown] = useState(false);
+
+  const handleClick = (event: any) => {
+    // 👇️ toggle shown state
+    setIsShown(current => !current);
+
+    // 👇️ or simply set it to true
+    // setIsShown(true);
+  };
   
   const renderCard = (hike: Hike, index: number) => {
     return( 
       <div className="hike-card">
         <div className="hike-map">
-          {/*<Map path={hike.path} audio={hike.path} containerStyle={containerStyle}/>*/}
+          {/* <Map path={hike.path} audio={hike.path} containerStyle={containerStyle}/> */}
         </div>
         <div className="hike-info">
           <div className="hike-date-time"> 
@@ -78,7 +88,7 @@ const AllHikes = () => {
             </div>
           </div>
           <div className="sort-by">
-            <div className="sort-by-card">
+            <div onClick={handleClick} className="sort-by-card">
               Sort By
             </div>
           </div>
@@ -88,6 +98,23 @@ const AllHikes = () => {
             </div>
           </div>
       </div>
+
+      {isShown && (
+                <div className="drop-down">
+                  <div>
+                    Longest Distance
+                  </div>
+                  <div>
+                    Shortest Distance
+                  </div>
+                  <div>
+                    Most Travelled
+                  </div>
+                  <div>
+                    Most Recent
+                  </div>
+                </div>
+              )}
 
       <div className="select">
         Select

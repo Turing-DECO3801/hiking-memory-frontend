@@ -24,7 +24,7 @@ const PopUp = ({ children, show, type, closeHandler }: PopUpProps) => {
     if (!popupType) {
       return null
     } else if (type === "delete") {
-      return <DeleteHike hikeName="Kondallila Falls" date="12/01/2022"/>;
+      return <DeleteHike close={onClose} hikeName="Kondallila Falls" date="12/01/2022"/>;
     } else if (type === "edit") {
       return <EditHike close={onClose}/>;
     } else if (type === "summary") {

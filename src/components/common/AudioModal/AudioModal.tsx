@@ -34,7 +34,7 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
   }
 
   const getImage = () => {
-    if (true) {
+    if (false) {
       return (
         <div className="audio-modal-image">
         </div>

@@ -3,17 +3,17 @@ import { AuthContext } from '../../contexts/AuthContext';
 import TextInput from '../../components/common/TextInput/TextInput';
 import Logo from '../../components/common/Logo/Logo';
 import Button from '../../components/common/Button/Button';
-import "./Login.scss"
+import "./SignUp.scss"
 import Loading from '../../components/common/Loading/Loading';
 
 
-const Login = () => {
+const SignUp = () => {
   const { login } = useContext(AuthContext);
   
   return (
     <>
     <div className="login">
-      <div className="section login-logo">
+      <div className="section">
         <Logo />
         <h1>hiking memory maker</h1>
       </div>
@@ -41,4 +41,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
