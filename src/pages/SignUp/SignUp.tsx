@@ -27,7 +27,7 @@ const SignUp = () => {
       <Button className="section delay-2" onClick={login}>Log in</Button>
       <br/>
       <div className="section delay-3">
-        Don't have an account?
+        Don&apos;t have an account?
       </div>
       <a className="link section delay-3">
         Sign up here

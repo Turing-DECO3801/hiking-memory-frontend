@@ -15,7 +15,7 @@ interface MapProps {
   path: {lat: number, lng: number}[];
   audio: {location: {lat: number, lng: number}, audioFile: string, imageFile: string}[];
   containerStyle: {width: string, height: string}
-};
+}
 
 function Map(mapInfo: MapProps) {
 
@@ -32,9 +32,9 @@ function Map(mapInfo: MapProps) {
   const [map, setMap] = React.useState(null);
 
   const onLoad = React.useCallback(function callback(map: any) {
-    var bounds = new google.maps.LatLngBounds();
+    const bounds = new google.maps.LatLngBounds();
 
-    for (var i = 0; i < mapInfo.path.length; i++) {
+    for (let i = 0; i < mapInfo.path.length; i++) {
       bounds.extend(mapInfo.path[i]);
     }
 
@@ -79,7 +79,7 @@ function Map(mapInfo: MapProps) {
       strokeWeight: 2,
     });
 
-    for (var i = 0; i < mapInfo.audio.length; i++) {
+    for (let i = 0; i < mapInfo.audio.length; i++) {
         const marker = new google.maps.Marker({
           position: mapInfo.audio[i].location,
           icon: SVGMarker,

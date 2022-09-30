@@ -1,6 +1,6 @@
 import React from 'react';
 import './Logo.scss';
-const LogoImage = require('../../../images/logo.png');
+import LogoImage from '../../../images/logo.png';
 
 const Logo = () => {
 

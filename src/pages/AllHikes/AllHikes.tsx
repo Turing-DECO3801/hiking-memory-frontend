@@ -11,7 +11,7 @@ interface Hike {
   date: string,
   time: string,
   path: any[],
-};
+}
 
 
 const AllHikes = () => { 
