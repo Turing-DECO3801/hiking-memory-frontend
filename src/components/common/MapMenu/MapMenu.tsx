@@ -65,7 +65,7 @@ const MapMenu = () => {
             </div>
           </div>
           <div
-            className={`menu-option option-2 ${menuState ? "" : "hide-option"}`}
+            className={`menu-option delay-1 ${menuState ? "" : "hide-option"}`}
             onClick={(e) => openPopUp(e, "edit")}
           >
             <div className="option-label">
@@ -76,7 +76,7 @@ const MapMenu = () => {
             </div>
           </div>
           <div
-            className={`menu-option option-3 ${menuState ? "" : "hide-option"}`}
+            className={`menu-option delay-2 ${menuState ? "" : "hide-option"}`}
             onClick={(e) => openPopUp(e, "delete")}
           >          <div className="option-label">
               Delete Hike
