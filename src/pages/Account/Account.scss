@@ -19,7 +19,7 @@
 }
 
 .account-options {
-    position: absolute;
+    position: fixed;
     bottom: 60px;
     width: 100%;
     display: flex;
@@ -40,7 +40,7 @@
 }
 
 .account-option {
-    padding: 40px;
+    padding: 4vh;
     font-size: 18px;
 }
 

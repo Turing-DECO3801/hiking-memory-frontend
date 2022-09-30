@@ -1,0 +1,312 @@
+@import '../../styles/index';
+
+
+.content {
+    margin: 10%;
+    position: relative;
+}
+
+.filters {
+    width: 100%;
+    height: 35px;
+    font-size: 15px;
+    position: relative;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+}
+
+.filters .all-favourites {
+    width: auto ;
+    height: 100%;
+    float: left;
+    position: relative;
+}
+
+.filters .all-favourites .all-favourites-card {
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 2px 3px $low-opacity-black;
+    border-radius: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.all-favourites-card .all{
+    float: left;
+}
+
+.all-favourites-card .favourites {
+    margin-left: 10px;
+    float: right;
+    text-align: right;
+}
+
+.all-favourites-card .favourites, .all-favourites-card .all {
+    height: 100%;
+    color: $orange;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px; 
+    background: $white;
+    transition: all 0.5s ease;
+}
+
+.all-favourites-card .selected {
+    transition: all 0.5s ease;
+    background-color: $orange;
+    color: $white;
+}
+
+.filters .sort-by-container {
+    width: 100%;
+    height: auto;
+    height: 20px;
+    position: relative;
+}
+
+.filters .sort-by {
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.filters .sort-by .sort-by-card {
+    height: 100%;
+    box-shadow: 0px 2px 3px $low-opacity-black;
+    border-radius: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: $orange;
+    background: $white;
+    transition: all 0.5s ease;
+}
+
+.filters .sort-by .sort-by-active {
+    color: $white;
+    background: $orange;
+} 
+
+.drop-down {
+    position: absolute;
+    top: 45px;
+    width: 180px;
+    transform: translateX(-25px);
+    padding: 5px 0px;
+    box-shadow: 0px 2px 3px $low-opacity-black;
+    background-color: $off-white;
+    z-index: 100;
+    border-radius: 20px;
+    color: $dark-grey;
+    animation: appear 0.5s ease;
+}
+
+.drop-down .selection-option {
+    padding: 5px 10px;
+    padding-left: 15px;
+    transition: color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+}
+
+.selection-option .selection-icon {
+    font-size: 22px;
+    opacity: 0%;
+    transition: opacity 0.3s ease;
+    color: $orange;
+}
+
+.selection-option .tick-active {
+    opacity: 100%
+}
+
+.drop-down .selected {
+    color: $orange;
+}
+
+.drop-down .divider {
+    width: 100%;
+    background: $off-white;
+    height: 1px;
+}
+
+.filters .search {
+    margin-left: 15px;
+    height: 100%;
+    text-align: right;
+    width: fit-content;
+    transform: scale(120%)
+}
+
+.filters .search-card{
+    position: relative;
+    height: 100%;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: $orange;
+    box-shadow: 0px 2px 2px $low-opacity-black;
+    transition: all 0.5s ease;
+}
+
+.search-card .search-icon {
+    height: 100%;
+    font-size: 20px;
+    color: $white;
+    transition: all 0.5s ease;
+}
+
+.search .search-active {
+    transform: scale(110%);
+}
+
+.search-card .search-icon-active{
+    color: $dark-blue;
+}
+
+.search .search-bar {
+    top: 0;
+    right: 17px;
+    position: absolute;
+    width: 0px;
+    height: 35px;
+    background: $lighter-grey;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow: 0px 2px 2px $low-opacity-black;
+    color: $lighter-grey;
+    transform: scaleY(90%);
+    transition: all 0.5s ease;
+    transform-origin: right center;
+}
+
+.search .search-bar-active {
+    padding-left: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    transition: all 0.5s ease;
+    transform: scaleY(100%);
+    width: calc(68vw - 17px);
+    color: $dark-blue;
+}
+
+.select{
+    height: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: right;
+    color: $light-blue;
+}
+
+.grid {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-bottom: 80px;
+    z-index: 0;
+}
+
+.hike-card-container {
+    position: relative;
+    width: 100%;
+}
+
+.hike-card {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 2px 4px $low-opacity-black;
+    width: 100%;
+    border-radius: 25px;
+    height: 80px;
+    position: relative;
+    overflow: hidden;
+    background-color: $white;
+    transition: all 0.5s ease;
+}
+
+.hike-card-delete {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: $lighter-grey;
+    width: 100%;
+    border-radius: 27px;
+    height: 80px;
+    position: absolute;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.delete-icon {
+    margin-right: 20px;
+    color: $dark-blue;
+    font-size: 40px;
+    
+}
+
+.hike-card-selected {
+    transform: translateX(-25%);
+}
+
+.hike-card .hike-map {
+    width: 20%;
+    height: 100%;
+    float: left;
+    overflow: hidden;
+}
+
+.hike-card .hike-info {
+    right: 0;
+    float: right;
+    width: 80%;
+    height: 100%;
+    padding-left: 15px;
+    padding-right: 10px;
+    transform: translateY(-5px);
+}
+
+.hike-card .hike-info .hike-date-time {
+    width: 100%;
+    height: 50%;
+    font-size: 13px;
+}
+
+.hike-card .hike-info .hike-date-time .hike-date {
+    width: 50%;
+    height: 100%;
+    float: left;
+    display: flex;
+    align-items: flex-end;
+}
+
+.hike-card .hike-info .hike-date-time .hike-time {
+    float: right;
+    width: 30%;
+    height: 100%;
+    text-align: right;
+    display: flex;
+    align-items: flex-end;
+}
+
+.hike-card .hike-info .hike-title {
+    width: 100%;
+    height: 50%;
+    display: flex;
+}
+
+
+
+
+
+

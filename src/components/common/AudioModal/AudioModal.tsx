@@ -1,6 +1,4 @@
 import React, { useState, useRef } from "react";
-import { Button, Modal } from "react-bootstrap";
-import { isNotEmittedStatement, StringLiteral } from "typescript";
 import { FiImage, FiEdit3, FiFileText, FiHeadphones, FiChevronLeft } from "react-icons/fi";
 import { useSwipeable, DOWN, SwipeEventData } from 'react-swipeable'; 
 import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
@@ -22,6 +20,7 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
   const [transcriptDisplayed, setTranscriptDisplayed] = useState(false);
   const [memoDisplayed, setMemoDisplayed] = useState(false);
   const [tabDisplay, setTabDisplay] = useState(0);
+  const [image, setImage] = useState<any>(null);
 
   // const audio = new Audio(audioFile);
 
@@ -33,18 +32,27 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
     event.stopPropagation();
   }
 
+  const uploadHandler = (event:React.ChangeEvent<HTMLInputElement>) => {
+    if (event !== null && event.target !== null && event.target.files !== null) {
+      setImage(event.target.files[0])
+    }
+  }
+
   const getImage = () => {
-    // if (false) {
-    //   return (
-    //     <div className="audio-modal-image">
-    //     </div>
-    //   );
-    // }
+    if (image !== null) {
+      const source = URL.createObjectURL(image);
+      return (
+        <div className="image-container">
+          <img src={source} className="modal-image"/>
+        </div>
+      );
+    }
     return (
-      <div className="modal-option">
+      <label className="modal-option">
+        <input type="file" accept="image/png, image/jpeg, image/jpg" onChange={uploadHandler}/>
         <FiImage className="modal-option-icon"/>
         <h5>Add Image</h5>
-      </div>
+      </label>
     );
   }
 

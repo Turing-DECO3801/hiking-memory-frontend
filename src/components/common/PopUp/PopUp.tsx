@@ -30,7 +30,7 @@ const PopUp = ({ children, show, type, closeHandler }: PopUpProps) => {
     } else if (type === "summary") {
       return <HikeSummary steps="10,500" distance="15" altitude="1500m"/>;
     } else if (type === "new") {
-      return <NewHike date="6th Decembser 2022" close={onClose}/>;
+      return <NewHike date="6th December 2022" close={onClose}/>;
     }
   }
 

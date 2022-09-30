@@ -54,7 +54,6 @@ const Home = () => {
         <Notifications />
       </div>
       <br />
-      <br />
       <div className="section delay-3">
         <div className="section-header">
           <h4>Photo Collections</h4>
@@ -62,6 +61,8 @@ const Home = () => {
         </div>
         <PhotoCollection />
       </div>
+      <br />
+      <br />
       <PopUp show={true} type="new" />
     </div>
   );

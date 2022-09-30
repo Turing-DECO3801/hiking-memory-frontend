@@ -22,6 +22,7 @@
 
 .logo-map-marker {
     position: absolute;
+    transform: translate(2px, 6px) scale(0%);
     animation: popup 3s ease-in-out infinite;
 }
 
