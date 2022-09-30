@@ -130,7 +130,7 @@ const AllHikes = () => {
       
 
       <div className="grid section delay-2">
-          {hikeInfo.map((hike, index) => <HikeCard hike={hike} displayPopUp={setDisplayPopUp}/>)}
+          {hikeInfo.map((hike, index) => <HikeCard key={index} hike={hike} displayPopUp={setDisplayPopUp}/>)}
       </div>
     </div>
   );
