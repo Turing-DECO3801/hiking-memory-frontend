@@ -52,7 +52,6 @@ const SingleView = () => {
         <div className="hike-description">
           <div className="back-button" onClick={() => navigate("/allhikes")}>
             <FiChevronLeft className="back-icon"/>
-            Back
           </div>
           <div className="hike-title" onClick={() => setDisplayPopUp(true)}> {singleHikeInfo.title} </div>
           <div className="hike-date"> {singleHikeInfo.date} </div>
