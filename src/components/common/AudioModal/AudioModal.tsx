@@ -162,65 +162,67 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
   
   return(
     <>
-    <div className={`audio-modal-container ${show ? "" : "behind"}`} {...handlers}>
-      <div className={`audio-modal ${show && tabDisplay === 0 ? "" : "hidden"}`} onClick={(e) => preventPropogation(e)}>
-        <div className="bar-container">
-          <div className="bar"/>
+    <div className="audio-modal-outline" >
+      <div className={`audio-modal-container ${show ? "" : "behind"}`} {...handlers}>
+        <div className={`audio-modal ${show && tabDisplay === 0 ? "" : "hidden"}`} onClick={(e) => preventPropogation(e)}>
+          <div className="bar-container">
+            <div className="bar"/>
+          </div>
+          {
+            getImage()
+          }
+          <div className="divider"/>
+          <div className={`modal-section ${notesDisplayed ? "show-notes" : ""}`}>
+            <div
+              className="modal-option"
+              onClick={() => setNotesDisplayed(!notesDisplayed)}
+            >
+              <FiEdit3 className="modal-option-icon"/>
+              <h5>Notes</h5>
+            </div>
+            <div className="audio-modal-notes audio-modal-content">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tincidunt velit. Suspendisse elementum ex eget fermentum hendrerit...
+              <span className="show-more" onClick={() => setTabDisplay(1)}>show more</span> 
+            </div>
+          </div>
+          <div className="divider"/>
+          <div className={`modal-section ${transcriptDisplayed ? "show-transcript" : ""}`}>
+            <div
+              className="modal-option"
+              onClick={() => setTranscriptDisplayed(!transcriptDisplayed)}
+            >
+              <FiFileText className="modal-option-icon"/>
+              <h5>Audio Transcript</h5>
+            </div>
+            <div className="audio-modal-transcript audio-modal-content">
+              Hello
+              <span className="show-more" onClick={() => setTabDisplay(2)}>show more</span> 
+            </div>
+          </div>
+          <div className="divider"/>
+          <div className={`modal-section ${memoDisplayed ? "show-audio" : ""}`}>
+            <div
+              className="modal-option"
+              onClick={() => setMemoDisplayed(!memoDisplayed)}
+            >
+              <FiHeadphones className="modal-option-icon"/>
+              <h5>Listen to Audio Memo</h5>
+            </div>
+            <div className="audio-modal-memo audio-modal-content">
+              <AudioPlayer audioFile={audioFile}/>
+            </div>
+          </div>
         </div>
-        {
-          getImage()
-        }
-        <div className="divider"/>
-        <div className={`modal-section ${notesDisplayed ? "show-notes" : ""}`}>
-          <div
-            className="modal-option"
-            onClick={() => setNotesDisplayed(!notesDisplayed)}
-          >
-            <FiEdit3 className="modal-option-icon"/>
-            <h5>Notes</h5>
-          </div>
-          <div className="audio-modal-notes audio-modal-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tincidunt velit. Suspendisse elementum ex eget fermentum hendrerit...
-            <span className="show-more" onClick={() => setTabDisplay(1)}>show more</span> 
-          </div>
+        <div className={`audio-modal ${show && tabDisplay === 1 ? "" : "hidden"}`} {...handlers}>
+          {
+            notesTab()
+          }
         </div>
-        <div className="divider"/>
-        <div className={`modal-section ${transcriptDisplayed ? "show-transcript" : ""}`}>
-          <div
-            className="modal-option"
-            onClick={() => setTranscriptDisplayed(!transcriptDisplayed)}
-          >
-            <FiFileText className="modal-option-icon"/>
-            <h5>Audio Transcript</h5>
-          </div>
-          <div className="audio-modal-transcript audio-modal-content">
-            Hello
-            <span className="show-more" onClick={() => setTabDisplay(2)}>show more</span> 
-          </div>
+        <div className={`audio-modal ${show && tabDisplay === 2 ? "" : "hidden"}`} {...handlers}>
+          {
+            audioTranscriptTab()
+          }
         </div>
-        <div className="divider"/>
-        <div className={`modal-section ${memoDisplayed ? "show-audio" : ""}`}>
-          <div
-            className="modal-option"
-            onClick={() => setMemoDisplayed(!memoDisplayed)}
-          >
-            <FiHeadphones className="modal-option-icon"/>
-            <h5>Listen to Audio Memo</h5>
-          </div>
-          <div className="audio-modal-memo audio-modal-content">
-            <AudioPlayer audioFile={audioFile}/>
-          </div>
-        </div>
-      </div>
-      <div className={`audio-modal ${show && tabDisplay === 1 ? "" : "hidden"}`} {...handlers}>
-        {
-          notesTab()
-        }
-      </div>
-      <div className={`audio-modal ${show && tabDisplay === 2 ? "" : "hidden"}`} {...handlers}>
-        {
-          audioTranscriptTab()
-        }
       </div>
     </div>
     {

@@ -158,7 +158,7 @@ function Map(mapInfo: MapProps) {
   }
   
   return isLoaded ? (
-    <div>
+    <div className="map-container">
       {
         getModal()
       }
