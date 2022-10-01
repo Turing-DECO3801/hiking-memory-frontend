@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { FiImage, FiEdit3, FiFileText, FiHeadphones, FiChevronLeft } from "react-icons/fi";
+import React, { useState, useRef } from 'react';
+import { FiImage, FiEdit3, FiFileText, FiHeadphones, FiChevronLeft, FiX } from "react-icons/fi";
 import { useSwipeable, DOWN, SwipeEventData } from 'react-swipeable'; 
 import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
 
@@ -21,6 +21,7 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
   const [memoDisplayed, setMemoDisplayed] = useState(false);
   const [tabDisplay, setTabDisplay] = useState(0);
   const [image, setImage] = useState<any>(null);
+  const [imagePopup, setImagePopup] = useState(false);
 
   // const audio = new Audio(audioFile);
 
@@ -42,8 +43,11 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
     if (image !== null) {
       const source = URL.createObjectURL(image);
       return (
-        <div className="image-container">
-          <img src={source} className="modal-image"/>
+        <div className="image-container" onClick={() => setImagePopup(true)} >
+          <img
+            src={source}
+            className="modal-image"
+          />
         </div>
       );
     }
@@ -74,6 +78,21 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
     touchEventOptions: { passive: false },
     preventScrollOnSwipe: true,
   });
+
+  const getImagePopUp = () => {
+    if (image !== null) {
+      return (
+        <div className={`image-box-container ${imagePopup ? "" : "image-box-inactive"}`} onClick={() => setImagePopup(false)}>
+          <div className="image-box-exit">
+            <FiX className="exit-icon"/>
+          </div>
+          <div className="popup-image-container">
+            <img src={URL.createObjectURL(image)} className="popup-image"/>
+          </div>
+        </div>
+      )
+    }
+  }
 
   const notesTab = () => {
     return (
@@ -122,6 +141,7 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
   }
   
   return(
+    <>
     <div className={`audio-modal-container ${show ? "" : "behind"}`} {...handlers}>
       <div className={`audio-modal ${show && tabDisplay === 0 ? "" : "hidden"}`} onClick={(e) => preventPropogation(e)}>
         <div className="bar-container">
@@ -183,6 +203,10 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
         }
       </div>
     </div>
+    {
+      getImagePopUp()
+    }
+    </>
   );
 }
 
