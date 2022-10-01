@@ -107,7 +107,19 @@
     font-size: 14px;
     margin-left: 10px;
     font-family: 'Open Sans', sans-serif;
+}
 
+.audio-modal-notes {
+    background: $white;
+    width: 90%;
+    height: auto;
+    resize: none;
+    border: none;
+}
+
+.audio-modal-notes:focus {
+    border: none;
+    outline: none;
 }
 
 .audio-modal-memo {
@@ -150,8 +162,22 @@ input[type="file"] {
     color: $light-blue;
 }
 
+.nav-save {
+    margin-right: 10px;
+}
+
+.notes-options {
+    display: flex;
+    justify-content: space-between;
+}
+
 .back-icon {
     margin-bottom: 3px;
+}
+
+.save-icon {
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 /** Image Container */

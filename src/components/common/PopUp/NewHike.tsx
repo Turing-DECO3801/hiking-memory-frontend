@@ -16,6 +16,8 @@ interface Hike {
 }
 
 const NewHike = ({ date, close }: NewHikeProps) => {
+  
+  const [hikeName, setHikeName] = useState("");
 
   const pathExample = [
     { lat: 37, lng: -122 },
@@ -24,8 +26,11 @@ const NewHike = ({ date, close }: NewHikeProps) => {
     { lat: 38, lng: -122 }
   ];
 
+  const onNameChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    setHikeName(event.currentTarget.value);
+  }
+
   const hike = {title: 'Kondalilla Falls', date: '26/01/2022', time: '8:30am', path: pathExample} 
-  
 
   const containerStyle = {
     width: '100%',
@@ -39,7 +44,7 @@ const NewHike = ({ date, close }: NewHikeProps) => {
       <div className="colored-text">
         { date }
       </div> 
-      <input placeholder="Hike location name..."/>
+      <input placeholder="Hike location name..." onChange={onNameChange}/>
       <div className="hike-map">
         <Map path={hike.path} containerStyle={containerStyle} mini={true}/>
       </div>
