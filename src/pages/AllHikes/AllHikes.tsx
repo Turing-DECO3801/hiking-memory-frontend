@@ -80,7 +80,7 @@ const AllHikes = () => {
             className={`sort-by-card ${isShown ? "sort-by-active" : ""}`}>
             Sort By
           </div>
-          <div className={`drop-down ${isShown ? "" : "drop-down-inactive"}`}>
+          <div className={`drop-down ${isShown ? "drop-down-active" : ""}`}>
             <div
               className={`selection-option ${sortType === "recent" ? "selected" : ""}`}
               onClick={() => setSortType("recent")}
