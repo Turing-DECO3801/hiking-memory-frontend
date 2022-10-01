@@ -13,7 +13,7 @@ import useStateRef from '../../../hooks/useStateRef'
 
 interface MapProps {
   path: {lat: number, lng: number}[];
-  audio: {location: {lat: number, lng: number}, audioFile: string, imageFile: string}[];
+  audio?: {location: {lat: number, lng: number}, audioFile: string, imageFile: string}[];
   containerStyle: {width: string, height: string}
   mini?: boolean
 }
@@ -80,33 +80,35 @@ function Map(mapInfo: MapProps) {
       strokeWeight: 2,
     });
 
-    for (let i = 0; i < mapInfo.audio.length; i++) {
-        const marker = new google.maps.Marker({
-          position: mapInfo.audio[i].location,
-          icon: SVGMarker,
-          animation: google.maps.Animation.DROP,
-          map: map
-        });
-
-        const volumeMarker = new google.maps.Marker({
-          position: mapInfo.audio[i].location,
-          icon: volume,
-          animation: google.maps.Animation.DROP,
-          map: map
-        });
-
-        const aFile = mapInfo.audio[i].audioFile;
-        const iFile = mapInfo.audio[i].imageFile;
-        volumeMarker.addListener("click", () => {
-          if (selectionRef !== null && selectionRef.current !== null) {
-            selectionRef.current.setIcon(SVGMarker);
-          }
-          setAudioFile(aFile);
-          setImageFile(iFile);
-          setShow(true);
-          marker.setIcon(selectedSVGMarker);
-          setCurrentSelection(marker);
-        })
+    if (mapInfo.audio !== undefined) {
+      for (let i = 0; i < mapInfo.audio.length; i++) {
+          const marker = new google.maps.Marker({
+            position: mapInfo.audio[i].location,
+            icon: SVGMarker,
+            animation: google.maps.Animation.DROP,
+            map: map
+          });
+  
+          const volumeMarker = new google.maps.Marker({
+            position: mapInfo.audio[i].location,
+            icon: volume,
+            animation: google.maps.Animation.DROP,
+            map: map
+          });
+  
+          const aFile = mapInfo.audio[i].audioFile;
+          const iFile = mapInfo.audio[i].imageFile;
+          volumeMarker.addListener("click", () => {
+            if (selectionRef !== null && selectionRef.current !== null) {
+              selectionRef.current.setIcon(SVGMarker);
+            }
+            setAudioFile(aFile);
+            setImageFile(iFile);
+            setShow(true);
+            marker.setIcon(selectedSVGMarker);
+            setCurrentSelection(marker);
+          })
+      }
     }
 
     flightPath.setMap(map);

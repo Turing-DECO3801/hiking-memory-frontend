@@ -58,7 +58,7 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
         onClick={() => navigate("/singleview")}
       >
         <div className="hike-map">
-          {/* <Map path={hike.path} audio={hike.path} containerStyle={containerStyle} mini={true}/> */}
+          <Map path={hike.path} containerStyle={containerStyle} mini={true}/>
         </div>
         <div className="hike-info">
           <div className="hike-date-time"> 
