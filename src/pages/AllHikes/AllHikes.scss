@@ -4,6 +4,7 @@
 .content {
     margin: 10%;
     position: relative;
+    margin-bottom: 110px;
 }
 
 .filters {
@@ -68,9 +69,9 @@
     position: relative;
 }
 
-.filters .drop-down-inactive {
-    opacity: 0;
-    pointer-events: none;
+.filters .drop-down-active {
+    opacity: 100%;
+    pointer-events: all;
 }
 
 .filters .sort-by .sort-by-card {
@@ -102,8 +103,9 @@
     z-index: 100;
     border-radius: 20px;
     color: $dark-grey;
-    animation: appear 0.5s ease;
     transition: opacity 0.5s ease;
+    pointer-events: none;
+    opacity: 0;
 }
 
 .drop-down .selection-option {

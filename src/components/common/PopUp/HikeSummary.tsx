@@ -7,10 +7,11 @@ import { GiPathDistance, GiBootPrints } from 'react-icons/gi'
 interface HikeSummaryProps {
   steps: string,
   distance: string,
-  altitude: string
+  altitude: string,
+  close: () => void,
 }
 
-const HikeSummary = ({ steps, distance, altitude }: HikeSummaryProps) => {
+const HikeSummary = ({ steps, distance, altitude, close }: HikeSummaryProps) => {
 
   return (
     <div className="popup-content">
@@ -32,6 +33,9 @@ const HikeSummary = ({ steps, distance, altitude }: HikeSummaryProps) => {
             <FiTrendingUp className="stats-icon"/>
           </div>
           { altitude } altitude
+        </div>
+        <div className="done-button-container">
+          <div className="cancel-button" onClick={close}>Done</div>
         </div>
     </div>
   );

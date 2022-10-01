@@ -32,6 +32,12 @@ const AllHikes = () => {
 
   const [isShown, setIsShown] = useState(false);
 
+  const [searchValue, setSearchValue] = useState("");
+
+  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.currentTarget.value)
+  }
+
   const handleClick = (event: any) => {
     // 👇️ toggle shown state
     setIsShown(current => !current);
@@ -74,7 +80,7 @@ const AllHikes = () => {
             className={`sort-by-card ${isShown ? "sort-by-active" : ""}`}>
             Sort By
           </div>
-          <div className={`drop-down ${isShown ? "" : "drop-down-inactive"}`}>
+          <div className={`drop-down ${isShown ? "drop-down-active" : ""}`}>
             <div
               className={`selection-option ${sortType === "recent" ? "selected" : ""}`}
               onClick={() => setSortType("recent")}
@@ -111,6 +117,7 @@ const AllHikes = () => {
           <div className="search">
             <input
               className={`search-bar ${searchOpen ? "search-bar-active" : ""}`}
+              onChange={onSearchChange}
             /> 
             <div
               className={`search-card ${searchOpen ? "search-active" : ""}`}
@@ -124,9 +131,6 @@ const AllHikes = () => {
       <div className="select section">
         Select
       </div>
-
-      
-
       <div className="grid section delay-2">
           {hikeInfo.map((hike, index) => <HikeCard key={index} hike={hike} displayPopUp={setDisplayPopUp}/>)}
       </div>

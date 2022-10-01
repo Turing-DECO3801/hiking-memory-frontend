@@ -1,0 +1,82 @@
+@import '../../styles/index';
+
+.notifications-page {
+    margin-bottom: 110px;
+}
+
+.notifications-content {
+    margin: 0 10%;
+    margin-bottom: 30px;
+}
+
+
+
+.notification-sublabel {
+    margin-bottom: 10px;
+    color: $dark-grey;
+}
+
+.notification-section-container {
+    width: 100%;
+    height: 35px;
+    border-radius: 17.5px;
+    box-shadow: 0px 2px 2px $low-opacity-black;
+    padding: 0px 15px;
+    background: $dark-blue;
+    color: $white;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.notification {
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $light-grey;
+    margin-bottom: 10px;
+}
+
+.new-notification {
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    margin-left: 5px;
+    background-color: $orange;
+    border-radius: 100%;
+}
+
+.notification-date-time {
+    margin-left: 25px;
+    display: flex;
+    align-items: center;    
+}
+
+.notification-date {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.notification-time {
+    font-size: 12px;
+    color: $dark-grey;
+}
+
+.notification-options {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.notification-view {
+    color: $light-blue
+}
+
+.notification-edit {
+    margin-left: 10px;
+    color: $orange
+}

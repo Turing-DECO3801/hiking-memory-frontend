@@ -35,8 +35,8 @@ const SingleView = () => {
   const singleHikeInfo = {title: 'Afternoon Hike', date: "31/08/2022", path: pathExample, center: {lat: -10, lng: -38.523}, zoom: 10, audio: audioEx};
 
   const containerStyle = {
-    width: '100vw',
-    height: '100vh'
+    width: '110vw',
+    height: '110vh'
   };
   
     const navigate = useNavigate();
@@ -52,7 +52,6 @@ const SingleView = () => {
         <div className="hike-description">
           <div className="back-button" onClick={() => navigate("/allhikes")}>
             <FiChevronLeft className="back-icon"/>
-            Back
           </div>
           <div className="hike-title" onClick={() => setDisplayPopUp(true)}> {singleHikeInfo.title} </div>
           <div className="hike-date"> {singleHikeInfo.date} </div>

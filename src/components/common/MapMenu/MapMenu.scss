@@ -14,7 +14,7 @@
 .map-menu {
     position: absolute;
     right: 5%;
-    padding-top: 30px;
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -52,7 +52,7 @@
     pointer-events: all;
 }
 
-.option-label {
+.menu-option .option-label {
     margin-right: 10px;
     color: $white;
     font-size: 18px;

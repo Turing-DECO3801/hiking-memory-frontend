@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import './Navbar.scss'
 
 import { FiUser, FiHome, FiBell } from 'react-icons/fi/'
-import { GiWalkingBoot } from 'react-icons/gi'
+import { FaMountain } from 'react-icons/fa/'
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
@@ -15,21 +15,28 @@ const Navbar = () => {
   return (
     <nav>
         <div className="pages">
-          <div className="link" onClick={() => navigate("/")}>
+          <div
+            className={`link ${location.pathname === "/" ? "active-border" : ""}`}
+            onClick={() => navigate("/")}>
             <FiHome className={`icon ${location.pathname === "/" ? "active" : ""}`}/>
-            Home
           </div>
-          <div className="link" onClick={() => navigate("/allhikes")}>
-            <GiWalkingBoot className={`icon ${location.pathname === "/allhikes" || location.pathname === "/singleview" ? "active" : ""}`}/>
-            Hikes
+          <div
+            className={`link ${location.pathname === "/allhikes" || location.pathname === "/singleview" ? "active-border" : ""}`}
+            onClick={() => navigate("/allhikes")}
+          >
+            <FaMountain className={`icon ${location.pathname === "/allhikes" || location.pathname === "/singleview" ? "active" : ""}`}/>
           </div>
-          <div className="link" onClick={() => navigate("/notifications")}>
+          <div
+            className={`link ${location.pathname === "/notifications" ? "active-border" : ""}`}
+            onClick={() => navigate("/notifications")}
+          >
             <FiBell className={`icon ${location.pathname === "/notifications" ? "active" : ""}`}/>
-            Notifications
           </div>
-          <div className="link" onClick={() => navigate("/account")}>
+          <div
+            className={`link ${location.pathname === "/account" ? "active-border" : ""}`}
+            onClick={() => navigate("/account")}
+          >
             <FiUser className={`icon ${location.pathname === "/account" ? "active" : ""}`}/>
-            Account
           </div>
         </div>
     </nav>
