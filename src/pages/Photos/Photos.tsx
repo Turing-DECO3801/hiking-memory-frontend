@@ -51,12 +51,6 @@ const PhotoCollection = () => {
     setGalleryDisplayed(true);
   }
 
-  const getGalleryDisplay = () => {
-    if (galleryDisplayed) {
-      return <LightBox removeGallery={() => setGalleryDisplayed(false)} images={orderedImages}/>
-    }
-  }
-
   return (
     <div className="photo-collection">
       <Navbar />
@@ -82,9 +76,10 @@ const PhotoCollection = () => {
           })
         }
       </div>
-      {
-        getGalleryDisplay()
-      }
+      <LightBox
+        className={`${galleryDisplayed ? "" :"light-box-inactive"}`}
+        removeGallery={() => setGalleryDisplayed(false)}
+        images={orderedImages}/>
     </div>
   );
   

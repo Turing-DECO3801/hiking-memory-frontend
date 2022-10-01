@@ -68,14 +68,13 @@ const AllHikes = () => {
             </div>
           </div>
         </div>
-        <div className="sort-by">
+        <div className={`sort-by`}>
           <div
             onClick={handleClick}
             className={`sort-by-card ${isShown ? "sort-by-active" : ""}`}>
             Sort By
           </div>
-          {isShown ? (
-          <div className="drop-down">
+          <div className={`drop-down ${isShown ? "" : "drop-down-inactive"}`}>
             <div
               className={`selection-option ${sortType === "recent" ? "selected" : ""}`}
               onClick={() => setSortType("recent")}
@@ -109,7 +108,6 @@ const AllHikes = () => {
             </div>
             <div className="divider" />
           </div>
-          ): <></>}
           <div className="search">
             <input
               className={`search-bar ${searchOpen ? "search-bar-active" : ""}`}

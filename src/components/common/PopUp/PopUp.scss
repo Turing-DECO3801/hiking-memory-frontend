@@ -69,6 +69,7 @@
     width: 85px;
     padding: 3px 0px;
     padding-bottom: 5px;
+    box-shadow: 0px 2px 2px $low-opacity-black;
     text-align: center;
     color: $white;
     border-radius: 16px;
@@ -108,4 +109,13 @@
     border-radius: 20px;
     margin-right: 15px;
     background: $orange;
+}
+
+.popup-content .hike-map {
+    height: 170px;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0px 2px 2px $low-opacity-black;
+    margin-top: 5px;
+    margin-bottom: 15px;
 }

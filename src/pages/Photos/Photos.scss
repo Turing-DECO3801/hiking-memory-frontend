@@ -84,7 +84,33 @@
     background: $high-opacity-black;
     top: 0;
     z-index: 101;
-    animation: appear 0.5s ease;
+    opacity: 100;
+    pointer-events: all;
+    transition: all 0.5s ease;
+}
+
+.light-box .light-box-exit {
+    width: 35px;
+    height: 35px;
+    background: $orange;
+    border-radius: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 4px $low-opacity-black;
+    top: 50px;
+    left: 20px;
+}
+
+.light-box-exit {
+    font-size: 25px;
+    color: $white;
+}
+
+.light-box-inactive {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .gallery {
