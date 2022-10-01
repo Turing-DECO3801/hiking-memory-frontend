@@ -63,7 +63,7 @@ const Home = () => {
       </div>
       <br />
       <br />
-      <PopUp show={true} type="new" />
+      {/* <PopUp show={true} type="new" /> */}
     </div>
   );
   
