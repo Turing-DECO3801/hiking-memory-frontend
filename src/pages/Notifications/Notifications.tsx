@@ -3,12 +3,12 @@ import Navbar from '../../components/layout/Navbar/Navbar';
 import { FiChevronLeft } from 'react-icons/fi/'
 import "./Notifications.scss"
 import { useNavigate } from 'react-router-dom';
-import Notifications from '../Home/Notifications/Notifications';
+import Notification from './Notification';
 
 const Noitifications = () => { 
 
   const notifications = [
-    1,2,3,4,5
+    1,2,3,4,5,6,7,8
   ]
 
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const Noitifications = () => {
           <div>2</div>
         </div>
         {
-          notifications.map((notification, index) => <Notifications key={index}/>)
+          notifications.map((notification, index) => <Notification key={index}/>)
         }
       </div>
       <div className="notifications-content section delay-2">
@@ -41,7 +41,7 @@ const Noitifications = () => {
           <div>6</div>
         </div>
         {
-          notifications.map((notification, index) => <Notifications key={index}/>)
+          notifications.map((notification, index) => <Notification key={index}/>)
         }
       </div>
     </div>
