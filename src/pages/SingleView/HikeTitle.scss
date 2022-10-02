@@ -32,10 +32,31 @@
     transform: translateX(-3px);
 }
 
-.hike-title{
+.hike-card-title {
     font-size: 20px;
     margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
 }
+
+.hike-card-title .favourites-icon-container .favourites-icon {
+    position: absolute;
+    right: 20px;
+    color: $orange;
+    font-size: 25px;
+    fill: $white;
+    transition: 0.3s ease;
+}
+
+.favourites-icon-container {
+    margin-right: 0px;
+}
+
+.hike-card-title .favourites-icon-container .fill-heart {
+    fill: $orange;
+}
+
+
 
 .hike-date{
     font-size: 13px;

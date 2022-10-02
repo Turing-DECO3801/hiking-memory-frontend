@@ -1,15 +1,9 @@
 @import '../../styles/index';
 
-.notifications-page {
-    margin-bottom: 110px;
-}
-
 .notifications-content {
     margin: 0 10%;
     margin-bottom: 30px;
 }
-
-
 
 .notification-sublabel {
     margin-bottom: 10px;
@@ -79,4 +73,9 @@
 .notification-edit {
     margin-left: 10px;
     color: $orange
+}
+
+.bottom-margin {
+    width: 100%;
+    height: 90px;
 }
