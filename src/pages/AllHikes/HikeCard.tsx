@@ -2,8 +2,9 @@ import React, {  useState } from 'react';
 import "./AllHikes.scss"
 import { useSwipeable, LEFT, RIGHT, SwipeEventData } from 'react-swipeable'; 
 import Map from '../../components/common/Map/Map';
-import { FiX } from 'react-icons/fi'
+import { FiX, FiHeart } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom';
+import { FaAccessibleIcon } from 'react-icons/fa';
 
 interface HikeCardProps {
   hike: Hike,
@@ -20,6 +21,7 @@ interface Hike {
 const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
 
   const [swiped, setSwiped] = useState(false);
+  const [favourited, setFavourited] = useState(false);
 
   const navigate = useNavigate();
 
@@ -39,6 +41,12 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
     width: '100%',
     height: '110px'
   };
+
+  const onFavouritedPress = (event: React.MouseEvent<HTMLElement>) => {
+    setFavourited(!favourited);
+    event.preventDefault();
+    event.stopPropagation();
+  }
 
   const handlers = useSwipeable({
     onSwiped: handleSwiped,
@@ -71,6 +79,14 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
           </div>
           <div className="hike-title">
               {hike.title}
+              <div
+                className="favourites-icon-container"
+                onClick={(event) => onFavouritedPress(event)}
+              >
+                <FiHeart
+                  className={`favourites-icon ${favourited ? "fill-heart" : ""}`}
+                />
+              </div>
           </div>
         </div>
       </div>

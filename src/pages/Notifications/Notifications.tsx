@@ -44,6 +44,7 @@ const Noitifications = () => {
           notifications.map((notification, index) => <Notification key={index}/>)
         }
       </div>
+      <div className="bottom-margin"></div>
     </div>
   );
   

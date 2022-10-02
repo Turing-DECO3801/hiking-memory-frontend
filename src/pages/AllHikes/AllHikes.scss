@@ -280,21 +280,19 @@
     width: 100%;
     height: 50%;
     font-size: 13px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .hike-card .hike-info .hike-date-time .hike-date {
-    width: 50%;
     height: 100%;
-    float: left;
     display: flex;
     align-items: flex-end;
 }
 
 .hike-card .hike-info .hike-date-time .hike-time {
-    float: right;
-    width: 30%;
     height: 100%;
-    text-align: right;
+    margin-right: 17px;
     display: flex;
     align-items: flex-end;
 }
@@ -303,10 +301,26 @@
     width: 100%;
     height: 50%;
     display: flex;
+    justify-content: space-between;
 }
 
+.hike-title .favourites-icon-container {
+    margin-right: 40px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.favourites-icon {
+    position: absolute;
+    color: $orange;
+    font-size: 25px;
+    fill: $white;
+    transition: 0.3s ease;
+}
 
-
-
+.fill-heart {
+    fill: $orange;
+}
 

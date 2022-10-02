@@ -61,8 +61,6 @@ const Home = () => {
         </div>
         <PhotoCollection />
       </div>
-      <br />
-      <br />
       {/* <PopUp show={true} type="new" /> */}
     </div>
   );
