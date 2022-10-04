@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import "./Account.scss";
 import Navbar from '../../components/layout/Navbar/Navbar';
 import { FiUser, FiLogOut, FiClipboard, FiShield, FiEdit2, FiChevronLeft, FiMail, FiCreditCard, FiRefreshCcw } from 'react-icons/fi'
-
+import { AuthContext } from '../../contexts/AuthContext';
 const Account = () => {
-
+  
+  const { logout, email } = useContext(AuthContext);
   const [page, setPage] = useState("default");
 
   const getAccountPage = () => {
@@ -60,7 +61,7 @@ const Account = () => {
                   Email
                 </div>
                 <div className="option-value">
-                  ellasmith@gmail.com
+                  {email}
                 </div>
               </div>
             </div>
@@ -118,10 +119,10 @@ const Account = () => {
                 Terms &amp; Conditions 
               </h5>
             </div>
-            <a href="/login" className="logout">
+            <div onClick={logout} className="logout">
               <FiLogOut className="logout-icon"/>
               Log Out
-            </a>
+            </div>
           </div>
         </div>
       )

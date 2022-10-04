@@ -68,7 +68,7 @@ const SignUp = () => {
           <input type="password" className="user-input" onChange={onPasswordChange}/>
         </div>
       </div>
-      <Button className="section delay-2" onClick={login}>Sign Up</Button>
+      <Button className="section delay-2" onClick={() => null}>Sign Up</Button>
       <br/>
       <div className="section delay-3">
         Already have an account?

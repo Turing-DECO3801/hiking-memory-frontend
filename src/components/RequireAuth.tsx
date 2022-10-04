@@ -26,7 +26,7 @@ const RequireAuth = ({ children, secured, redirectTo }: RequireAuthProps): React
   
   if (isAuthed || secured === false) {
     return children;
-  } else if (isAuthed === false) {
+  } else if (isAuthed === undefined || isAuthed === false) {
     return <Navigate to="/login" replace />;
   }
 
