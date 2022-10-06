@@ -8,21 +8,18 @@ import Loading from '../../components/common/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
-  const { login } = useContext(AuthContext);
+  const { signup } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.currentTarget.value);
-  }
+  const [error, setError] = useState(false);
+  const [attempting, setAttempting] = useState(false);
 
-  const onUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.currentTarget.value);
+  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.currentTarget.value);
   }
 
   const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +28,24 @@ const SignUp = () => {
 
   const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);
+  }
+
+  const showError = () => {
+    if (error) {
+      return (
+      <div className="error-message">
+        Oops! Incorrect username or password
+      </div>
+      );
+    }
+  }
+
+  const attemptSignup = async () => {
+    setAttempting(true);
+    if (!await signup(email, password, name)) {
+      setError(true);
+    }
+    setAttempting(false);
   }
   
   return (
@@ -42,18 +57,15 @@ const SignUp = () => {
         </div>
         <h1 className="title">memory trail</h1>
       </div>
+      {
+        showError()
+      }
       <div className="section delay-1 sign-up-container">
         <div className="input-container">
           <div className="input-label">
             Name:
           </div>
           <input className="user-input" onChange={onNameChange}/>
-        </div>
-        <div className="input-container">
-          <div className="input-label">
-            Username:
-          </div>
-          <input className="user-input" onChange={onUsernameChange}/>
         </div>
         <div className="input-container">
           <div className="input-label">
@@ -68,7 +80,16 @@ const SignUp = () => {
           <input type="password" className="user-input" onChange={onPasswordChange}/>
         </div>
       </div>
-      <Button className="section delay-2" onClick={() => null}>Sign Up</Button>
+      {
+        attempting ? 
+        (
+          <div className="spinner-border orange-loader"></div>
+        ) 
+        : 
+        (
+          <Button className="section delay-2" onClick={attemptSignup}>Sign Up</Button>
+        )
+      }
       <br/>
       <div className="section delay-3">
         Already have an account?

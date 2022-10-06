@@ -9,6 +9,7 @@ interface AuthState {
   password: string | undefined;
   checkAuth: () => void;
   login: (email: string, password: string) => Promise<boolean> | undefined;
+  signup: (email: string, password: string, name: string) => Promise<boolean> | undefined;
   logout: () => void;
 }
 
@@ -18,6 +19,7 @@ export const AuthContext = createContext<AuthState>({
   password: undefined,
   checkAuth: () => undefined,
   login:  () => undefined,
+  signup:  () => undefined,
   logout: () => undefined
 });
 
@@ -64,5 +66,33 @@ export const useAuthState = (): AuthState => {
     setPassword(undefined);
   };
 
-  return { isAuthed: authed, email, password, checkAuth, login, logout };
+  const signup = async (email: string, password: string, name: string) => {
+    let success = false;
+    console.log({ email: email, password: password, name: name });
+
+    const data = await axios.post(`${serverURL}auth/signup`,
+      { email: email, password: password, name: name }
+    )
+    .then((res) => {
+      console.log("Here2");
+      success = res.data;
+      if (success) {
+        setAuthed(true);
+        navigate("/");
+        setEmail(email);
+        setPassword(password);
+      } else {
+        setAuthed(false);
+      }
+    })
+    .catch((err) => {
+      setAuthed(false);
+      console.log(err);
+    })
+    console.log("Here3");
+
+    return success;
+  }
+
+  return { isAuthed: authed, email, password, checkAuth, login, signup, logout };
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
 import { FiArrowRight, FiVolume2, FiCamera } from 'react-icons/fi/'
 import { Pagination, Navigation } from "swiper";
@@ -8,7 +8,20 @@ import PhotoCollection from './PhotoCollection/PhotoCollection';
 import PopUp from '../../components/common/PopUp/PopUp';
 import { useNavigate } from 'react-router-dom';
 
+import { getHikes } from '../../api';
+import { AuthContext } from '../../contexts/AuthContext';
+
 const Home = () => { 
+
+  const { email, password  } = useContext(AuthContext);
+
+
+  const getHikeData = async () => {
+    const hikes = await getHikes(email as string, password as string);
+    console.log(hikes);
+  }
+
+  getHikeData()
 
   const getName = () => {
     return "Ella"
