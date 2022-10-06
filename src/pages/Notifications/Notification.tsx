@@ -13,7 +13,7 @@ const Noitification = ({ openPopup }: NotificationProps) => {
   return (
     <div className="notification">
       <div className="new-notification" />
-      <div className="notification-date-time">
+      <div className="notification-date-time" onClick={() => navigate('/singleview')}>
         <div className="notification-date">
           29 Sep 2022
         </div>
@@ -22,9 +22,6 @@ const Noitification = ({ openPopup }: NotificationProps) => {
         </div>
       </div>
       <div className="notification-options">
-        <div className="notification-view" onClick={() => navigate("/singleview")}>
-          View
-        </div>
         <div className="notification-edit" onClick={openPopup}>
           Edit
         </div>

@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .notification {
@@ -32,7 +32,8 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid $light-grey;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 .new-notification {
@@ -45,6 +46,7 @@
 }
 
 .notification-date-time {
+    width: 100%;
     margin-left: 25px;
     display: flex;
     align-items: center;    
@@ -66,13 +68,14 @@
     justify-items: center;
 }
 
-.notification-view {
-    color: $light-blue
-}
-
 .notification-edit {
+    font-size: 15px;
     margin-left: 10px;
-    color: $orange
+    color: $white;
+    margin-right: 10px;
+    background: $orange;
+    padding: 0px 12px;
+    border-radius: 12px;
 }
 
 .bottom-margin {

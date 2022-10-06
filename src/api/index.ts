@@ -14,12 +14,24 @@ export const getHikes = async (email: string, password: string) => {
     console.log(email);
     console.log(password);
 
-    axios.get(`${URL}hikes/`, 
+    // axios.get(`${URL}hikes/`, 
+    //     {
+    //         headers: {
+    //             'content-type': 'application/json',
+    //             'user-agent': 
+    //             email: email,
+    //             password: password,
+    //         }
+    //     }
+    // )
+    axios(
         {
+            method: 'get',
+            url: `${URL}hikes/`,
             headers: {
                 "Content-Type": "application/json",
-                email: email,
                 password: password,
+                email: email,
             }
         }
     )
