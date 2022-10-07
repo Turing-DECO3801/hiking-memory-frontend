@@ -13,18 +13,6 @@ interface HikeCardProps {
   displayPopUp: (display: boolean) => void 
 }
 
-interface HikeData {
-  id: number,
-  email: string,
-  gps_logs: string,
-  distance: number | null,
-  start_time: string,
-  end_time: string,
-  path_name: string | null,
-  favourite: number,
-  date: Date
-}
-
 const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
 
   const { email, password  } = useContext(AuthContext);
@@ -102,7 +90,7 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
             <div className="hike-date">
               <span className="hike-date-time-text">
                 {/** Formatting of Date */}
-                {`${hike.date.getFullYear()}/${hike.date.getMonth() + 1}/${hike.date.getDay() + 1}`}
+                {`${hike.date.getFullYear()}/${hike.date.getMonth() + 1}/${hike.date.getDate()}`}
               </span>
             </div>
             <div className="hike-time">

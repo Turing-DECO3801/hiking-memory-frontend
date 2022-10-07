@@ -3,12 +3,13 @@ import Navbar from './layout/Navbar/Navbar';
 import { useLocation } from "react-router-dom";
 import Routing from './Routing';
 import { useAuthState, AuthContext } from '../contexts/AuthContext';
+import { useHikeState, HikeContext } from '../contexts/HikeContext';
 import "../styles/index.scss"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   const authState = useAuthState();
-  const hikeState = useAuthState();
+  const hikeState = useHikeState();
 
   const ScrollToTop = () => {
     const { pathname } = useLocation();
@@ -22,12 +23,12 @@ const App = () => {
   
   return (
     <AuthContext.Provider value={authState}>
-      <AuthContext.Provider value={hikeState}>
+      <HikeContext.Provider value={hikeState}>
         <ScrollToTop />
         <div>
           <Routing />
         </div>
-      </AuthContext.Provider>
+      </HikeContext.Provider>
     </AuthContext.Provider>
   );
 };
