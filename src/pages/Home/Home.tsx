@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
 import { FiArrowRight, FiVolume2, FiCamera } from 'react-icons/fi/'
 import { Pagination, Navigation } from "swiper";
@@ -10,18 +10,36 @@ import { useNavigate } from 'react-router-dom';
 
 import { getHikes } from '../../api';
 import { AuthContext } from '../../contexts/AuthContext';
+import { HikeContext } from '../../contexts/HikeContext';
 
 const Home = () => { 
 
   const { name, email, password  } = useContext(AuthContext);
+  const { setHikeData } = useContext(HikeContext);
+
+  const [latestHike, setLatestHike] = useState<HikeData>();
+
+  useEffect(() => {
+    getHikeData()
+  }, [])
 
   const getHikeData = async () => {
-    const hikes = await getHikes(email as string, password as string);
+    const hikes = await getHikes(email as string, password as string) as HikeData[];
+    setLatestHike(hikes[hikes.length - 1])
+    hikes[hikes.length - 1].date = new Date(hikes[hikes.length - 1].start_time as string)
   }
 
-  getHikeData()
-
   const navigate = useNavigate();
+
+  /**
+   * Open single hike view with the correct hike being displayed
+   */
+   const openHike = () => {
+    setHikeData(latestHike as HikeData);
+
+    navigate('/singleview')
+  }
+
 
   return (
     <div className="home">
@@ -29,14 +47,20 @@ const Home = () => {
       <br />
       <h2 className="section">Welcome Back {name}!</h2>
       <br />
-
       {/** Latest Hike Tab, could be abstracted later */}
       <div className="latest-hike section delay-1">
         <div className="left-half">
           <h5>View your latest hike</h5>
-          <div className="thin-text latest-hike-name">Mount Coo-tha 15/08</div>
+          <div className="thin-text latest-hike-name">
+            {
+              latestHike?.path_name === null ? "Unnamed " : `${latestHike?.path_name} `
+            }
+            {
+              latestHike?.date === undefined ? "" : latestHike?.date.toLocaleDateString()
+            }
+          </div>
         </div>
-        <div className="notification-button">
+        <div className="notification-button" onClick={() => openHike()}>
           <FiArrowRight className="arrow-right"/>
         </div>
         <div className="icons">
