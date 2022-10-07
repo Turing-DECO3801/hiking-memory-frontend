@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import PopUp from '../../components/common/PopUp/PopUp';
 import { getAHike } from '../../api';
 import { AuthContext } from '../../contexts/AuthContext';
+import { setFavourite } from '../../api';
 
 interface PathType {
   lat: number,
@@ -27,23 +28,33 @@ interface Audio {
 
 const SingleView = () => {
      
-  // const audioEx = [{location: {lat: -27.360349, lng: 152.963009}, audioFile: "./test.mp3", imageFile: "./image1.jpg"}, 
-  //                   {location: {lat: -27.346084, lng: 152.975356}, audioFile: "./test2.mp3", imageFile: "./image2.jpg"}];
-  const singleHikeInfo = {title: 'Afternoon Hike', date: "31/08/2022", path: pathExample};
- 
-
+  /**
+   * Use State hooks that store information about current display
+   * and data about the current path and audios
+   */
   const [displayPopUp, setDisplayPopUp] = useState(false);
   const [favourited, setFavourited] = useState(false);
   const [path, setPath] = useState(Array<PathType>);
   const [audio, setAudio] = useState(Array<Audio>);
 
+  /**
+   * Contexts for passing information between unrelated components
+   */
   const { hike } = useContext(HikeContext);
   const { email, password } = useContext(AuthContext); 
 
+  const navigate = useNavigate();
+
+  /**
+   * Loads the hike data for the current hike on page load
+   */
   useEffect(() => {
     loadSingleHikeData();
   }, []);
 
+  /**
+   * Loads all hike data and converts it into compatible types
+   */
   const loadSingleHikeData = async () => {
     const data = await getAHike(hike?.id as number, email as string, password as string) as any;
     
@@ -51,6 +62,8 @@ const SingleView = () => {
     const csvData = decoder.decode(new Uint8Array(data.logs.Body.data))
     const split = csvData.split('\r\n');
     const hikePath = [];
+
+    setFavourited(data.hike.favourite === 1 ? true : false);
 
     // Parsing Hiking Data into JSON 
     for (let line of split) {
@@ -61,8 +74,6 @@ const SingleView = () => {
         'lng': Number(coord[1])
       })
     }
-
-    console.log(data.memos);
     
     // Parsing Audio Adata into compatible format
     const memos = []
@@ -83,11 +94,8 @@ const SingleView = () => {
     setPath(hikePath);
   }
 
-  const getPopUp = () => {
-    return <PopUp show={displayPopUp} type="edit" closeHandler={() => setDisplayPopUp(false)}/>
-  }
-
   const onFavouritedPress = (event: React.MouseEvent<HTMLElement>) => {
+    setFavourite(favourited === true ? 0 : 1, hike?.id as number, email as string, password as string);
     setFavourited(!favourited);
     event.preventDefault();
     event.stopPropagation();
@@ -97,39 +105,37 @@ const SingleView = () => {
     width: '110vw',
     height: '110vh'
   };
-  
-  const navigate = useNavigate();
-  
-
+    
   return(
     <div>
-      {
-        getPopUp()
-      }
+      <PopUp show={displayPopUp} type="edit" closeHandler={() => setDisplayPopUp(false)}/>
       <Navbar/>
       <div className="map-container">
         <div className="hike-description">
           <div className="back-button" onClick={() => navigate("/allhikes")}>
             <FiChevronLeft className="back-icon"/>
           </div>
-          <div className="hike-card-title" onClick={() => setDisplayPopUp(true)}> {singleHikeInfo.title}
-              <div
-                className="favourites-icon-container"
-                onClick={(event) => onFavouritedPress(event)}
-              >
-                <FiHeart
-                  className={`favourites-icon ${favourited ? "fill-heart" : ""}`}
-                />
-              </div></div>
-          <div className="hike-date"> {singleHikeInfo.date} </div>
+          <div className="hike-card-title" onClick={() => setDisplayPopUp(true)}>
+            {
+              hike?.path_name === null ? "Unnamed" : hike?.path_name
+            }
+            <div
+              className="favourites-icon-container"
+              onClick={(event) => onFavouritedPress(event)}
+            >
+              <FiHeart
+                className={`favourites-icon ${favourited ? "fill-heart" : ""}`}
+              />
+            </div></div>
+          <div className="hike-date"> 
+            {
+              hike?.date.toLocaleDateString()
+            }
+          </div>
           <div className="hike-instructions thin-text"> Tap Memories to Upload Photos </div>
         </div>
         {
-          path.length === 0 ? 
-          (
-            null
-          )
-          :
+          path.length === 0 ? (null) :
           (
             <Map
               path={path}

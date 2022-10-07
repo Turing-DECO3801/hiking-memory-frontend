@@ -11,6 +11,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { getHikes } from '../../api';
 
 const AllHikes = () => { 
+  
   const { email, password  } = useContext(AuthContext);
 
   const [selectionType, setSelectionType] = useState("all");
@@ -18,6 +19,15 @@ const AllHikes = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [displayPopUp, setDisplayPopUp] = useState(false);
   const [hikeData, setHikeData] = useState(Array<HikeData>);
+  const [isShown, setIsShown] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+
+  // Fetch the data on page load
+  useEffect(() => {
+    getHikeData();
+  }, [])
+
+  const navigate = useNavigate();
 
   const pathExample = [
     { lat: 37, lng: -122 },
@@ -28,7 +38,6 @@ const AllHikes = () => {
 
   const getHikeData = async () => {
     const hikes = await getHikes(email as string, password as string) as Array<HikeData>;
-
     for (let hike of hikes) {
       hike.date = new Date(hike.start_time);
     }
@@ -39,17 +48,6 @@ const AllHikes = () => {
 
     setHikeData(hikes);
   }
-
-  // Fetch the data on page load
-  useEffect(() => {
-    getHikeData();
-  }, [])
-
-  const [isShown, setIsShown] = useState(false);
-
-  const [searchValue, setSearchValue] = useState("");
-
-  const navigate = useNavigate();
 
   const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.currentTarget.value)

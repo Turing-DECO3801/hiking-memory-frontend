@@ -86,8 +86,6 @@ function AudioModal( { show, handleClose, handleOpen, id, audioFile, imageFile, 
     }
   }, [notes])
 
-
-
   /**
    * Save the notes by sending data to the backend for storage in the
    * database.

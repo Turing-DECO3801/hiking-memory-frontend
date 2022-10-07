@@ -97,7 +97,7 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
             <div className="hike-date">
               <span className="hike-date-time-text">
                 {/** Formatting of Date */}
-                {`${hike.date.getFullYear()}/${hike.date.getMonth() + 1}/${hike.date.getDate()}`}
+                {hike?.date.toLocaleDateString()}
               </span>
             </div>
             <div className="hike-time">
