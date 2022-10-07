@@ -26,8 +26,6 @@ export const getHikes = async (email: string, password: string) => {
         console.log(err);
     })
 
-    console.log(data);
-
     return data;
 }
 
@@ -56,6 +54,30 @@ export const setFavourite = async (value: number, hikeId: number, email: string,
     let data = {};
 
     await axios.put(`${URL}hikes/${hikeId}/favourite/`, 
+        {
+            value: value
+        },
+        {
+            headers: {
+                email: email,
+                password: password,
+            }
+        }
+    )
+    .then((res) => {
+        data = res.data;
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
+    return data;
+}
+
+export const updateMemoNotes = async (value: string, memoId: number, email: string, password: string) => {
+    let data = {};
+
+    await axios.post(`${URL}memos/${memoId}/notes`, 
         {
             value: value
         },

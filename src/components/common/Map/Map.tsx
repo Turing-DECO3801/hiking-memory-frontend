@@ -8,7 +8,15 @@ import useStateRef from '../../../hooks/useStateRef'
 
 interface MapProps {
   path: {lat: number, lng: number}[];
-  audio?: {location: {lat: number, lng: number}, audioFile: string, imageFile: string}[];
+  audio?: {
+    id: number,
+    location: {
+      lat: number, lng: number
+    },
+    audioFile: string,
+    imageFile: string,
+    notes: string,
+    transcript: string}[];
   containerStyle: {width: string, height: string}
   mini?: boolean
 }
@@ -16,8 +24,11 @@ interface MapProps {
 function Map(mapInfo: MapProps) {
 
   const [show, setShow] = useState(false);
+  const [memoId, setMemoId] = useState(-1);
   const [audioFile, setAudioFile] = useState("hello");
   const [imageFile, setImageFile] = useState("hello");
+  const [notes, setNotes] = useState("");
+  const [transcript, setTranscript] = useState("");
   const [currentSelection, setCurrentSelection, selectionRef] = useStateRef<any>(null);
 
   const { isLoaded } = useJsApiLoader({
@@ -88,15 +99,21 @@ function Map(mapInfo: MapProps) {
             animation: google.maps.Animation.DROP,
             map: map
           });
-  
+          
+          const memoId = mapInfo.audio[i].id;
           const aFile = mapInfo.audio[i].audioFile;
           const iFile = mapInfo.audio[i].imageFile;
+          const notes = mapInfo.audio[i].notes;
+          const transcript = mapInfo.audio[i].transcript;
           volumeMarker.addListener("click", () => {
             if (selectionRef !== null && selectionRef.current !== null) {
               selectionRef.current.setIcon(SVGMarker);
             }
+            setMemoId(memoId);
             setAudioFile(aFile);
             setImageFile(iFile);
+            setNotes(notes);
+            setTranscript(transcript);
             setShow(true);
             marker.setIcon(selectedSVGMarker);
             setCurrentSelection(marker);
@@ -145,8 +162,11 @@ function Map(mapInfo: MapProps) {
       <AudioModal show={show}
         handleClose={() => closeModal()}
         handleOpen={() => setShow(true)}
+        id={memoId}
         audioFile={audioFile}
         imageFile={imageFile}
+        notes={notes}
+        transcript={transcript}
       />
     );
   }

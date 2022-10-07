@@ -1,20 +1,33 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { FiImage, FiEdit3, FiFileText, FiHeadphones, FiChevronLeft, FiX, FiSave } from "react-icons/fi";
 import { useSwipeable, DOWN, SwipeEventData } from 'react-swipeable'; 
+import { AuthContext } from '../../../contexts/AuthContext';
 import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
+import { updateMemoNotes } from '../../../api';
 
 import "./AudioModal.scss"
 
 interface Props {
-    show: boolean;
-    handleClose: () => void;
-    handleOpen: () => void;
-    audioFile: string;
-    imageFile: string;
+    show: boolean,
+    handleClose: () => void,
+    handleOpen: () => void,
+    id: number,
+    audioFile: string,
+    imageFile: string,
+    notes: string,
+    transcript: string,
 }
 
-function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Props) {
+function AudioModal( { show, handleClose, handleOpen, id, audioFile, imageFile, notes, transcript }: Props) {
 
+  /**
+   * Email and Password references for API 
+   */
+  const { email, password } = useContext(AuthContext)
+
+  /**
+   * Use State hooks for display changes
+   */
   const [hidden, setHidden] = useState(false);
   const [notesDisplayed, setNotesDisplayed] = useState(false);
   const [transcriptDisplayed, setTranscriptDisplayed] = useState(false);
@@ -24,18 +37,25 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
   const [imagePopup, setImagePopup] = useState(false);
   const [notesText, setNotesText] = useState("");
 
+  /**
+   * Reference for height changes of the Notes input section
+   */
   const notesRef = useRef<HTMLTextAreaElement>(null);
 
-  // const audio = new Audio(audioFile);
-
-  // const start = () => {
-  //   audio.play();
-  // }
-
+  /**
+   * Prevents a mouse event from propogating through the the parent
+   * elements for click events.
+   */
   const preventPropogation = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
   }
 
+  /**
+   * Updates the currently set value of the notes section one keyboard
+   * press
+   * 
+   * @param event Input Change Event
+   */
   const onNotesChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNotesText(event.currentTarget.value);
     if (notesRef.current !== null) {
@@ -43,12 +63,46 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
     }
   }
 
+  /**
+   * Hnadles the setting and uploading of image when a new one has been uploaded
+   * 
+   * @param event File Input Change
+   */
   const uploadHandler = (event:React.ChangeEvent<HTMLInputElement>) => {
     if (event !== null && event.target !== null && event.target.files !== null) {
       setImage(event.target.files[0])
     }
   }
 
+  /**
+   * Updates the notes and transcription when the audio memo selection
+   * has changed.
+   */
+  useEffect(() => {
+    if (notes === null) {
+      setNotesText("");
+    } else {
+      setNotesText(notes);
+    }
+  }, [notes])
+
+
+
+  /**
+   * Save the notes by sending data to the backend for storage in the
+   * database.
+   */
+  const saveNotes = () => {
+    updateMemoNotes(notesText, id, email as string, password as string);
+  }
+
+  /**
+   * Checks if an image already exists, if it does, then it will 
+   * be displayed, if not, then an option to add an image will be
+   * shown.
+   * 
+   * @returns Image Add or Display React Component
+   */
   const getImage = () => {
     if (image !== null) {
       const source = URL.createObjectURL(image);
@@ -70,25 +124,44 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
     );
   }
 
+  /**
+   * Handles the closing of the menu
+   */
   const hideModal = () => {
     if (show) {
+      setTabDisplay(0);
       handleClose();
       setHidden(true);
     }
   }
 
+  /**
+   * Swipe event that is called once a swipe has occurred
+   * on the audio menu
+   * 
+   * @param eventData Swipe Event Data 
+   */
   const handleSwiped = (eventData: SwipeEventData) => {
     if (eventData.dir === DOWN) {
       hideModal();
     }
   }
 
+  /**
+   * Handlers for swipeable features for closing the menu
+   */
   const handlers = useSwipeable({
     onSwiped: handleSwiped,
     touchEventOptions: { passive: false },
     preventScrollOnSwipe: true,
   });
 
+  /**
+   * Checks if an image exists for the current audio memo,
+   * if it does, then return the component for it.
+   * 
+   * @returns Image React Component
+   */
   const getImagePopUp = () => {
     if (image !== null) {
       return (
@@ -104,6 +177,11 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
     }
   }
 
+  /**
+   * React Component for the audio options tab
+   * 
+   * @returns Default Menu React Component
+   */
   const defaultTab =() => {
     return (
       <>
@@ -145,6 +223,11 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
     )
   }
 
+  /**
+   * React Component for the Notes Tab
+   * 
+   * @returns React Component
+   */
   const notesTab = () => {
     return (
       <>
@@ -157,7 +240,7 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
               <FiChevronLeft className="back-icon"/>
               Back
             </div>
-            <div className="nav-save" >
+            <div className="nav-save" onClick={saveNotes}>
               <FiSave className="save-icon"/>
               Save
             </div>
@@ -178,6 +261,11 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
     );
   }
 
+  /**
+   * React Component for the Audio Transcript Tab
+   * 
+   * @returns Transcript React Component
+   */
   const audioTranscriptTab = () => {
     return (
       <>
@@ -201,6 +289,11 @@ function AudioModal( { show, handleClose, handleOpen, audioFile, imageFile }: Pr
     );
   }
 
+  /**
+   * React Component for the Audio Player Tab
+   * 
+   * @returns Audio Player React Component
+   */
   const audioTab = () => {
     return (
       <>

@@ -44,7 +44,6 @@ const Noitifications = () => {
   useEffect(() => {
     getHikeData();
     currentDate.setDate(currentDate.getDate() - 30);
-    console.log(currentDate);
   }, [])
 
 

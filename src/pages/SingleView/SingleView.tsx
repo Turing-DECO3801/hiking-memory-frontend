@@ -17,9 +17,12 @@ interface PathType {
 }
 
 interface Audio {
+  id: number,
   location: PathType,
   audioFile: string,
   imageFile: string,
+  notes: string,
+  transcript: string
 }
 
 const SingleView = () => {
@@ -58,11 +61,14 @@ const SingleView = () => {
         'lng': Number(coord[1])
       })
     }
+
+    console.log(data.memos);
     
     // Parsing Audio Adata into compatible format
     const memos = []
     for (let memo of data.memos) {
       memos.push({
+        id: memo.id,
         location: {
           'lat': memo.longitude,
           'lng': memo.latitude
@@ -70,7 +76,7 @@ const SingleView = () => {
         audioFile: memo.audioUrl,
         imageFile: '',
         notes: memo.notes,
-        transcription: memo.transcription
+        transcript: memo.transcription
       })
     }
     setAudio(memos)
@@ -119,7 +125,18 @@ const SingleView = () => {
           <div className="hike-instructions thin-text"> Tap Memories to Upload Photos </div>
         </div>
         {
-          path.length === 0 ? null : <Map path={path} audio={audio} containerStyle={containerStyle}/>
+          path.length === 0 ? 
+          (
+            null
+          )
+          :
+          (
+            <Map
+              path={path}
+              audio={audio}
+              containerStyle={containerStyle}
+            />
+          )
         }
         <MapMenu />
       </div>
