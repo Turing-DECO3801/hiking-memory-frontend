@@ -58,11 +58,10 @@ const Home = () => {
       <br />
       <br />
 
-      {/** Notifications Tab */}
+      {/** Highlights Tab */}
       <div className="section delay-2">
         <div className="section-header">
-          <h4>Notifications</h4>
-          <div className="link" onClick={() => navigate("/notifications")}>edit</div>
+          <h4>Highlights</h4>
         </div>
         <Notifications />
       </div>

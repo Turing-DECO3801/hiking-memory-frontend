@@ -3,8 +3,9 @@
 
 .content {
     margin: 10%;
-    position: relative;
+    margin-top: 0px;
     margin-bottom: 110px;
+    position: relative;
 }
 
 .filters {
@@ -15,6 +16,7 @@
     z-index: 100;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .filters .all-favourites {

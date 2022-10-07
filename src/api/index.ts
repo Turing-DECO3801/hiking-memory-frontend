@@ -11,33 +11,16 @@ export const login = (email: string, password: string) => {
 export const getHikes = async (email: string, password: string) => {
     let data = {};
 
-    console.log(email);
-    console.log(password);
-
-    // axios.get(`${URL}hikes/`, 
-    //     {
-    //         headers: {
-    //             'content-type': 'application/json',
-    //             'user-agent': 
-    //             email: email,
-    //             password: password,
-    //         }
-    //     }
-    // )
-    axios(
+    await axios.get(`${URL}hikes`, 
         {
-            method: 'get',
-            url: `${URL}hikes/`,
             headers: {
-                "Content-Type": "application/json",
-                password: password,
                 email: email,
+                password: password,
             }
         }
     )
     .then((res) => {
         data = res.data;
-        console.log(data);
     })
     .catch((err) => {
         console.log(err);
@@ -46,27 +29,26 @@ export const getHikes = async (email: string, password: string) => {
     return data;
 }
 
-// const signup = async (email: string, password: string, name: string) => {
-//     let success = false;
+export const setFavourite = async (value: number, hikeId: number, email: string, password: string) => {
+    let data = {};
 
-//     const data = await axios.post(`${serverURL}auth/signup`,
-//       { email: email, password: password, name: name }
-//     )
-//     .then((res) => {
-//       success = res.data;
-//       if (success) {
-//         setAuthed(true);
-//         navigate("/");
-//         setEmail(email);
-//         setPassword(password);
-//       } else {
-//         setAuthed(false);
-//       }
-//     })
-//     .catch((err) => {
-//       setAuthed(false);
-//       console.log(err);
-//     })
+    await axios.put(`${URL}hikes/${hikeId}/favourite/`, 
+        {
+            value: value
+        },
+        {
+            headers: {
+                email: email,
+                password: password,
+            }
+        }
+    )
+    .then((res) => {
+        data = res.data;
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 
-//     return success;
-//   }
+    return data;
+}

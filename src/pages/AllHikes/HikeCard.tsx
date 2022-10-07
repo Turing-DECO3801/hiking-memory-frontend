@@ -1,24 +1,33 @@
-import React, {  useState } from 'react';
+import React, {  useState, useEffect, useContext } from 'react';
 import "./AllHikes.scss"
 import { useSwipeable, LEFT, RIGHT, SwipeEventData } from 'react-swipeable'; 
 import Map from '../../components/common/Map/Map';
 import { FiX, FiHeart } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom';
-import { FaAccessibleIcon } from 'react-icons/fa';
+import { setFavourite } from '../../api';
+import { AuthContext } from '../../contexts/AuthContext';
+
 
 interface HikeCardProps {
-  hike: Hike,
+  hike: HikeData,
   displayPopUp: (display: boolean) => void 
 }
 
-interface Hike {
-  title: string,
-  date: string,
-  time: string,
-  path: any[],
+interface HikeData {
+  id: number,
+  email: string,
+  gps_logs: string,
+  distance: number | null,
+  start_time: string,
+  end_time: string,
+  path_name: string | null,
+  favourite: number,
+  date: Date
 }
 
 const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
+
+  const { email, password  } = useContext(AuthContext);
 
   const [swiped, setSwiped] = useState(false);
   const [favourited, setFavourited] = useState(false);
@@ -37,17 +46,37 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
     }
   }
 
+  /**
+   * Container used for the map API thumbnail
+   */
   const containerStyle = {
     width: '100%',
     height: '110px'
   };
 
+  /**
+   * Setting favourite based on data from the database
+   */
+  useEffect(() => {
+    setFavourited(hike.favourite === 1 ? true : false);
+  }, [])
+
+  /**
+   * Functionality that occurs when the favourite button is pressed
+   * 
+   * @param event Click Event
+   */
   const onFavouritedPress = (event: React.MouseEvent<HTMLElement>) => {
+    setFavourite(favourited === true ? 0 : 1, hike.id, email as string, password as string);
     setFavourited(!favourited);
+
     event.preventDefault();
     event.stopPropagation();
   }
 
+  /**
+   * Swipe Handler for select to delete functionaliy on left swip
+   */
   const handlers = useSwipeable({
     onSwiped: handleSwiped,
     touchEventOptions: { passive: false },
@@ -71,14 +100,20 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
         <div className="hike-info">
           <div className="hike-date-time"> 
             <div className="hike-date">
-              <span className="hike-date-time-text"> {hike.date}</span>
+              <span className="hike-date-time-text">
+                {/** Formatting of Date */}
+                {`${hike.date.getFullYear()}/${hike.date.getMonth() + 1}/${hike.date.getDay() + 1}`}
+              </span>
             </div>
             <div className="hike-time">
-              <span>{hike.time}</span>
+                {/** Formatting of Time */}
+              <span>
+                {`${hike.date.getHours() % 12}:${hike.date.getMinutes()}${hike.date.getHours() < 12 ? "am" : "pm"}`}
+              </span>
             </div>
           </div>
           <div className="hike-title">
-              {hike.title}
+              {hike.path_name === null ? "Unnamed Hike" : hike.path_name}
               <div
                 className="favourites-icon-container"
                 onClick={(event) => onFavouritedPress(event)}

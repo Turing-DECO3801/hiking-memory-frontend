@@ -68,13 +68,11 @@ export const useAuthState = (): AuthState => {
 
   const signup = async (email: string, password: string, name: string) => {
     let success = false;
-    console.log({ email: email, password: password, name: name });
 
     const data = await axios.post(`${serverURL}auth/signup`,
       { email: email, password: password, name: name }
     )
     .then((res) => {
-      console.log("Here2");
       success = res.data;
       if (success) {
         setAuthed(true);
@@ -89,7 +87,6 @@ export const useAuthState = (): AuthState => {
       setAuthed(false);
       console.log(err);
     })
-    console.log("Here3");
 
     return success;
   }
