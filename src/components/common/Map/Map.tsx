@@ -29,7 +29,6 @@ function Map(mapInfo: MapProps) {
 
   const onLoad = React.useCallback(function callback(map: any) {
     const bounds = new google.maps.LatLngBounds();
-
     for (let i = 0; i < mapInfo.path.length; i++) {
       bounds.extend(mapInfo.path[i]);
     }
@@ -157,12 +156,12 @@ function Map(mapInfo: MapProps) {
       {
         getModal()
       }
-    <GoogleMap
-      mapContainerStyle={mapInfo.containerStyle}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-      options = {options}
-    />
+      <GoogleMap
+        mapContainerStyle={mapInfo.containerStyle}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+        options = {options}
+      />
     </div>
   ) : <></>;
   
