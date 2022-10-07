@@ -26,6 +26,29 @@ export const getHikes = async (email: string, password: string) => {
         console.log(err);
     })
 
+    console.log(data);
+
+    return data;
+}
+
+export const getAHike = async (id: number, email: string, password: string) => {
+    let data = {};
+
+    await axios.get(`${URL}hikes/${id}/`, 
+        {
+            headers: {
+                email: email,
+                password: password,
+            }
+        }
+    )
+    .then((res) => {
+        data = res.data;
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
     return data;
 }
 

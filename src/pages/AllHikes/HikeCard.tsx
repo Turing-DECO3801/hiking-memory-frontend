@@ -6,6 +6,7 @@ import { FiX, FiHeart } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom';
 import { setFavourite } from '../../api';
 import { AuthContext } from '../../contexts/AuthContext';
+import { HikeContext } from '../../contexts/HikeContext';
 
 
 interface HikeCardProps {
@@ -16,6 +17,7 @@ interface HikeCardProps {
 const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
 
   const { email, password  } = useContext(AuthContext);
+  const { setHikeData } = useContext(HikeContext);
 
   const [swiped, setSwiped] = useState(false);
   const [favourited, setFavourited] = useState(false);
@@ -62,6 +64,11 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
     event.stopPropagation();
   }
 
+  const openSingleHike = () => {
+    setHikeData(hike);
+    navigate("/singleview")
+  }
+
   /**
    * Swipe Handler for select to delete functionaliy on left swip
    */
@@ -80,7 +87,7 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
       </div>
       <div
         className={`hike-card ${swiped ? "hike-card-selected" : ""}`} {...handlers}
-        onClick={() => navigate("/singleview")}
+        onClick={openSingleHike}
       >
         <div className="hike-map">
           {/* <Map path={hike.path} containerStyle={containerStyle} mini={true}/> */}

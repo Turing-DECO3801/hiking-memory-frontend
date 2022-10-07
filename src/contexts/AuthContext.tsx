@@ -7,6 +7,7 @@ interface AuthState {
   isAuthed: boolean | undefined;
   email: string | undefined;
   password: string | undefined;
+  name: string | undefined;
   checkAuth: () => void;
   login: (email: string, password: string) => Promise<boolean> | undefined;
   signup: (email: string, password: string, name: string) => Promise<boolean> | undefined;
@@ -17,6 +18,7 @@ export const AuthContext = createContext<AuthState>({
   isAuthed: undefined,
   email: undefined,
   password: undefined,
+  name: undefined,
   checkAuth: () => undefined,
   login:  () => undefined,
   signup:  () => undefined,
@@ -26,6 +28,7 @@ export const AuthContext = createContext<AuthState>({
 export const useAuthState = (): AuthState => {
   const [authed, setAuthed] = useState<boolean>();
   const [email, setEmail] = useState<string>();
+  const [name, setName] = useState<string>();
   const [password, setPassword] = useState<string>();
 
   const API = process.env.REACT_APP_BACKEND_API;
@@ -48,8 +51,9 @@ export const useAuthState = (): AuthState => {
       if (success) {
         setAuthed(true);
         navigate("/");
-        setEmail(email);
-        setPassword(password);
+        setEmail(res.data.user.email);
+        setPassword(res.data.user.password);
+        setName(res.data.user.name);
       } else {
         setAuthed(false);
       }
@@ -77,8 +81,9 @@ export const useAuthState = (): AuthState => {
       if (success) {
         setAuthed(true);
         navigate("/");
-        setEmail(email);
-        setPassword(password);
+        setEmail(res.data.user.email);
+        setPassword(res.data.user.password);
+        setName(res.data.user.name);
       } else {
         setAuthed(false);
       }
@@ -91,5 +96,5 @@ export const useAuthState = (): AuthState => {
     return success;
   }
 
-  return { isAuthed: authed, email, password, checkAuth, login, signup, logout };
+  return { isAuthed: authed, email, password, name, checkAuth, login, signup, logout };
 };

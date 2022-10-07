@@ -13,19 +13,13 @@ import { AuthContext } from '../../contexts/AuthContext';
 
 const Home = () => { 
 
-  const { email, password  } = useContext(AuthContext);
-
+  const { name, email, password  } = useContext(AuthContext);
 
   const getHikeData = async () => {
     const hikes = await getHikes(email as string, password as string);
-    console.log(hikes);
   }
 
   getHikeData()
-
-  const getName = () => {
-    return "Ella"
-  }
 
   const navigate = useNavigate();
 
@@ -33,7 +27,7 @@ const Home = () => {
     <div className="home">
       <Navbar />
       <br />
-      <h2 className="section">Welcome Back {getName()}!</h2>
+      <h2 className="section">Welcome Back {name}!</h2>
       <br />
 
       {/** Latest Hike Tab, could be abstracted later */}

@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {useMemo} from 'react';
-import { GoogleMap, useJsApiLoader, Marker, MarkerClusterer } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import "./Map.scss"
-import { createTextSpanFromBounds } from 'typescript';
-import { render } from '@testing-library/react';
-import { FaPlay, FaMapMarker, FaMap } from 'react-icons/fa';
-import Modal from 'react-bootstrap/Modal';
-import { Button } from 'react-bootstrap';
 import AudioModal from '../AudioModal/AudioModal';
 import useStateRef from '../../../hooks/useStateRef'
 

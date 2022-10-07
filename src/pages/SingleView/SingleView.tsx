@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
 import Map from '../../components/common/Map/Map';
 import { HikeContext } from '../../contexts/HikeContext';
@@ -9,15 +9,8 @@ import MapMenu from '../../components/common/MapMenu/MapMenu';
 import { FiChevronLeft, FiHeart } from 'react-icons/fi/'
 import { useNavigate } from 'react-router-dom';
 import PopUp from '../../components/common/PopUp/PopUp';
-
-interface Hike {
-  title: string,
-  date: string,
-  path: any[],
-  center: {lat: number, lng: number},
-  zoom: number;
-  audio: any[]
-}
+import { getAHike } from '../../api';
+import { AuthContext } from '../../contexts/AuthContext';
 
 
 const SingleView = () => {
@@ -27,12 +20,29 @@ const SingleView = () => {
    
   const [displayPopUp, setDisplayPopUp] = useState(false);
   const [favourited, setFavourited] = useState(false);
+  const [hikeData, setHikeData] = useState()
+
+  const { hike } = useContext(HikeContext);
+  const { email, password } = useContext(AuthContext); 
+
+  // console.log(hike);
+
+  useEffect(() => {
+    loadSingleHike();
+  }, []);
+
+  const loadSingleHike = async () => {
+    const data = await getAHike(hike?.id as number, email as string, password as string) as any;
+    
+    var enc = new TextDecoder("utf-8");
+    enc.decode(new Uint8Array(data.logs.Body.data))
+  }
 
   const getPopUp = () => {
     return <PopUp show={displayPopUp} type="edit" closeHandler={() => setDisplayPopUp(false)}/>
   }
-                
 
+            
   const singleHikeInfo = {title: 'Afternoon Hike', date: "31/08/2022", path: pathExample, center: {lat: -10, lng: -38.523}, zoom: 10, audio: audioEx};
 
   const onFavouritedPress = (event: React.MouseEvent<HTMLElement>) => {

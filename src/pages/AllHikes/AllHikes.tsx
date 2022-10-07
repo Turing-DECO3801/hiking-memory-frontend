@@ -10,18 +10,6 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import { getHikes } from '../../api';
 
-interface HikeData {
-  id: number,
-  email: string,
-  gps_logs: string,
-  distance: number | null,
-  start_time: string,
-  end_time: string,
-  path_name: string | null,
-  favourite: number
-  date: Date
-}
-
 const AllHikes = () => { 
   const { email, password  } = useContext(AuthContext);
 
@@ -31,10 +19,12 @@ const AllHikes = () => {
   const [displayPopUp, setDisplayPopUp] = useState(false);
   const [hikeData, setHikeData] = useState(Array<HikeData>);
 
-  const pathExample = [{ lat: 37, lng: -122 },
+  const pathExample = [
+    { lat: 37, lng: -122 },
     { lat: 37, lng: -121 },
     { lat: 38, lng: -121 },
-    { lat: 38, lng: -122 }];
+    { lat: 38, lng: -122 }
+  ];
 
   const getHikeData = async () => {
     const hikes = await getHikes(email as string, password as string) as Array<HikeData>;
@@ -66,11 +56,7 @@ const AllHikes = () => {
   }
 
   const handleClick = (event: any) => {
-    // 👇️ toggle shown state
     setIsShown(current => !current);
-
-    // 👇️ or simply set it to true
-    // setIsShown(true);
   };
 
   const getPopUp = () => {

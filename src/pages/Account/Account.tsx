@@ -1,11 +1,13 @@
 import React, { useState, useContext } from 'react';
 import "./Account.scss";
 import Navbar from '../../components/layout/Navbar/Navbar';
-import { FiUser, FiLogOut, FiClipboard, FiShield, FiEdit2, FiChevronLeft, FiMail, FiCreditCard, FiRefreshCcw } from 'react-icons/fi'
+import { FiUser, FiLogOut, FiClipboard, FiShield, FiEdit2, FiChevronLeft, FiMail, FiRefreshCcw } from 'react-icons/fi'
 import { AuthContext } from '../../contexts/AuthContext';
+
+
 const Account = () => {
   
-  const { logout, email } = useContext(AuthContext);
+  const { logout, email, name } = useContext(AuthContext);
   const [page, setPage] = useState("default");
 
   const getAccountPage = () => {
@@ -25,7 +27,7 @@ const Account = () => {
           <div className="account-options">
             <div className="account-page-option">
               <div className="option-icon-container">
-                <FiCreditCard className="account-page-option-icon"/>
+              <FiUser className="account-page-option-icon"/>
               </div>
               <div className="vertical-divider"/>
               <div className="option-container">
@@ -33,21 +35,7 @@ const Account = () => {
                   Full Name
                 </div>
                 <div className="option-value">
-                  Ella Smith
-                </div>
-              </div>
-            </div>
-            <div className="account-page-option">
-              <div className="option-icon-container">
-                <FiUser className="account-page-option-icon"/>
-              </div>
-              <div className="vertical-divider"/>
-              <div className="option-container">
-                <div className="option-label">
-                  Username
-                </div>
-                <div className="option-value">
-                  @hiking.ella
+                  { name }
                 </div>
               </div>
             </div>
@@ -84,8 +72,8 @@ const Account = () => {
               <FiEdit2 className="edit-image-icon"/>
             </div>
           </div>
-          <h2 className="section">Ella Smith</h2>
-          <h6 className="section username">@hiking.ella</h6>
+          <h2 className="section">{ name }</h2>
+          <h6 className="section username">@memtrail.{name?.toLowerCase().replace(' ', '.')}</h6>
           <div className="section delay-1 user-stats">
             <div className="stats-container">
               <div className="stats-number">54</div>
