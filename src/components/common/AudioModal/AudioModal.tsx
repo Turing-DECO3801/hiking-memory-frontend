@@ -10,7 +10,6 @@ import "./AudioModal.scss"
 interface Props {
     show: boolean,
     handleClose: () => void,
-    handleOpen: () => void,
     id: number,
     audioFile: string,
     imageFile: string,
@@ -18,7 +17,8 @@ interface Props {
     transcript: string,
 }
 
-function AudioModal( { show, handleClose, handleOpen, id, audioFile, imageFile, notes, transcript }: Props) {
+function AudioModal( { show, handleClose, id, audioFile, imageFile, notes,
+                      transcript }: Props) {
 
   /**
    * Email and Password references for API 
@@ -70,9 +70,9 @@ function AudioModal( { show, handleClose, handleOpen, id, audioFile, imageFile, 
    */
   const uploadHandler = async (event:React.ChangeEvent<HTMLInputElement>) => {
     if (event !== null && event.target !== null && event.target.files !== null) {
-      setImage(URL.createObjectURL(event.target.files[0]))
+      const url = URL.createObjectURL(event.target.files[0])
+      setImage(url)
       const data = await updateImage(event.target.files[0], id, email as string, password as string);
-      console.log(data);
     }
   }
 

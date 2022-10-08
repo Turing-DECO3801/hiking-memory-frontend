@@ -147,3 +147,25 @@ export const updateImage = async (value: Blob, memoId: number, email: string, pa
 
     return data;
 }
+
+export const getImageCollection = async (email: string, password: string) => {
+    let data = {};
+
+    await axios.get(`${URL}stats/path-collection`, 
+        {
+            headers: {
+                email: email,
+                password: password,
+            }
+        }
+    )
+    .then((res) => {
+        data = res.data;
+        console.log(data);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
+    return data;
+}

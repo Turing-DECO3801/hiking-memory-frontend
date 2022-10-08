@@ -4,6 +4,7 @@ import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import "./Map.scss"
 import AudioModal from '../AudioModal/AudioModal';
 import useStateRef from '../../../hooks/useStateRef'
+import { updateImage } from '../../../api';
 
 
 interface MapProps {
@@ -17,7 +18,7 @@ interface MapProps {
     imageFile: string,
     notes: string,
     transcript: string}[];
-  containerStyle: {width: string, height: string}
+  containerStyle: {width: string, height: string},
   mini?: boolean
 }
 
@@ -161,7 +162,6 @@ function Map(mapInfo: MapProps) {
     return (
       <AudioModal show={show}
         handleClose={() => closeModal()}
-        handleOpen={() => setShow(true)}
         id={memoId}
         audioFile={audioFile}
         imageFile={imageFile}

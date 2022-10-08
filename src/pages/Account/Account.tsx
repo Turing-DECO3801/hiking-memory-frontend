@@ -1,14 +1,40 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import "./Account.scss";
 import Navbar from '../../components/layout/Navbar/Navbar';
 import { FiUser, FiLogOut, FiClipboard, FiShield, FiEdit2, FiChevronLeft, FiMail, FiRefreshCcw } from 'react-icons/fi'
 import { AuthContext } from '../../contexts/AuthContext';
+import { getHikes, getImageCollection } from '../../api';
 
+interface ImageData {
+  path_name: string,
+  image: string | null,
+  imageUrl?: string 
+}
 
 const Account = () => {
   
-  const { logout, email, name } = useContext(AuthContext);
+  const { logout, email, password, name } = useContext(AuthContext);
   const [page, setPage] = useState("default");
+  const [hikeData, setHikeData] = useState(Array<HikeData>);
+  const [photoCount, setPhotoCount] = useState(0);
+  
+  useEffect(() => {
+    getHikeData()
+  }, [])
+  
+  const getHikeData = async () => {
+    const hikes = await getHikes(email as string, password as string) as HikeData[];
+    setHikeData(hikes);
+
+    const images = await getImageCollection(email as string, password as string) as ImageData[];
+    let count = 0;
+    for (const image of images) {
+      if (image.image !== null) {
+        count++;
+      }
+    }
+    setPhotoCount(count);
+  }
 
   const getAccountPage = () => {
     if (page === "account") {
@@ -76,7 +102,7 @@ const Account = () => {
           <h6 className="section username">@memtrail.{name?.toLowerCase().replace(' ', '.')}</h6>
           <div className="section delay-1 user-stats">
             <div className="stats-container">
-              <div className="stats-number">54</div>
+              <div className="stats-number">{hikeData.length}</div>
               <div className="stats-label">hikes</div>
             </div>
             <div className="stats-container">
@@ -84,7 +110,7 @@ const Account = () => {
               <div className="stats-label">memos</div>
             </div>
             <div className="stats-container">
-              <div className="stats-number">26</div>
+              <div className="stats-number">{photoCount}</div>
               <div className="stats-label">photos</div>
             </div>
           </div>
