@@ -21,7 +21,7 @@ const Noitifications = () => {
   const getHikeData = async () => {
     const hikes = await getHikes(email as string, password as string) as Array<HikeData>;
 
-    for (let hike of hikes) {
+    for (const hike of hikes) {
       hike.date = new Date(hike.start_time);
     }
 

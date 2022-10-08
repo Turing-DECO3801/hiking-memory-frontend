@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { AuthContext } from '../../../contexts/AuthContext';
 import { HikeContext } from '../../../contexts/HikeContext';
+import { updateHikeName } from '../../../api';
 import Map from '../Map/Map';
 import './PopUp.scss';
 
@@ -10,12 +12,19 @@ interface NewHikeProps {
 
 const NewHike = ({ close }: NewHikeProps) => {
   
-  const { hike } = useContext(HikeContext);
+  const { hike, updateHikePath } = useContext(HikeContext);
+  const { email, password } = useContext(AuthContext);
 
   const [hikeName, setHikeName] = useState("");
 
   const onNameChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     setHikeName(event.currentTarget.value);
+  }
+
+  const submitChange = () => {
+    updateHikePath(hikeName);
+    updateHikeName(hikeName, hike?.id as number, email as string, password as string);
+    close();
   }
 
   /**
@@ -39,7 +48,7 @@ const NewHike = ({ close }: NewHikeProps) => {
       </div>
       <div className="buttons">
         <div className="cancel-button" onClick={close}>Cancel</div>
-        <div className="action-button">Submit</div>
+        <div className="action-button" onClick={submitChange}>Submit</div>
       </div>
     </div>
   );

@@ -50,6 +50,31 @@ export const getAHike = async (id: number, email: string, password: string) => {
     return data;
 }
 
+export const updateHikeName = async (value: string, id: number, email: string, password: string) => {
+    let data = {};
+
+    await axios.put(`${URL}hikes/${id}/name`, 
+        {
+            value: value   
+        },
+        {
+            headers: {
+                email: email,
+                password: password,
+            }
+        }
+    )
+    .then((res) => {
+        data = res.data;
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
+    return data;
+}
+
+
 export const setFavourite = async (value: number, hikeId: number, email: string, password: string) => {
     let data = {};
 
@@ -90,6 +115,31 @@ export const updateMemoNotes = async (value: string, memoId: number, email: stri
     )
     .then((res) => {
         data = res.data;
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
+    return data;
+}
+
+export const updateImage = async (value: Blob, memoId: number, email: string, password: string) => {
+    let data = {};
+
+    await axios.post(`${URL}memos/${memoId}/image`, 
+        {
+            value: value
+        },
+        {
+            headers: {
+                email: email,
+                password: password,
+            }
+        }
+    )
+    .then((res) => {
+        data = res.data;
+        console.log(data);
     })
     .catch((err) => {
         console.log(err);

@@ -66,7 +66,7 @@ const SingleView = () => {
     setFavourited(data.hike.favourite === 1 ? true : false);
 
     // Parsing Hiking Data into JSON 
-    for (let line of split) {
+    for (const line of split) {
       if (line === "") continue;
       const coord = line.split(',');
       hikePath.push({
@@ -77,7 +77,7 @@ const SingleView = () => {
     
     // Parsing Audio Adata into compatible format
     const memos = []
-    for (let memo of data.memos) {
+    for (const memo of data.memos) {
       memos.push({
         id: memo.id,
         location: {
@@ -85,7 +85,7 @@ const SingleView = () => {
           'lng': memo.latitude
         },
         audioFile: memo.audioUrl,
-        imageFile: '',
+        imageFile: memo.imageUrl,
         notes: memo.notes,
         transcript: memo.transcription
       })

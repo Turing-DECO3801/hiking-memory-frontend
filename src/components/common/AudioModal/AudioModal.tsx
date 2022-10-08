@@ -3,7 +3,7 @@ import { FiImage, FiEdit3, FiFileText, FiHeadphones, FiChevronLeft, FiX, FiSave 
 import { useSwipeable, DOWN, SwipeEventData } from 'react-swipeable'; 
 import { AuthContext } from '../../../contexts/AuthContext';
 import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
-import { updateMemoNotes } from '../../../api';
+import { updateMemoNotes, updateImage } from '../../../api';
 
 import "./AudioModal.scss"
 
@@ -68,9 +68,11 @@ function AudioModal( { show, handleClose, handleOpen, id, audioFile, imageFile, 
    * 
    * @param event File Input Change
    */
-  const uploadHandler = (event:React.ChangeEvent<HTMLInputElement>) => {
+  const uploadHandler = async (event:React.ChangeEvent<HTMLInputElement>) => {
     if (event !== null && event.target !== null && event.target.files !== null) {
-      setImage(event.target.files[0])
+      setImage(URL.createObjectURL(event.target.files[0]))
+      const data = await updateImage(event.target.files[0], id, email as string, password as string);
+      console.log(data);
     }
   }
 
@@ -85,6 +87,18 @@ function AudioModal( { show, handleClose, handleOpen, id, audioFile, imageFile, 
       setNotesText(notes);
     }
   }, [notes])
+
+  /**
+   * Updates the notes and transcription when the audio memo selection
+   * has changed.
+   */
+  useEffect(() => {
+    if (imageFile !== null && imageFile !== undefined) {
+      setImage(imageFile);
+    } else {
+      setImage(null);
+    }
+  }, [imageFile])
 
   /**
    * Save the notes by sending data to the backend for storage in the
@@ -102,8 +116,8 @@ function AudioModal( { show, handleClose, handleOpen, id, audioFile, imageFile, 
    * @returns Image Add or Display React Component
    */
   const getImage = () => {
-    if (image !== null) {
-      const source = URL.createObjectURL(image);
+    if (image !== null && image !== undefined) {
+      const source = image;
       return (
         <div className="image-container" onClick={() => setImagePopup(true)} >
           <img
@@ -168,7 +182,7 @@ function AudioModal( { show, handleClose, handleOpen, id, audioFile, imageFile, 
             <FiX className="exit-icon"/>
           </div>
           <div className="popup-image-container">
-            <img src={URL.createObjectURL(image)} className="popup-image"/>
+            <img src={image} className="popup-image"/>
           </div>
         </div>
       )
