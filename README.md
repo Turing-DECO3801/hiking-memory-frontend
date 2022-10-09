@@ -5,8 +5,8 @@
 # Contents
 
 - [About](https://github.com/Turing-DECO3801/hiking-memory-frontend/edit/main/README.md#about)
-- [Demonstration](https://github.com/Turing-DECO3801/hiking-memory-frontend/edit/main/README.md#demonstration)
-- [Running Locally](https://github.com/Turing-DECO3801/hiking-memory-frontend/edit/main/README.md#running-locally)
+- [Demonstration](https://github.com/Turing-DECO3801/hiking-memory-frontend#demonstration)
+- [Running Locally](https://github.com/Turing-DECO3801/hiking-memory-frontend#running-locally)
 
 # About
 
