@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import "./Notifications.scss"
 import { useNavigate } from 'react-router-dom';
 import { HikeContext } from '../../contexts/HikeContext';
+import { FiPlus } from 'react-icons/fi';
 
 
 interface NotificationProps {
@@ -34,7 +35,7 @@ const Noitification = ({ hike, openPopup }: NotificationProps) => {
   }
 
   return (
-    <div className="notification">
+    <div className={`notification`}>
       {
         hike.path_name === null ? <div className="new-notification" /> : null
       }
@@ -49,8 +50,8 @@ const Noitification = ({ hike, openPopup }: NotificationProps) => {
         </div>
       </div>
       <div className="notification-options">
-        <div className="notification-edit" onClick={editHike}>
-          Edit
+        <div className="notification-name" onClick={editHike}>
+          <FiPlus className="notification-plus-icon"/> Name
         </div>
       </div>
     </div>

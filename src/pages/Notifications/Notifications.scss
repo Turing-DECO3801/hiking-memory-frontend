@@ -36,6 +36,7 @@
     padding-bottom: 10px;
 }
 
+
 .new-notification {
     position: absolute;
     height: 12px;
@@ -68,14 +69,21 @@
     justify-items: center;
 }
 
-.notification-edit {
+.notification-name {
     font-size: 15px;
     margin-left: 10px;
     color: $white;
-    margin-right: 10px;
+    margin-right: 5px;
     background: $orange;
-    padding: 0px 12px;
+    padding-right: 10px;
+    padding-left: 5px;
     border-radius: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.notification-plus-icon {
+    font-size: 20px;
 }
 
 .bottom-margin {

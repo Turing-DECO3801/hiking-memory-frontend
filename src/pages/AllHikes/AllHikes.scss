@@ -169,10 +169,7 @@
 
 .search .search-active {
     transform: scale(110%);
-}
-
-.search-card .search-icon-active{
-    color: $dark-blue;
+    background: $dark-blue;
 }
 
 .search .search-bar {
@@ -202,6 +199,8 @@
 }
 
 .select{
+    width: fit-content;
+    margin-left: auto;
     height: 20px;
     margin-top: 15px;
     margin-bottom: 10px;

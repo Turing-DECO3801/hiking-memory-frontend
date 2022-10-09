@@ -16,6 +16,7 @@ const Account = () => {
   const { logout, email, password, name } = useContext(AuthContext);
   const [page, setPage] = useState("default");
   const [hikeData, setHikeData] = useState(Array<HikeData>);
+  const [memoCount, setMemoCount] = useState(0);
   const [photoCount, setPhotoCount] = useState(0);
   
   useEffect(() => {
@@ -33,6 +34,7 @@ const Account = () => {
         count++;
       }
     }
+    setMemoCount(images.length);
     setPhotoCount(count);
   }
 
@@ -106,7 +108,7 @@ const Account = () => {
               <div className="stats-label">hikes</div>
             </div>
             <div className="stats-container">
-              <div className="stats-number">100</div>
+              <div className="stats-number">{memoCount}</div>
               <div className="stats-label">memos</div>
             </div>
             <div className="stats-container">

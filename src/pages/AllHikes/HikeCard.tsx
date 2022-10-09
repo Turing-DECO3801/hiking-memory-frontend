@@ -11,10 +11,11 @@ import { HikeContext } from '../../contexts/HikeContext';
 
 interface HikeCardProps {
   hike: HikeData,
-  displayPopUp: (display: boolean) => void 
+  displayPopUp: (display: boolean) => void
+  selected: boolean,
 }
 
-const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
+const HikeCard = ({ hike, displayPopUp, selected }: HikeCardProps) => {
 
   const { email, password  } = useContext(AuthContext);
   const { setHikeData } = useContext(HikeContext);
@@ -24,17 +25,9 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
 
   const navigate = useNavigate();
 
-  const handleSwiped = (eventData: SwipeEventData) => {
-    if (eventData.dir === LEFT) {
-      if (swiped) {
-        displayPopUp(true)
-      } else {
-        setSwiped(true);
-      }
-    } else if (eventData.dir === RIGHT) {
-      setSwiped(false);
-    }
-  }
+  useEffect(() => {
+    setSwiped(selected);
+  }, [selected])
 
   /**
    * Container used for the map API thumbnail
@@ -67,6 +60,18 @@ const HikeCard = ({ hike, displayPopUp }: HikeCardProps) => {
   const openSingleHike = () => {
     setHikeData(hike);
     navigate("/singleview")
+  }
+
+  const handleSwiped = (eventData: SwipeEventData) => {
+    if (eventData.dir === LEFT) {
+      if (swiped) {
+        displayPopUp(true)
+      } else {
+        setSwiped(true);
+      }
+    } else if (eventData.dir === RIGHT) {
+      setSwiped(false);
+    }
   }
 
   /**

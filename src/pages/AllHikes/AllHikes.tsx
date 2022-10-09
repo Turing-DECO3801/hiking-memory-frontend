@@ -21,6 +21,7 @@ const AllHikes = () => {
   const [hikeData, setHikeData] = useState(Array<HikeData>);
   const [isShown, setIsShown] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [selected, setSelected] = useState(false);
 
   // Fetch the data on page load
   useEffect(() => {
@@ -64,11 +65,8 @@ const AllHikes = () => {
   return (
     <>
       <div className="header">
-        <div className="back-button" onClick={() => navigate("/")}>
-            <FiChevronLeft className="back-icon"/>
-            Back
-        </div>
-        <h2 className="section">Hikes</h2>
+        <br />
+        <h2 className="section">My Hikes</h2>
         {
           getPopUp()
         }
@@ -146,8 +144,11 @@ const AllHikes = () => {
             </div>
           </div>
         </div>
+        <div className="select section" onClick={() => setSelected(!selected)}>
+          Select
+        </div>
         <div className="grid section delay-2">
-            {hikeData.map((hike, index) => <HikeCard key={index} hike={hike} displayPopUp={setDisplayPopUp}/>)}
+            {hikeData.map((hike, index) => <HikeCard key={index} hike={hike} selected={selected} displayPopUp={setDisplayPopUp}/>)}
         </div>
       </div>
     </>

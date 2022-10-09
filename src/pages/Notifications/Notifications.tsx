@@ -44,11 +44,8 @@ const Noitifications = () => {
     <>
       <div className="noitifications-page">
         <Navbar />
+        <br />
         <div className="header">
-          <div className="back-button" onClick={() => navigate("/")}>
-              <FiChevronLeft className="back-icon"/>
-              Back
-          </div>
           <h2 className="section">Notifications</h2>
         </div>
         <div className="notifications-content section delay-1">
