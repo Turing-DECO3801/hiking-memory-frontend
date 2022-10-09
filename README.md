@@ -5,16 +5,18 @@
 # Contents
 
 - [About](https://github.com/Turing-DECO3801/hiking-memory-frontend/edit/main/README.md#about)
-- [Demonstrartion](https://github.com/Turing-DECO3801/hiking-memory-frontend/edit/main/README.md#demonstration)
+- [Demonstration](https://github.com/Turing-DECO3801/hiking-memory-frontend/edit/main/README.md#demonstration)
 - [Running Locally](https://github.com/Turing-DECO3801/hiking-memory-frontend/edit/main/README.md#running-locally)
 
 # About
 
 Memory Trail is a Mobile Web Application that has been paired with a Hardware Device for which documentation can be found at [Hardware Device](https://github.com/Turing-DECO3801/m5stack) which will be used to populate voice and hike path data. The application is currently deployed with AWS Amplify for testing [Memory Trail](https://main.d1pm2nrvdi0cv8.amplifyapp.com/) and should be viewed in mobile resolution. 
 
+Memory Trail is used to store and visualise all hiking data and memories that hiking enthusiasts make throughout their journeys. The hardware device mentioned earlier will upload data directly to the databases and file storarges that the web application will query to provide data to fill the application. The types of data that is provided by the device will be GPS logs and voice memos that will be displayed on an interactive map.  
+
 # Demonstration
 
-You are free to create an account, however, we have also provided a test account that has already been filled with information for you to see. It is recommended that you use the test account as 
+You are free to create an account, however, we have also provided a test account that has already been filled with information for you to see. It is recommended that you use the test account as a new account will not have much data to see as data will be provided by the hardware device.
 
 ### `Username: test1@gmail.com`
 
