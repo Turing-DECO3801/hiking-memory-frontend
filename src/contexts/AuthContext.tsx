@@ -26,12 +26,11 @@ export const AuthContext = createContext<AuthState>({
 });
 
 export const useAuthState = (): AuthState => {
-  const [authed, setAuthed] = useState<boolean>();
-  const [email, setEmail] = useState<string>();
-  const [name, setName] = useState<string>();
-  const [password, setPassword] = useState<string>();
+  const [email, setEmail] = useState<string | undefined>(localStorage.getItem('email') || undefined);
+  const [password, setPassword] = useState<string | undefined>(localStorage.getItem('password') || undefined);
+  const [name, setName] = useState<string | undefined>(localStorage.getItem('name') || undefined);
+  const [authed, setAuthed] = useState<boolean | undefined>((localStorage.getItem('email') && localStorage.getItem('password') && localStorage.getItem('name')) !== null);
 
-  const API = process.env.REACT_APP_BACKEND_API;
   const navigate = useNavigate();
 
   // Initial check to see if user is logged in
@@ -54,6 +53,10 @@ export const useAuthState = (): AuthState => {
         setEmail(res.data.user.email);
         setPassword(res.data.user.password);
         setName(res.data.user.name);
+        // Save login details
+        localStorage.setItem('email', res.data.user.email);
+        localStorage.setItem('password', res.data.user.password);
+        localStorage.setItem('name', res.data.user.name);
       } else {
         setAuthed(false);
       }
@@ -84,6 +87,10 @@ export const useAuthState = (): AuthState => {
         setEmail(res.data.user.email);
         setPassword(res.data.user.password);
         setName(res.data.user.name);
+        // Save login details
+        localStorage.setItem('email', res.data.user.email);
+        localStorage.setItem('password', res.data.user.password);
+        localStorage.setItem('name', res.data.user.name);
       } else {
         setAuthed(false);
       }
