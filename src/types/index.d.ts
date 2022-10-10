@@ -30,6 +30,11 @@ declare global {
     notes: string,
     transcript: string
   }
+  interface ImageInfo {
+    path_name: string,
+    image: string,
+    imageUrl: string
+  }
 }
 
 export {};

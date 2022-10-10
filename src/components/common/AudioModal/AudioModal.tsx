@@ -43,14 +43,6 @@ function AudioModal( { show, handleClose, id, audioFile, imageFile, notes,
   const notesRef = useRef<HTMLTextAreaElement>(null);
 
   /**
-   * Prevents a mouse event from propogating through the the parent
-   * elements for click events.
-   */
-  const preventPropogation = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-  }
-
-  /**
    * Updates the currently set value of the notes section one keyboard
    * press
    * 
@@ -73,6 +65,7 @@ function AudioModal( { show, handleClose, id, audioFile, imageFile, notes,
       const url = URL.createObjectURL(event.target.files[0])
       setImage(url)
       const data = await updateImage(event.target.files[0], id, email as string, password as string);
+      console.log(data);
     }
   }
 
@@ -179,7 +172,13 @@ function AudioModal( { show, handleClose, id, audioFile, imageFile, notes,
       return (
         <div className={`image-box-container ${imagePopup ? "" : "image-box-inactive"}`} onClick={() => setImagePopup(false)}>
           <div className="image-box-exit">
-            <FiX className="exit-icon"/>
+            <FiX/>
+          </div>
+          <div onClick={(e) => e.stopPropagation()}>
+            <label className="update-button">
+              <input type="file" accept="image/png, image/jpeg, image/jpg" onChange={uploadHandler}/>
+              Update
+            </label>
           </div>
           <div className="popup-image-container">
             <img src={image} className="popup-image"/>
@@ -336,7 +335,7 @@ function AudioModal( { show, handleClose, id, audioFile, imageFile, notes,
     <>
     <div className="audio-modal-outline" >
       <div className={`audio-modal-container ${show ? "" : "behind"}`} {...handlers}>
-        <div className={`audio-modal ${show && tabDisplay === 0 ? "" : "hidden"}`} onClick={(e) => preventPropogation(e)}>
+        <div className={`audio-modal ${show && tabDisplay === 0 ? "" : "hidden"}`} onClick={(e) => e.stopPropagation()}>
           {
             defaultTab()
           }

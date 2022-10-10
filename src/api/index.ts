@@ -155,7 +155,6 @@ export const getImageCollection = async (email: string, password: string) => {
     )
     .then((res) => {
         data = res.data;
-        console.log(data);
     })
     .catch((err) => {
         console.log(err);
