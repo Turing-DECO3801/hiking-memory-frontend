@@ -18,6 +18,18 @@ declare global {
     favourite: number,
     date: Date
   }
+  interface PathType {
+    lat: number,
+    lng: number
+  }
+  interface Audio {
+    id: number,
+    location: PathType,
+    audioFile: string,
+    imageFile: string,
+    notes: string,
+    transcript: string
+  }
 }
 
 export {};
