@@ -61,12 +61,25 @@ function AudioModal( { show, handleClose, id, audioFile, imageFile, notes,
    * @param event File Input Change
    */
   const uploadHandler = async (event:React.ChangeEvent<HTMLInputElement>) => {
-    if (event !== null && event.target !== null && event.target.files !== null) {
-      const url = URL.createObjectURL(event.target.files[0])
-      setImage(url)
-      const data = await updateImage(event.target.files[0], id, email as string, password as string);
-      console.log(data);
+
+    if (event.target.files === null) {
+      return;
     }
+    
+    const file = event.target.files[0];
+
+    // Set image
+    const url = URL.createObjectURL(file);
+    setImage(url);
+
+    // Read image and send to backend
+    var reader = new FileReader();
+    reader.onloadend = async (e) => {
+      const fileData = e?.target?.result
+      const data = await updateImage(fileData, id, email as string, password as string);
+    };
+
+    reader.readAsBinaryString(file);
   }
 
   /**

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const URL = "http://ec2-13-54-55-236.ap-southeast-2.compute.amazonaws.com:8000/";
+// const URL = "http://localhost:8000/";
 
 export const getHikes = async (email: string, password: string) => {
     let data = {};
@@ -117,7 +118,7 @@ export const updateMemoNotes = async (value: string, memoId: number, email: stri
     return data;
 }
 
-export const updateImage = async (value: Blob, memoId: number, email: string, password: string) => {
+export const updateImage = async (value: any, memoId: number, email: string, password: string) => {
     let data = {};
 
     await axios.post(`${URL}memos/${memoId}/image`, 
