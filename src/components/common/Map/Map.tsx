@@ -5,6 +5,7 @@ import "./Map.scss"
 import AudioModal from '../AudioModal/AudioModal';
 import useStateRef from '../../../hooks/useStateRef'
 import { updateImage } from '../../../api';
+import { FaMapSigns } from 'react-icons/fa';
 
 
 interface MapProps {
@@ -31,13 +32,13 @@ function Map(mapInfo: MapProps) {
   const [notes, setNotes] = useState("");
   const [transcript, setTranscript] = useState("");
   const [currentSelection, setCurrentSelection, selectionRef] = useStateRef<any>(null);
+  const [map, setMap] = useState<any>();
+  const [initBounds, setInitBounds] = useState<google.maps.LatLngBounds>();
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyBDYINIldIZy3ssEzrMpAvRA6Rdd_GN020'
   });
-
-  const [map, setMap] = React.useState(null);
 
   const onLoad = React.useCallback(function callback(map: any) {
     const bounds = new google.maps.LatLngBounds();
@@ -74,7 +75,7 @@ function Map(mapInfo: MapProps) {
       scale: 0.08,
       anchor: new google.maps.Point(192, 512),
     };
-
+    setInitBounds(bounds);
     map.fitBounds(bounds);
     const flightPlanCoordinates = mapInfo.path;
     const flightPath = new google.maps.Polyline({
@@ -101,6 +102,7 @@ function Map(mapInfo: MapProps) {
             map: map
           });
           
+          const position = mapInfo.audio[i].location;
           const memoId = mapInfo.audio[i].id;
           const aFile = mapInfo.audio[i].audioFile;
           const iFile = mapInfo.audio[i].imageFile;
@@ -118,11 +120,16 @@ function Map(mapInfo: MapProps) {
             setShow(true);
             marker.setIcon(selectedSVGMarker);
             setCurrentSelection(marker);
+            const zoomlat = position.lat - 0.00175;
+            const zoomlng = position.lng;
+            map.setZoom(17);
+            map.setCenter({lat: zoomlat, lng: zoomlng});
           })
       }
     }
 
     flightPath.setMap(map);
+    setMap(map);
   },[]);
 
   const onUnmount = React.useCallback(function callback(map: any) {
@@ -153,6 +160,9 @@ function Map(mapInfo: MapProps) {
       currentSelection.setIcon(SVGMarker);
       setCurrentSelection(null);
     }
+    map.fitBounds(initBounds);
+    const zoom = map.getZoom();
+    map.setZoom(zoom-0.2)
   }
 
   const getModal = () => {
