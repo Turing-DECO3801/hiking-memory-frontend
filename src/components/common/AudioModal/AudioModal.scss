@@ -229,8 +229,8 @@ input[type="file"] {
 }
 
 .image-box-container .image-box-exit {
-    width: 35px;
-    height: 35px;
+    width: 44px;
+    height: 44px;
     background: $orange;
     border-radius: 100%;
     position: absolute;
@@ -238,21 +238,22 @@ input[type="file"] {
     align-items: center;
     justify-content: center;
     box-shadow: 0px 4px 4px $low-opacity-black;
-    top: 50px;
+    top: 30px;
     left: 20px;
 }
 
 .image-box-container .update-button {
     position: absolute;
     background: $orange;
-    top: 50px;
+    top: 30px;
     right: 20px;
-    height: 35px;
+    height: 44px;
     display: flex;
     align-items: center;
-    padding: 0px 10px;
-    border-radius: 17.5px;
+    padding: 0px 15px;
+    border-radius: 22px;
     color: $white;
+    font-size: 18px;
 }
 
 .image-box-exit {

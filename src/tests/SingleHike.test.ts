@@ -4,6 +4,8 @@ const email = "unittest@example.com";
 const password = "test";
 const hikeId = 36;
 
+jest.setTimeout(10000)
+
 describe("Get Single Hike Test", () => {
 
     test("Single Hike Data", async () => {

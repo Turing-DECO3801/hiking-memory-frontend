@@ -37,7 +37,7 @@ const Noitification = ({ hike, openPopup }: NotificationProps) => {
   return (
     <div className={`notification`}>
       {
-        hike.path_name === null ? <div className="new-notification" /> : null
+        hike.viewed === null ? <div className="new-notification" /> : null
       }
       <div className="notification-date-time" onClick={openHike}>
         <div className="notification-date">

@@ -17,6 +17,7 @@ declare global {
     path_name: string | null,
     favourite: number,
     date: Date
+    viewed: number | null;
   }
   interface PathType {
     lat: number,

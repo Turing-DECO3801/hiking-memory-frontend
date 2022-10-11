@@ -94,6 +94,30 @@ export const setFavourite = async (value: number, hikeId: number, email: string,
     return data;
 }
 
+export const setViewed = async (value: number, hikeId: number, email: string, password: string) => {
+    let data = {};
+
+    await axios.put(`${URL}hikes/${hikeId}/viewed/`, 
+        {
+            value: value
+        },
+        {
+            headers: {
+                email: email,
+                password: password,
+            }
+        }
+    )
+    .then((res) => {
+        data = res.data;
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
+    return data;
+}
+
 export const setDistance = async (value: number, hikeId: number, email: string, password: string) => {
     let data = {};
 
@@ -158,7 +182,6 @@ export const updateImage = async (value: any, memoId: number, email: string, pas
     )
     .then((res) => {
         data = res.data;
-        console.log(data);
     })
     .catch((err) => {
         console.log(err);

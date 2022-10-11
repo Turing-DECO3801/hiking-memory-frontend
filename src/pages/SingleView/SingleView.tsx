@@ -8,9 +8,8 @@ import MapMenu from '../../components/common/MapMenu/MapMenu';
 import { FiChevronLeft, FiHeart } from 'react-icons/fi/'
 import { useNavigate } from 'react-router-dom';
 import PopUp from '../../components/common/PopUp/PopUp';
-import { getAHike } from '../../api';
+import { getAHike, setFavourite, setDistance, setViewed } from '../../api';
 import { AuthContext } from '../../contexts/AuthContext';
-import { setFavourite } from '../../api';
 
 const SingleView = () => {
      
@@ -42,6 +41,7 @@ const SingleView = () => {
    */
   useEffect(() => {
     loadSingleHikeData();
+    setViewed(1, hike?.id as number, email as string, password as string);
   }, []);
 
   /**
@@ -92,9 +92,10 @@ const SingleView = () => {
   }
 
   useEffect(() => {
-    if (path.length !== 0) {
+    if (hike?.distance === null && path.length !== 0 && isLoaded && google.maps.geometry !== undefined) {
       const calculatedDistance = google.maps.geometry.spherical.computeLength(path);
       setHikeLength(calculatedDistance);
+      setDistance(calculatedDistance, hike?.id as number, email as string, password as string) as any;
     }
   }, [isLoaded, path])
 
