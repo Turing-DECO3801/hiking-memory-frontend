@@ -36,6 +36,7 @@ const SingleView = () => {
   const [favourited, setFavourited] = useState(false);
   const [path, setPath] = useState(Array<PathType>);
   const [audio, setAudio] = useState(Array<Audio>);
+  const [hikeLength, setHikeLength] = useState(0);
 
   /**
    * Contexts for passing information between unrelated components
@@ -92,6 +93,9 @@ const SingleView = () => {
     }
     setAudio(memos)
     setPath(hikePath);
+
+    //calculating distance in metres
+    setHikeLength(google.maps.geometry.spherical.computeLength(hikePath));
   }
 
   const onFavouritedPress = (event: React.MouseEvent<HTMLElement>) => {
