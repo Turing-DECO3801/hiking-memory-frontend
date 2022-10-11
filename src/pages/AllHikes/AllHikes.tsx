@@ -20,8 +20,8 @@ const AllHikes = () => {
   const [displayPopUp, setDisplayPopUp] = useState(false);
   const [hikeData, setHikeData] = useState(Array<HikeData>);
   const [isShown, setIsShown] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
   const [selected, setSelected] = useState(false);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
   // Fetch the data on page load
   useEffect(() => {
@@ -50,9 +50,67 @@ const AllHikes = () => {
     setHikeData(hikes);
   }
 
+  /**
+   * Updates the value of the keywords for search
+   * 
+   * @param event On Input Change Event
+   */
   const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.currentTarget.value)
+    setDebouncedSearch(event.currentTarget.value)
   }
+
+  /**
+   * Prevents the search from occurring immediately but only after a delay
+   */
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+        setDebouncedSearch(debouncedSearch);
+    }, 500)
+    return () => {
+        clearTimeout(timerId);
+    }
+  }, [debouncedSearch]);
+
+  useEffect(() => {
+    
+    const newHikes = [...hikeData];
+
+    if (sortType === "longest") {
+      newHikes.sort((a, b) => {
+        if (a.distance === null) {
+          return 1
+        } else if (b.distance === null) {
+          return -1
+        }
+        return b.distance - a.distance;
+      })
+    } else if (sortType === "shortest") {
+      newHikes.sort((a, b) => {
+        if (a.distance === null) {
+          return 1
+        } else if (b.distance === null) {
+          return -1
+        }
+        return a.distance - b.distance;
+      })
+    } else if (sortType === "recent") {
+      newHikes.sort((a, b) => {
+        return b.date.getTime() - a.date.getTime();
+      })     
+    } else {
+      newHikes.sort((a, b) => {
+        if (a.path_name === null) {
+          return 1
+        } else if (b.path_name === null) {
+          return -1
+        }
+        return a.path_name.localeCompare(b.path_name);
+      })   
+    }
+
+    setHikeData(newHikes);
+
+  }, [sortType])
 
   const handleClick = (event: any) => {
     setIsShown(current => !current);
@@ -122,11 +180,11 @@ const AllHikes = () => {
               </div>
               <div className="divider" />
               <div
-                className={`selection-option ${sortType === "most" ? "selected" : ""}`}
-                onClick={() => setSortType("most")}
+                className={`selection-option ${sortType === "alphabetical" ? "selected" : ""}`}
+                onClick={() => setSortType("alphabetical")}
               >
-                Most Travelled
-                <FiCheck className={`selection-icon ${sortType === "most" ? "tick-active" : ""}`}/>
+                Alphabetical
+                <FiCheck className={`selection-icon ${sortType === "alphabetical" ? "tick-active" : ""}`}/>
               </div>
               <div className="divider" />
             </div>
@@ -148,7 +206,17 @@ const AllHikes = () => {
           Select
         </div>
         <div className="grid section delay-2">
-            {hikeData.map((hike, index) => <HikeCard key={index} hike={hike} selected={selected} displayPopUp={setDisplayPopUp}/>)}
+            {hikeData
+              .map((hike, index) => {
+                if (hike.favourite === 1 && selectionType === "favourites" || selectionType === "all") {
+                  if (hike.path_name?.toLowerCase().includes(debouncedSearch.toLowerCase())) {
+                    return (
+                      <HikeCard key={index} hike={hike} selected={selected} displayPopUp={setDisplayPopUp}/>
+                    )
+                  }
+                }
+              })
+              }
         </div>
       </div>
     </>

@@ -1,6 +1,4 @@
 import { createContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { updateHikeName } from '../api';
 
 interface HikeContext {
   hike: HikeData | undefined

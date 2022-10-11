@@ -52,6 +52,7 @@ const HikeCard = ({ hike, displayPopUp, selected }: HikeCardProps) => {
   const onFavouritedPress = (event: React.MouseEvent<HTMLElement>) => {
     setFavourite(favourited === true ? 0 : 1, hike.id, email as string, password as string);
     setFavourited(!favourited);
+    hike.favourite = hike.favourite === 1 ? 0 : 1;
 
     event.preventDefault();
     event.stopPropagation();
