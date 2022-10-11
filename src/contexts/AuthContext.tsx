@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { serverURL } from './../constants/index'
 
 interface AuthState {
@@ -71,6 +71,9 @@ export const useAuthState = (): AuthState => {
     setAuthed(false);
     setEmail(undefined);
     setPassword(undefined);
+    localStorage.removeItem('email');
+    localStorage.removeItem('password');
+    localStorage.removeItem('name');
   };
 
   const signup = async (email: string, password: string, name: string) => {

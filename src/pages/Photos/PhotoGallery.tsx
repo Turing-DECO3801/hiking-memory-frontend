@@ -15,7 +15,6 @@ const PhotoGallery = ({ onClick }: PhotoGalleryProps) => {
     <div className="photo-gallery">
       <div className="banner">
         <div className="banner-header">Glass House Mountains</div>
-        <div>21/02/17 - 21/03/21</div>
       </div>
       <Gallery images={images} enableImageSelection={false} onClick={onClick}/>
     </div>
