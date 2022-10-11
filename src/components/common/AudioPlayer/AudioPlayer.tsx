@@ -30,7 +30,8 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
         if (audioPlayer.current === null) {
             clearTimeout(timer);
         }
-        if (audioPlayer.current!.duration && !isNaN(audioPlayer.current!.duration)) {
+        if (audioPlayer.current !== null && audioPlayer.current!.duration
+          && !isNaN(audioPlayer.current!.duration)) {
             const seconds = Math.floor(audioPlayer.current!.duration);
             setDuration(seconds);
             progressBar.current.max = seconds;

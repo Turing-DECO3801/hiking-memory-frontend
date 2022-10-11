@@ -3,7 +3,7 @@ import Navbar from '../../components/layout/Navbar/Navbar';
 import Map from '../../components/common/Map/Map';
 import { HikeContext } from '../../contexts/HikeContext';
 import "./HikeTitle.scss"
-import { pathExample } from './pathExample';
+import { useJsApiLoader } from '@react-google-maps/api';
 import MapMenu from '../../components/common/MapMenu/MapMenu';
 import { FiChevronLeft, FiHeart } from 'react-icons/fi/'
 import { useNavigate } from 'react-router-dom';
@@ -45,6 +45,11 @@ const SingleView = () => {
   const { email, password } = useContext(AuthContext); 
 
   const navigate = useNavigate();
+
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: 'AIzaSyBDYINIldIZy3ssEzrMpAvRA6Rdd_GN020'
+  });
 
   /**
    * Loads the hike data for the current hike on page load
@@ -94,9 +99,18 @@ const SingleView = () => {
     setAudio(memos)
     setPath(hikePath);
 
-    //calculating distance in metres
-    setHikeLength(google.maps.geometry.spherical.computeLength(hikePath));
+    //Calculation of the distance if not calculated already
+    if (data.hike.distance !== null) {
+      setHikeLength(data.hike.distance);
+    }
   }
+
+  useEffect(() => {
+    if (path.length !== 0) {
+      const calculatedDistance = google.maps.geometry.spherical.computeLength(path);
+      setHikeLength(calculatedDistance);
+    }
+  }, [isLoaded, path])
 
   const onFavouritedPress = (event: React.MouseEvent<HTMLElement>) => {
     setFavourite(favourited === true ? 0 : 1, hike?.id as number, email as string, password as string);

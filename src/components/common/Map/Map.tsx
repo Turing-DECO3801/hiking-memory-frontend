@@ -130,7 +130,7 @@ function Map(mapInfo: MapProps) {
 
     flightPath.setMap(map);
     setMap(map);
-  },[]);
+  }, []);
 
   const onUnmount = React.useCallback(function callback(map: any) {
     setMap(null);
