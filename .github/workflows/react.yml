@@ -25,6 +25,18 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+
+    - name: Install CI Dependencies
+      run: npm ci
+      env:
+        CI: ""
+
+    - name: Build Optimised File
+      run: npm run build --if-present
+      env:
+        CI: ""
+  
+    - name: Run Test Scripts
+      run: npm test
+      env:
+        CI: ""
