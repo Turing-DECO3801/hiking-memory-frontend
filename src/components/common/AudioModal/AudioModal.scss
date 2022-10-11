@@ -242,6 +242,19 @@ input[type="file"] {
     left: 20px;
 }
 
+.image-box-container .update-button {
+    position: absolute;
+    background: $orange;
+    top: 50px;
+    right: 20px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    border-radius: 17.5px;
+    color: $white;
+}
+
 .image-box-exit {
     font-size: 25px;
     color: $white;
@@ -251,3 +264,4 @@ input[type="file"] {
     opacity: 0;
     pointer-events: none;
 }
+

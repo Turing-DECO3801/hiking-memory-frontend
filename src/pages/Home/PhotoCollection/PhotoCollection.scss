@@ -2,7 +2,7 @@
 
 .home-photo-collection {
     width: 100%;
-    height: 110px;
+    height: 115px;
 
     display: flex;
     justify-content: center;
@@ -45,6 +45,21 @@
     width: 100%;
     height: 100%;
     background: $dark-blue;
-    border-radius: 20px;
+    border-radius: 25px;
     box-shadow: 0px 4px 4px $low-opacity-black;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.photo-card-path {
+    position: absolute;
+    top: 10px;
+    font-size: 16px;
+    padding: 2px 0px;
+    background: $high-opacity-blue;
+    box-shadow: 0px 4px 4px $low-opacity-black;
+    color: $white;
+    width: 100%;
 }

@@ -8,16 +8,23 @@ import PhotoCollection from './PhotoCollection/PhotoCollection';
 import PopUp from '../../components/common/PopUp/PopUp';
 import { useNavigate } from 'react-router-dom';
 
-import { getHikes } from '../../api';
+import { getHikes, getImageCollection } from '../../api';
 import { AuthContext } from '../../contexts/AuthContext';
 import { HikeContext } from '../../contexts/HikeContext';
 
+interface GalleryImage {
+  src: string;
+  width: number;
+  height: number;
+}
+
 const Home = () => { 
 
-  const { name, email, password  } = useContext(AuthContext);
+  const { name, email, password } = useContext(AuthContext);
   const { setHikeData } = useContext(HikeContext);
 
   const [latestHike, setLatestHike] = useState<HikeData>();
+  const [imageCollection, setImageCollection] = useState<ImageInfo[]>();
 
   useEffect(() => {
     getHikeData()
@@ -27,6 +34,18 @@ const Home = () => {
     const hikes = await getHikes(email as string, password as string) as HikeData[];
     setLatestHike(hikes[hikes.length - 1])
     hikes[hikes.length - 1].date = new Date(hikes[hikes.length - 1].start_time as string)
+
+    const images = await getImageCollection(email as string, password as string) as ImageInfo[];
+
+    setImageCollection(images);
+    // for (const image of images) {
+    //   const img = new Image();
+    //   img.src = image.imageUrl;
+    //   img.onload = () => {
+    //     console.log(img.height);
+    //     console.log(img.width);
+    //   }
+    // }
   }
 
   const navigate = useNavigate();
@@ -34,12 +53,11 @@ const Home = () => {
   /**
    * Open single hike view with the correct hike being displayed
    */
-   const openHike = () => {
+  const openHike = () => {
     setHikeData(latestHike as HikeData);
 
     navigate('/singleview')
   }
-
 
   return (
     <div className="home">
@@ -89,7 +107,7 @@ const Home = () => {
           <h4>Photo Collections</h4>
           <div className="link" onClick={() => navigate("/photos")}>see all</div>
         </div>
-        <PhotoCollection />
+        <PhotoCollection images={imageCollection}/>
       </div>
       {/* <PopUp show={true} type="new" /> */}
     </div>

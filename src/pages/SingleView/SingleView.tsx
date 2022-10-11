@@ -12,20 +12,6 @@ import { getAHike } from '../../api';
 import { AuthContext } from '../../contexts/AuthContext';
 import { setFavourite } from '../../api';
 
-interface PathType {
-  lat: number,
-  lng: number
-}
-
-interface Audio {
-  id: number,
-  location: PathType,
-  audioFile: string,
-  imageFile: string,
-  notes: string,
-  transcript: string
-}
-
 const SingleView = () => {
      
   /**
