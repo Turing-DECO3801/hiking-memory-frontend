@@ -3,7 +3,7 @@ import Navbar from '../../components/layout/Navbar/Navbar';
 import { FiArrowRight, FiVolume2, FiCamera } from 'react-icons/fi/'
 import { Pagination, Navigation } from "swiper";
 import "./Home.scss"
-import Notifications from './Notifications/Notifications';
+import Highlights from './Highlights/Highlights';
 import PhotoCollection from './PhotoCollection/PhotoCollection';
 import PopUp from '../../components/common/PopUp/PopUp';
 import { useNavigate } from 'react-router-dom';
@@ -12,18 +12,13 @@ import { getHikes, getImageCollection } from '../../api';
 import { AuthContext } from '../../contexts/AuthContext';
 import { HikeContext } from '../../contexts/HikeContext';
 
-interface GalleryImage {
-  src: string;
-  width: number;
-  height: number;
-}
-
 const Home = () => { 
 
   const { name, email, password } = useContext(AuthContext);
   const { setHikeData } = useContext(HikeContext);
 
   const [latestHike, setLatestHike] = useState<HikeData>();
+  const [allHikes, setAllHikes] = useState<HikeData[]>();
   const [imageCollection, setImageCollection] = useState<ImageInfo[]>();
 
   useEffect(() => {
@@ -33,6 +28,7 @@ const Home = () => {
   const getHikeData = async () => {
     const hikes = await getHikes(email as string, password as string) as HikeData[];
     setLatestHike(hikes[hikes.length - 1])
+    setAllHikes(hikes);
     hikes[hikes.length - 1].date = new Date(hikes[hikes.length - 1].start_time as string)
 
     const images = await getImageCollection(email as string, password as string) as ImageInfo[];
@@ -99,7 +95,7 @@ const Home = () => {
         <div className="section-header">
           <h4>Highlights</h4>
         </div>
-        <Notifications />
+        <Highlights hikes={allHikes}/>
       </div>
       <br />
       <div className="section delay-3">
