@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { HikeContext } from '../../../contexts/HikeContext';
-import { updateHikeName } from '../../../api';
+import { updateHikeName, getAHike } from '../../../api';
 import Map from '../Map/Map';
 import './PopUp.scss';
+import Loading from '../Loading/Loading';
 
 
 interface NewHikeProps {
@@ -16,6 +17,7 @@ const NewHike = ({ close }: NewHikeProps) => {
   const { email, password } = useContext(AuthContext);
 
   const [hikeName, setHikeName] = useState("");
+  const [path, setPath] = useState(Array<PathType>);
 
   const onNameChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     setHikeName(event.currentTarget.value);
@@ -25,6 +27,39 @@ const NewHike = ({ close }: NewHikeProps) => {
     updateHikePath(hikeName);
     updateHikeName(hikeName, hike?.id as number, email as string, password as string);
     close();
+  }
+
+
+  useEffect(() => {
+    loadHikeData()
+  }, [])
+
+  const loadHikeData = async () => {
+    const data = await getAHike(hike?.id as number, email as string, password as string) as any;
+      
+    const decoder = new TextDecoder("utf-8");
+    const csvData = decoder.decode(new Uint8Array(data.logs.Body.data))
+    const split = csvData.split('\r\n');
+    const hikePath = [];
+  
+    // Parsing Hiking Data into JSON 
+    for (const line of split) {
+      if (line === "") continue;
+      const coord = line.split(',');
+      hikePath.push({
+        'lat': Number(coord[0]),
+        'lng': Number(coord[1])
+      })
+    }
+    setPath(hikePath);
+  }
+
+  const getMap = () => {
+    if (path.length !== 0) {
+      return (<Map path={path} containerStyle={containerStyle} mini={true}/>)
+    } else {
+      return <Loading />
+    }
   }
 
   /**
@@ -44,7 +79,9 @@ const NewHike = ({ close }: NewHikeProps) => {
       </div> 
       <input placeholder="Hike location name..." onChange={onNameChange}/>
       <div className="hike-map">
-        {/* <Map path={hike.path} containerStyle={containerStyle} mini={true}/> */}
+        {
+          getMap()
+        }
       </div>
       <div className="buttons">
         <div className="cancel-button" onClick={close}>Cancel</div>
