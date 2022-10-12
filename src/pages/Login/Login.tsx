@@ -48,7 +48,7 @@ const Login = () => {
     <div className="login">
       <div className="section login-logo">
         <div className="logo-container">
-          <Logo />
+          <Loading />
         </div>
         <h1 className="title">memory trail</h1>
       </div>
