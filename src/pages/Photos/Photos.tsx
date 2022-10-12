@@ -140,6 +140,9 @@ const PhotoCollection = () => {
   const selectCollection = (index: number) => {
     setSelected(true);
     setSelectionIndex(index);
+    if (assortedImages !== undefined) {
+      setImages(assortedImages[index])
+    }
   }
 
   const displayGallery = (index: number) => {
