@@ -11,10 +11,13 @@ import { FiChevronLeft } from 'react-icons/fi';
 import { getHikes, getImageCollection } from '../../api';
 import { AuthContext } from '../../contexts/AuthContext';
 import { HikeContext } from '../../contexts/HikeContext';
+import { PhotosContext } from '../../contexts/PhotosContext';
+
 
 const PhotoCollection = () => {
-
+  
   const { email, password } = useContext(AuthContext);
+  const { galleryIndex, gallerySelected, updateSelectedGallery, setGalleryStatus } = useContext(PhotosContext);
   
   const [selected, setSelected] = useState(false);
   const [selectionIndex, setSelectionIndex] = useState(0);
@@ -32,8 +35,14 @@ const PhotoCollection = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getHikeData()
+    updateConfig();
+    getHikeData();
   }, [])
+
+  const updateConfig = () => {
+    setSelectionIndex(galleryIndex);
+    setSelected(gallerySelected);
+  }
 
   const getHikeData = async () => {
     const images = await getImageCollection(email as string, password as string) as ImageInfo[];
@@ -52,6 +61,8 @@ const PhotoCollection = () => {
       }
     }
 
+
+
     setImageThumbnails(filteredImages);
 
     // for (const image of images) {
@@ -64,6 +75,11 @@ const PhotoCollection = () => {
     // }
   }
 
+  /**
+   * Updates the back button based on the current page selected
+   * 
+   * @returns Updated back button functionality
+   */
   const getBackButton = () => {
     if (selected) {
       return <div className="back-button" onClick={() => setSelected(false)}>
@@ -84,7 +100,6 @@ const PhotoCollection = () => {
   }
 
   const displayGallery = (index: number) => {
-
     const start = images.slice(index, images.length);
     const end = images.slice(0, index);
     setOrderedImages(start.concat(end))
@@ -108,10 +123,6 @@ const PhotoCollection = () => {
         })
       }
       <div className="collection-selection section delay-1">
-        {
-          imageThumbnails === undefined ?
-          null : <PhotoCard thumbnail={(imageThumbnails as ImageInfo[])[0]} onClick={() => selectCollection(0)}/>
-        }
         {
           imageThumbnails?.map((collection, index) => {
             if (!selected) {

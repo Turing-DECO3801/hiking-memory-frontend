@@ -43,10 +43,10 @@ const Noitification = ({ hike, openPopup }: NotificationProps) => {
         <div className="notification-date">
           {
           `${hike.date.getDate()} ${hike.date.toLocaleString('default', { month: 'short' })} ${hike.date.getFullYear()}`
-          }
+        }
         </div>
         <div className="notification-time">
-          {`${hike.date.getHours() % 12}:${hike.date.getMinutes()}${hike.date.getHours() < 12 ? "am" : "pm"}`}
+          {`${hike.date.toLocaleTimeString('default', { hour12: true, hour: '2-digit', minute: '2-digit' })}`}
         </div>
       </div>
       <div className="notification-options">

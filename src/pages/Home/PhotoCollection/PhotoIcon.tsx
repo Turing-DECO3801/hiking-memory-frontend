@@ -3,12 +3,13 @@ import "./PhotoCollection.scss";
 
 interface PhotoIconProps {
   image: ImageInfo
+  onClick: () => void
 }
 
-const PhotoIcon = ({ image }: PhotoIconProps ) => {
+const PhotoIcon = ({ image, onClick }: PhotoIconProps ) => {
 
   return (
-    <div className="mini-photo-card">
+    <div className="mini-photo-card" onClick={onClick}>
       <div className="photo-card-path">
         {image.path_name}
       </div>

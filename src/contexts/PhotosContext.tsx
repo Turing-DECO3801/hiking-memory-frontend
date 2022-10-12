@@ -1,30 +1,30 @@
 import { createContext, useState } from 'react';
 
 interface PhotosContext {
-    images: HikeData | undefined
-    setImages: (data: HikeData) => void
-    updateImages: (name: string) => void
+  galleryIndex: number
+  gallerySelected: boolean
+  updateSelectedGallery: (index: number) => void
+  setGalleryStatus: (status: boolean) => void
 }
 
 export const PhotosContext = createContext<PhotosContext>({
-    images: undefined,
-    setImages: (data: HikeData) => null,
-    updateImages: (data: string) => null
+    galleryIndex: 0,
+    gallerySelected: false,
+    updateSelectedGallery: (index: number) => null,
+    setGalleryStatus: (status: boolean) => null,
 });
 
 export const usePhotosState = (): PhotosContext => {
-  const [images, setImages] = useState<HikeData>();
+  const [galleryIndex, setGalleryIndex] = useState<number>(0);
+  const [gallerySelected, setGallerySelected] = useState<boolean>(false);
 
-  const setHikeData = async (hike: HikeData) => {
-    setImages(images);
+  const updateSelectedGallery = (index: number) => {
+    setGalleryIndex(index);
   };
 
-  const updateImages = (name: string) => {
-    setImages({
-      ... images as HikeData, path_name: name
-    })
+  const setGalleryStatus = (status: boolean) => {
+    setGallerySelected(status);
   }
 
-
-  return { images, setImages, updateImages };
+  return { galleryIndex, gallerySelected, updateSelectedGallery, setGalleryStatus };
 };

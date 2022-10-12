@@ -51,11 +51,11 @@ const HikeCount = ({ hikes }: HighlightCardProps) => {
    */
   const getEquality = () => {
     if (previousCount === currentCount) {
-      return "the same number";
+      return <span className="highlighted-text">the same number of</span>;
     } else if (previousCount < currentCount) {
-      return "more";
+      return <span className="highlighted-text">more</span>;
     } else  {
-      return "less";
+      return <span className="highlighted-text">less</span>;
     }
   }
 

@@ -11,15 +11,19 @@ import { useNavigate } from 'react-router-dom';
 import { getHikes, getImageCollection } from '../../api';
 import { AuthContext } from '../../contexts/AuthContext';
 import { HikeContext } from '../../contexts/HikeContext';
+import { PhotosContext } from '../../contexts/PhotosContext';
 
 const Home = () => { 
 
   const { name, email, password } = useContext(AuthContext);
   const { setHikeData } = useContext(HikeContext);
+  const { updateSelectedGallery, setGalleryStatus } = useContext(PhotosContext);
 
   const [latestHike, setLatestHike] = useState<HikeData>();
   const [allHikes, setAllHikes] = useState<HikeData[]>();
   const [imageCollection, setImageCollection] = useState<ImageInfo[]>();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getHikeData()
@@ -27,7 +31,8 @@ const Home = () => {
 
   const getHikeData = async () => {
     const hikes = await getHikes(email as string, password as string) as HikeData[];
-    setLatestHike(hikes[hikes.length - 1])
+    setLatestHike(hikes[hikes.length - 1]);
+    setHikeData(hikes[hikes.length - 1]);
     setAllHikes(hikes);
     hikes[hikes.length - 1].date = new Date(hikes[hikes.length - 1].start_time as string)
 
@@ -44,8 +49,6 @@ const Home = () => {
     // }
   }
 
-  const navigate = useNavigate();
-
   /**
    * Open single hike view with the correct hike being displayed
    */
@@ -53,6 +56,12 @@ const Home = () => {
     setHikeData(latestHike as HikeData);
 
     navigate('/singleview')
+  }
+
+  const openAllPhotos = () => {
+    updateSelectedGallery(0);
+    setGalleryStatus(false);
+    navigate('/photos')
   }
 
   return (
@@ -101,11 +110,14 @@ const Home = () => {
       <div className="section delay-3">
         <div className="section-header">
           <h4>Photo Collections</h4>
-          <div className="link" onClick={() => navigate("/photos")}>see all</div>
+          <div className="link" onClick={() => openAllPhotos()}>see all</div>
         </div>
         <PhotoCollection images={imageCollection}/>
       </div>
-      {/* <PopUp show={true} type="new" /> */}
+      {
+        latestHike?.viewed === null || latestHike?.path_name !== null ? 
+        <PopUp show={true} type="new" /> : null
+      }
     </div>
   );
   

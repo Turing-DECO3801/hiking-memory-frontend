@@ -65,7 +65,7 @@ const Noitifications = () => {
           </div>
           {
             hikeData
-            .filter(hike => hike.date.getDate() > currentDate.getDate())
+            .filter(hike => hike.date.getDate() >= currentDate.getDate())
             .filter(hike => hike.path_name === null)
             .map((hike, index) => <Notification hike={hike} key={index} openPopup={() => setDisplayPopUp(true)}/>)
           }
@@ -84,7 +84,7 @@ const Noitifications = () => {
           </div>
           {
             hikeData
-            .filter(hike => hike.date.getDate() <= currentDate.getDate())
+            .filter(hike => hike.date.getDate() < currentDate.getDate())
             .filter(hike => hike.path_name === null)
             .map((hike, index) => <Notification hike={hike} key={index} openPopup={() => setDisplayPopUp(true)}/>)
           }

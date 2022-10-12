@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useNavigate } from 'react-router-dom';
 
 // Import Swiper styles
 import "swiper/css";
@@ -7,14 +8,19 @@ import { FreeMode } from "swiper";
 
 import "./PhotoCollection.scss"
 import PhotoIcon from './PhotoIcon';
+import { PhotosContext } from '../../../contexts/PhotosContext';
 
 interface PhotoCollectionProps {
   images: ImageInfo[] | undefined
 }
 
 const PhotoCollection = ({ images }: PhotoCollectionProps ) => {
-
+  
+  const { updateSelectedGallery, setGalleryStatus } = useContext(PhotosContext);
+  
   const [imageThumbnails, setImageThumbnails] = useState<ImageInfo[]>();
+  
+  const navigate = useNavigate();
 
   /**
    * Processes the set of images to only include unique paths
@@ -37,6 +43,12 @@ const PhotoCollection = ({ images }: PhotoCollectionProps ) => {
     setImageThumbnails(filteredImages);
   }, [images])
 
+  const onPhotoSelect = (index: number) => {
+    setGalleryStatus(true);
+    updateSelectedGallery(index);
+    navigate('/photos');
+  }
+
   return (
     <div className="home-photo-collection">
       <Swiper
@@ -50,7 +62,7 @@ const PhotoCollection = ({ images }: PhotoCollectionProps ) => {
           imageThumbnails?.map((image, index) => {
             return (
               <SwiperSlide key={index}>
-                <PhotoIcon image={image}/>
+                <PhotoIcon image={image} onClick={() => onPhotoSelect(index)}/>
               </SwiperSlide>
             )
           })
