@@ -14,17 +14,23 @@ Memory Trail is a Mobile Web Application that has been paired with a Hardware De
 
 Memory Trail is used to store and visualise all hiking data and memories that hiking enthusiasts make throughout their journeys. The hardware device mentioned earlier will upload data directly to the databases and file storarges that the web application will query to provide data to fill the application. The types of data that is provided by the device will be GPS logs and voice memos that will be displayed on an interactive map.  
 
+
+
 # Demonstration
 
+## Sign Up and Login Pages
 You are free to create an account, however, we have also provided a test account that has already been filled with information for you to see. It is recommended that you use the test account as a new account will not have much data to see as data will be provided by the hardware device.
 
 ### `Username: test1@gmail.com`
 
 ### `Password: test`
 
-## Sign Up and Login Pages
 ![image](https://user-images.githubusercontent.com/86467852/194754393-409101d0-c0c2-4605-84ec-e33e1516d6f6.png)
 
+## Home Page and New Hike Notification
+Once logged in, thee home page will be displayed with quick access to the latest hike that you've taken and a notification for any new hikes that you've been on. The notification will prompt you to name the hike trail so it can be used in statistics calculations. 
+
+![image](https://user-images.githubusercontent.com/86467852/195609562-f2eac0d2-998f-48d6-81db-6e946f89ef14.png)
 
 ### Running Locally
 
