@@ -68,6 +68,8 @@ The data will obtain information from AWS services such as S3 for Audio, Image a
 
 ### `Password: test`
 
+### Scripts
+
 ### `npm i`
 
 Installs all dependencies that the application requires 
