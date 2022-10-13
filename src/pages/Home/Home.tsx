@@ -115,8 +115,8 @@ const Home = () => {
         <PhotoCollection images={imageCollection}/>
       </div>
       {
-        latestHike?.viewed === null || latestHike?.path_name !== null ? 
-        <PopUp show={true} type="new" /> : null
+        latestHike === undefined || (latestHike?.viewed !== null && latestHike?.path_name === null) ? 
+         null : <PopUp show={true} type="new"/>
       }
     </div>
   );

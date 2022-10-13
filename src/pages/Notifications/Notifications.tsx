@@ -35,10 +35,9 @@ const Noitifications = () => {
   // Fetch the data on page load
   useEffect(() => {
     getHikeData();
-    currentDate.setDate(currentDate.getDate() - 30);
   }, [])
-
-
+  
+  currentDate.setDate(currentDate.getDate() - 30);
 
   return (
     <>
@@ -57,7 +56,7 @@ const Noitifications = () => {
             <div>
               {
                 hikeData
-                .filter(hike => hike.date.getDate() >= currentDate.getDate())
+                .filter(hike => hike.date.getTime() >= currentDate.getTime())
                 .filter(hike => hike.path_name === null)
                 .length
               }
@@ -65,7 +64,7 @@ const Noitifications = () => {
           </div>
           {
             hikeData
-            .filter(hike => hike.date.getDate() >= currentDate.getDate())
+            .filter(hike => hike.date.getTime() >= currentDate.getTime())
             .filter(hike => hike.path_name === null)
             .map((hike, index) => <Notification hike={hike} key={index} openPopup={() => setDisplayPopUp(true)}/>)
           }
@@ -76,7 +75,7 @@ const Noitifications = () => {
             <div>
             {
                 hikeData
-                .filter(hike => hike.date.getDate() < currentDate.getDate())
+                .filter(hike => hike.date.getTime() < currentDate.getTime())
                 .filter(hike => hike.path_name === null)
                 .length
               }
@@ -84,7 +83,7 @@ const Noitifications = () => {
           </div>
           {
             hikeData
-            .filter(hike => hike.date.getDate() < currentDate.getDate())
+            .filter(hike => hike.date.getTime() < currentDate.getTime())
             .filter(hike => hike.path_name === null)
             .map((hike, index) => <Notification hike={hike} key={index} openPopup={() => setDisplayPopUp(true)}/>)
           }

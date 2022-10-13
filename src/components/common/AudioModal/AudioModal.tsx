@@ -64,7 +64,7 @@ function AudioModal( { show, handleClose, id, audioFile, imageFile, notes,
       const transcriptStatus = transcript.data.status
     
       if (transcriptStatus === "completed") {
-        let transcriptText = transcript.data.text
+        const transcriptText = transcript.data.text
         setTranscriptText(transcriptText);
         updateMemoTranscription(transcriptText, id, email as string, password as string);
         clearInterval(checkCompletionInterval)
