@@ -1,39 +1,30 @@
 import { createContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 interface HikeContext {
-  isAuthed: boolean | undefined;
-  checkAuth: () => void;
-  login: () => void;
-  logout: () => void;
+  hike: HikeData | undefined
+  setHikeData: (data: HikeData) => void
+  updateHikePath: (name: string) => void
 }
 
 export const HikeContext = createContext<HikeContext>({
-  isAuthed: undefined,
-  checkAuth: () => undefined,
-  login: () => undefined,
-  logout: () => undefined
+  hike: undefined,
+  setHikeData: (data: HikeData) => null,
+  updateHikePath: (data: string) => null
 });
 
-export const useHikeContext = (): HikeContext => {
-  const [authed, setAuthed] = useState<boolean>();
-  const API = process.env.REACT_APP_BACKEND_API;
-  const navigate = useNavigate();
+export const useHikeState = (): HikeContext => {
+  const [hike, setHike] = useState<HikeData>();
 
-  // Initial check to see if user is logged in
-  const checkAuth = async () => {
-    setAuthed(true);
+  const setHikeData = async (hike: HikeData) => {
+    setHike(hike);
   };
 
-  const login = () => {
-    setAuthed(true);
-    // Navigate to home upon successful login
-    navigate('/');
-  };
+  const updateHikePath = (name: string) => {
+    setHike({
+      ... hike as HikeData, path_name: name
+    })
+  }
 
-  const logout = () => {
-    setAuthed(false);
-  };
 
-  return { isAuthed: authed, checkAuth, login, logout };
+  return { hike, setHikeData, updateHikePath };
 };

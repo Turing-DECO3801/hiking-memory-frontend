@@ -52,6 +52,8 @@ h4 {
 .latest-hike-name {
     color: $light-grey;
     font-size: 14px;
+    white-space: nowrap; 
+    margin-top: 15px;
 }
 
 .latest-hike .notification-button {

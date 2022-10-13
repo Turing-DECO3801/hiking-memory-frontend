@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { BsArrowLeftShort } from "react-icons/bs"
-import { BsArrowRightShort } from "react-icons/bs"
 import { FaPlay } from "react-icons/fa"
 import { FaPause } from "react-icons/fa"
 
@@ -11,6 +9,7 @@ interface AudioPlayerProps {
 }
 
 const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(100);
   const [currentTime, setCurrentTime] = useState(0);
@@ -20,12 +19,17 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
   const animationRef = useRef<any>(null);  // reference the animation
 
   useEffect(() => {
+    setIsPlaying(false);
+  }, [audioFile])
+
+  useEffect(() => {
     if (audioPlayer.current !== undefined) {
       const timer = setInterval(() => {
         if (audioPlayer.current === null) {
             clearTimeout(timer);
         }
-        if (!isNaN(audioPlayer.current!.duration)) {
+        if (audioPlayer.current !== null && audioPlayer.current!.duration
+          && !isNaN(audioPlayer.current!.duration)) {
             const seconds = Math.floor(audioPlayer.current!.duration);
             setDuration(seconds);
             progressBar.current.max = seconds;
@@ -56,9 +60,11 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
   }
 
   const whilePlaying = () => {
-    progressBar.current.value = audioPlayer.current!.currentTime;
-    changePlayerCurrentTime();
-    animationRef.current = requestAnimationFrame(whilePlaying);
+    if (audioPlayer.current !== undefined) {
+      progressBar.current.value = audioPlayer.current!.currentTime;
+      changePlayerCurrentTime();
+      animationRef.current = requestAnimationFrame(whilePlaying);
+    }
   }
 
   const changeRange = () => {
@@ -67,16 +73,14 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
   }
 
   const changePlayerCurrentTime = () => {
-    // progressBar.current.style.setProperty('--progress', `${progressBar.current.value / duration * 100}%`)
+    progressBar.current.style.setProperty('--progress', `${progressBar.current.value / duration * 100}%`)
     setCurrentTime(progressBar.current.value);
-    progressBar.current.style.setProperty('--progress', `50%`)
-    console.log(progressBar.current.max);
   }
 
   return (
     <div className="audio-player">
       <div className="progress-bar-container">
-        <audio ref={audioPlayer} src="https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3" ></audio>
+        <audio ref={audioPlayer} src={audioFile} ></audio>
         <div className="current-time">{calculateTime(currentTime)}</div>
         <div>
           <input type="range" className="progress-bar" defaultValue="0" ref={progressBar} onChange={changeRange} />

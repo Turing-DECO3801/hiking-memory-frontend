@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './MapMenu.scss';
 
-import { FiMenu, FiEdit, FiTrash2, FiTrendingUp, FiX } from 'react-icons/fi';
+import { FiList, FiEdit, FiTrash2, FiTrendingUp, FiX } from 'react-icons/fi';
 import PopUp from '../PopUp/PopUp';
 import { GiConsoleController } from 'react-icons/gi';
 
@@ -15,7 +15,7 @@ const MapMenu = () => {
   const getMenuButton = () =>  {
     if (!menuState) {
       return (
-        <FiMenu className="menu-button"/>
+        <FiList className="menu-button"/>
       );
     } else {
       return (

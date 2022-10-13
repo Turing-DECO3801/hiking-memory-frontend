@@ -1,49 +1,119 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
 import { HikeContext } from '../../contexts/HikeContext';
 import "./AllHikes.scss"
 import { FiSearch, FiCheck } from 'react-icons/fi/'
 import HikeCard from './HikeCard';
 import PopUp from '../../components/common/PopUp/PopUp';
+import { FiChevronLeft } from 'react-icons/fi/'
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
+import { getHikes } from '../../api';
 
 const AllHikes = () => { 
-  const hikeContext = useContext(HikeContext);
+  
+  const { email, password  } = useContext(AuthContext);
 
   const [selectionType, setSelectionType] = useState("all");
   const [sortType, setSortType] = useState("recent");
   const [searchOpen, setSearchOpen] = useState(false);
   const [displayPopUp, setDisplayPopUp] = useState(false);
+  const [hikeData, setHikeData] = useState(Array<HikeData>);
+  const [isShown, setIsShown] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  const pathExample = [{ lat: 37, lng: -122 },
+  // Fetch the data on page load
+  useEffect(() => {
+    getHikeData();
+  }, [])
+
+  const navigate = useNavigate();
+
+  const pathExample = [
+    { lat: 37, lng: -122 },
     { lat: 37, lng: -121 },
     { lat: 38, lng: -121 },
-    { lat: 38, lng: -122 }];
-
-  const hikeInfo = [ 
-    {title: 'Kondalilla Falls', date: '26/01/2022', time: '8:30am', path: pathExample}, 
-    {title: 'Mount Coot-Tha', date: '26/01/2022', time: '8:30am', path: pathExample},
-    {title: 'Kondalilla Falls', date: '26/01/2022', time: '8:30am', path: pathExample}, 
-    {title: 'Mount Coot-Tha', date: '26/01/2022', time: '8:30am', path: pathExample},
-    {title: 'Kondalilla Falls', date: '26/01/2022', time: '8:30am', path: pathExample}, 
-    {title: 'Mount Coot-Tha', date: '26/01/2022', time: '8:30am', path: pathExample},
-    {title: 'Kondalilla Falls', date: '26/01/2022', time: '8:30am', path: pathExample}, 
-    {title: 'Mount Coot-Tha', date: '26/01/2022', time: '8:30am', path: pathExample},
+    { lat: 38, lng: -122 }
   ];
 
-  const [isShown, setIsShown] = useState(false);
+  const getHikeData = async () => {
+    const hikes = await getHikes(email as string, password as string) as Array<HikeData>;
+    for (const hike of hikes) {
+      hike.date = new Date(hike.start_time);
+    }
 
-  const [searchValue, setSearchValue] = useState("");
+    hikes.sort((a, b) => {
+      return b.date.getTime() - a.date.getTime();
+    })
 
-  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.currentTarget.value)
+    setHikeData(hikes);
   }
 
-  const handleClick = (event: any) => {
-    // 👇️ toggle shown state
-    setIsShown(current => !current);
+  /**
+   * Updates the value of the keywords for search
+   * 
+   * @param event On Input Change Event
+   */
+  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDebouncedSearch(event.currentTarget.value)
+  }
 
-    // 👇️ or simply set it to true
-    // setIsShown(true);
+  /**
+   * Prevents the search from occurring immediately but only after a delay
+   */
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+        setDebouncedSearch(debouncedSearch);
+    }, 500)
+    return () => {
+        clearTimeout(timerId);
+    }
+  }, [debouncedSearch]);
+
+  useEffect(() => {
+    
+    const newHikes = [...hikeData];
+
+    if (sortType === "longest") {
+      newHikes.sort((a, b) => {
+        if (a.distance === null) {
+          return 1
+        } else if (b.distance === null) {
+          return -1
+        }
+        return b.distance - a.distance;
+      })
+    } else if (sortType === "shortest") {
+      newHikes.sort((a, b) => {
+        if (a.distance === null) {
+          return 1
+        } else if (b.distance === null) {
+          return -1
+        }
+        return a.distance - b.distance;
+      })
+    } else if (sortType === "recent") {
+      newHikes.sort((a, b) => {
+        return b.date.getTime() - a.date.getTime();
+      })     
+    } else {
+      newHikes.sort((a, b) => {
+        if (a.path_name === null) {
+          return 1
+        } else if (b.path_name === null) {
+          return -1
+        }
+        return a.path_name.localeCompare(b.path_name);
+      })   
+    }
+
+    setHikeData(newHikes);
+
+  }, [sortType])
+
+  const handleClick = (event: any) => {
+    setIsShown(current => !current);
   };
 
   const getPopUp = () => {
@@ -51,90 +121,105 @@ const AllHikes = () => {
   }
 
   return (
-    <div className="content">
-      {
-        getPopUp()
-      }
-      <Navbar />
-      <br />
-      <div className="filters section">
-        <div className="all-favourites">
-          <div className="all-favourites-card">
-            <div 
-              className={`all ${selectionType === "all" ? "selected" : ""}`}
-              onClick={() => setSelectionType("all")}
-            >
-              All
+    <>
+      <div className="header">
+        <br />
+        <h2 className="section">My Hikes</h2>
+        {
+          getPopUp()
+        }
+        <Navbar />
+      </div>
+      <div className="content">
+        <div className="filters section">
+          <div className="all-favourites">
+            <div className="all-favourites-card">
+              <div 
+                className={`all ${selectionType === "all" ? "selected" : ""}`}
+                onClick={() => setSelectionType("all")}
+              >
+                All
+              </div>
+              <div
+                className={`favourites ${selectionType === "all" ? "" : "selected"}`}
+                onClick={() => setSelectionType("favourites")}  
+              >
+                Favourites
+              </div>
             </div>
+          </div>
+          <div className={`sort-by`}>
             <div
-              className={`favourites ${selectionType === "all" ? "" : "selected"}`}
-              onClick={() => setSelectionType("favourites")}  
-            >
-              Favourites
+              onClick={handleClick}
+              className={`sort-by-card ${isShown ? "sort-by-active" : ""}`}>
+              Sort By
+            </div>
+            <div className={`drop-down ${isShown ? "drop-down-active" : ""}`}>
+              <div
+                className={`selection-option ${sortType === "recent" ? "selected" : ""}`}
+                onClick={() => setSortType("recent")}
+              >
+                Most Recent
+                <FiCheck className={`selection-icon ${sortType === "recent" ? "tick-active" : ""}`}/>
+              </div>
+              <div className="divider" />
+              <div
+                className={`selection-option ${sortType === "longest" ? "selected" : ""}`}
+                onClick={() => setSortType("longest")}
+              >
+                Longest Distance
+                <FiCheck className={`selection-icon ${sortType === "longest" ? "tick-active" : ""}`}/>
+              </div>
+              <div className="divider" />
+              <div
+                className={`selection-option ${sortType === "shortest" ? "selected" : ""}`}
+                onClick={() => setSortType("shortest")}
+              >
+                Shortest Distance
+                <FiCheck className={`selection-icon ${sortType === "shortest" ? "tick-active" : ""}`}/>
+              </div>
+              <div className="divider" />
+              <div
+                className={`selection-option ${sortType === "alphabetical" ? "selected" : ""}`}
+                onClick={() => setSortType("alphabetical")}
+              >
+                Alphabetical
+                <FiCheck className={`selection-icon ${sortType === "alphabetical" ? "tick-active" : ""}`}/>
+              </div>
+              <div className="divider" />
+            </div>
+            <div className="search">
+              <input
+                className={`search-bar ${searchOpen ? "search-bar-active" : ""}`}
+                onChange={onSearchChange}
+              /> 
+              <div
+                className={`search-card ${searchOpen ? "search-active" : ""}`}
+                onClick={() => setSearchOpen(!searchOpen)}
+              >
+                <FiSearch className={`search-icon ${searchOpen ? "search-icon-active" : ""}`}/>
+              </div>
             </div>
           </div>
         </div>
-        <div className={`sort-by`}>
-          <div
-            onClick={handleClick}
-            className={`sort-by-card ${isShown ? "sort-by-active" : ""}`}>
-            Sort By
-          </div>
-          <div className={`drop-down ${isShown ? "drop-down-active" : ""}`}>
-            <div
-              className={`selection-option ${sortType === "recent" ? "selected" : ""}`}
-              onClick={() => setSortType("recent")}
-            >
-              Most Recent
-              <FiCheck className={`selection-icon ${sortType === "recent" ? "tick-active" : ""}`}/>
-            </div>
-            <div className="divider" />
-            <div
-              className={`selection-option ${sortType === "longest" ? "selected" : ""}`}
-              onClick={() => setSortType("longest")}
-            >
-              Longest Distance
-              <FiCheck className={`selection-icon ${sortType === "longest" ? "tick-active" : ""}`}/>
-            </div>
-            <div className="divider" />
-            <div
-              className={`selection-option ${sortType === "shortest" ? "selected" : ""}`}
-              onClick={() => setSortType("shortest")}
-            >
-              Shortest Distance
-              <FiCheck className={`selection-icon ${sortType === "shortest" ? "tick-active" : ""}`}/>
-            </div>
-            <div className="divider" />
-            <div
-              className={`selection-option ${sortType === "most" ? "selected" : ""}`}
-              onClick={() => setSortType("most")}
-            >
-              Most Travelled
-              <FiCheck className={`selection-icon ${sortType === "most" ? "tick-active" : ""}`}/>
-            </div>
-            <div className="divider" />
-          </div>
-          <div className="search">
-            <input
-              className={`search-bar ${searchOpen ? "search-bar-active" : ""}`}
-              onChange={onSearchChange}
-            /> 
-            <div
-              className={`search-card ${searchOpen ? "search-active" : ""}`}
-              onClick={() => setSearchOpen(!searchOpen)}
-            >
-              <FiSearch className={`search-icon ${searchOpen ? "search-icon-active" : ""}`}/>
-            </div>
-          </div>
+        <div className="select section" onClick={() => setSelected(!selected)}>
+          Select
+        </div>
+        <div className="grid section delay-2">
+            {hikeData
+              .map((hike, index) => {
+                if (hike.favourite === 1 && selectionType === "favourites" || selectionType === "all") {
+                  if (hike.path_name?.toLowerCase().includes(debouncedSearch.toLowerCase())) {
+                    return (
+                      <HikeCard key={index} hike={hike} selected={selected} displayPopUp={setDisplayPopUp}/>
+                    )
+                  }
+                }
+              })
+              }
         </div>
       </div>
-      <div className="select section">
-        Select
-      </div>
-      <div className="grid section delay-2">
-          {hikeInfo.map((hike, index) => <HikeCard key={index} hike={hike} displayPopUp={setDisplayPopUp}/>)}
-      </div>
-    </div>
+    </>
   );
   
 };

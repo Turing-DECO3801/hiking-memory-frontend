@@ -3,8 +3,9 @@
 
 .content {
     margin: 10%;
-    position: relative;
+    margin-top: 0px;
     margin-bottom: 110px;
+    position: relative;
 }
 
 .filters {
@@ -15,6 +16,7 @@
     z-index: 100;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .filters .all-favourites {
@@ -167,10 +169,7 @@
 
 .search .search-active {
     transform: scale(110%);
-}
-
-.search-card .search-icon-active{
-    color: $dark-blue;
+    background: $dark-blue;
 }
 
 .search .search-bar {
@@ -200,6 +199,8 @@
 }
 
 .select{
+    width: fit-content;
+    margin-left: auto;
     height: 20px;
     margin-top: 15px;
     margin-bottom: 10px;
@@ -301,6 +302,8 @@
     width: 100%;
     height: 50%;
     display: flex;
+    font-size: 18px;
+    margin-top: 3px;
     justify-content: space-between;
 }
 

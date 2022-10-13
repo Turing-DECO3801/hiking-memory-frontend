@@ -1,40 +1,47 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {useMemo} from 'react';
-import { GoogleMap, useJsApiLoader, Marker, MarkerClusterer } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import "./Map.scss"
-import { createTextSpanFromBounds } from 'typescript';
-import { render } from '@testing-library/react';
-import { FaPlay, FaMapMarker, FaMap } from 'react-icons/fa';
-import Modal from 'react-bootstrap/Modal';
-import { Button } from 'react-bootstrap';
 import AudioModal from '../AudioModal/AudioModal';
 import useStateRef from '../../../hooks/useStateRef'
+import { updateImage } from '../../../api';
+import { FaMapSigns } from 'react-icons/fa';
 
 
 interface MapProps {
   path: {lat: number, lng: number}[];
-  audio?: {location: {lat: number, lng: number}, audioFile: string, imageFile: string}[];
-  containerStyle: {width: string, height: string}
+  audio?: {
+    id: number,
+    location: {
+      lat: number, lng: number
+    },
+    audioFile: string,
+    imageFile: string,
+    notes: string,
+    transcript: string}[];
+  containerStyle: {width: string, height: string},
   mini?: boolean
 }
 
 function Map(mapInfo: MapProps) {
 
   const [show, setShow] = useState(false);
+  const [memoId, setMemoId] = useState(-1);
   const [audioFile, setAudioFile] = useState("hello");
   const [imageFile, setImageFile] = useState("hello");
+  const [notes, setNotes] = useState("");
+  const [transcript, setTranscript] = useState("");
   const [currentSelection, setCurrentSelection, selectionRef] = useStateRef<any>(null);
+  const [map, setMap] = useState<any>();
+  const [initBounds, setInitBounds] = useState<google.maps.LatLngBounds>();
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyBDYINIldIZy3ssEzrMpAvRA6Rdd_GN020'
   });
 
-  const [map, setMap] = React.useState(null);
-
   const onLoad = React.useCallback(function callback(map: any) {
     const bounds = new google.maps.LatLngBounds();
-
     for (let i = 0; i < mapInfo.path.length; i++) {
       bounds.extend(mapInfo.path[i]);
     }
@@ -68,7 +75,7 @@ function Map(mapInfo: MapProps) {
       scale: 0.08,
       anchor: new google.maps.Point(192, 512),
     };
-
+    setInitBounds(bounds);
     map.fitBounds(bounds);
     const flightPlanCoordinates = mapInfo.path;
     const flightPath = new google.maps.Polyline({
@@ -94,24 +101,38 @@ function Map(mapInfo: MapProps) {
             animation: google.maps.Animation.DROP,
             map: map
           });
-  
-          const aFile = mapInfo.audio[i].audioFile;
-          const iFile = mapInfo.audio[i].imageFile;
+          
+          const position = mapInfo.audio[i].location;
+          // const memoId = mapInfo.audio[i].id;
+          // const aFile = mapInfo.audio[i].audioFile;
+          // const iFile = mapInfo.audio[i].imageFile;
+          // const notes = mapInfo.audio[i].notes;
+          // const transcript = mapInfo.audio[i].transcript;
           volumeMarker.addListener("click", () => {
             if (selectionRef !== null && selectionRef.current !== null) {
               selectionRef.current.setIcon(SVGMarker);
             }
-            setAudioFile(aFile);
-            setImageFile(iFile);
-            setShow(true);
-            marker.setIcon(selectedSVGMarker);
-            setCurrentSelection(marker);
+            if (mapInfo.audio !== undefined) {
+              setMemoId(mapInfo.audio[i].id);
+              setAudioFile(mapInfo.audio[i].audioFile);
+              setImageFile(mapInfo.audio[i].imageFile);
+              setNotes(mapInfo.audio[i].notes);
+              setTranscript(mapInfo.audio[i].transcript);
+              setShow(true);
+              marker.setIcon(selectedSVGMarker);
+              setCurrentSelection(marker);
+              const zoomlat = position.lat - 0.00175;
+              const zoomlng = position.lng;
+              map.setZoom(17);
+              map.setCenter({lat: zoomlat, lng: zoomlng});
+            }
           })
       }
     }
 
     flightPath.setMap(map);
-  },[]);
+    setMap(map);
+  }, []);
 
   const onUnmount = React.useCallback(function callback(map: any) {
     setMap(null);
@@ -141,6 +162,9 @@ function Map(mapInfo: MapProps) {
       currentSelection.setIcon(SVGMarker);
       setCurrentSelection(null);
     }
+    map.fitBounds(initBounds);
+    const zoom = map.getZoom();
+    map.setZoom(zoom-0.2)
   }
 
   const getModal = () => {
@@ -150,9 +174,11 @@ function Map(mapInfo: MapProps) {
     return (
       <AudioModal show={show}
         handleClose={() => closeModal()}
-        handleOpen={() => setShow(true)}
+        id={memoId}
         audioFile={audioFile}
         imageFile={imageFile}
+        notes={notes}
+        transcript={transcript}
       />
     );
   }
@@ -162,12 +188,12 @@ function Map(mapInfo: MapProps) {
       {
         getModal()
       }
-    <GoogleMap
-      mapContainerStyle={mapInfo.containerStyle}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-      options = {options}
-    />
+      <GoogleMap
+        mapContainerStyle={mapInfo.containerStyle}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+        options = {options}
+      />
     </div>
   ) : <></>;
   

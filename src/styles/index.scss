@@ -29,6 +29,10 @@ h2 {
     transform: translateX(-5px)
 }
 
+.orange-loader {
+    color: $orange;
+}
+
 .section {
     animation: fade-in 1s ease forwards;
     opacity: 0%;

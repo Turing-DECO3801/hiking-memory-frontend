@@ -7,18 +7,18 @@ import "./Login.scss"
 import Loading from '../../components/common/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
 
-
 const Login = () => {
   const { login } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const [attempting, setAttempting] = useState(false);
   
-  const onUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.currentTarget.value);
+  const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.currentTarget.value);
   }
 
   const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,26 +35,42 @@ const Login = () => {
     }
   }
 
+  const attemptLogin = async () => {
+    setAttempting(true);
+    if (!await login(email, password)) {
+      setError(true);
+    }
+    setAttempting(false);
+  }
+
   return (
     <>
     <div className="login">
       <div className="section login-logo">
         <div className="logo-container">
-          <Logo />
+          <Loading />
         </div>
         <h1 className="title">memory trail</h1>
       </div>
-      <br/>
       {
         showError()
       }
       <div className="section delay-1">
-        <TextInput placeholder="Username" icon="user" onChange={onUsernameChange}/>
+        <TextInput placeholder="Email" icon="user" onChange={onEmailChange}/>
         <br/>
         <TextInput placeholder="Password" icon="lock" type="password" onChange={onPasswordChange}/>
         <br/>
       </div>
-      <Button className="section delay-2" onClick={login}>Log in</Button>
+      {
+        attempting ? 
+        (
+          <div className="spinner-border orange-loader"></div>
+        ) 
+        : 
+        (
+          <Button className="section delay-2" onClick={attemptLogin}>Log in</Button>
+        )
+      }
       <br/>
       <div className="section delay-3">
         Don&apos;t have an account?

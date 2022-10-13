@@ -75,7 +75,7 @@ export const routes: RouteConfig[] = [
     name: 'SignUp',
     exact: true,
     Component: SignUp,
-    secured: true
+    secured: false
   }
 ];
 

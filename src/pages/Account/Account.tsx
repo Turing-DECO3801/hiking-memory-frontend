@@ -1,11 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import "./Account.scss";
 import Navbar from '../../components/layout/Navbar/Navbar';
-import { FiUser, FiLogOut, FiClipboard, FiShield, FiEdit2, FiChevronLeft, FiMail, FiCreditCard, FiRefreshCcw } from 'react-icons/fi'
+import { FiUser, FiLogOut, FiClipboard, FiShield, FiEdit2, FiChevronLeft, FiMail, FiRefreshCcw } from 'react-icons/fi'
+import { AuthContext } from '../../contexts/AuthContext';
+import { getHikes, getImageCollection } from '../../api';
+
+interface ImageData {
+  path_name: string,
+  image: string | null,
+  imageUrl?: string 
+}
 
 const Account = () => {
-
+  
+  const { logout, email, password, name } = useContext(AuthContext);
   const [page, setPage] = useState("default");
+  const [hikeData, setHikeData] = useState(Array<HikeData>);
+  const [memoCount, setMemoCount] = useState(0);
+  const [photoCount, setPhotoCount] = useState(0);
+  
+  useEffect(() => {
+    getHikeData()
+  }, [])
+  
+  const getHikeData = async () => {
+    const hikes = await getHikes(email as string, password as string) as HikeData[];
+    setHikeData(hikes);
+
+    const images = await getImageCollection(email as string, password as string) as ImageData[];
+    let count = 0;
+    for (const image of images) {
+      if (image.image !== null) {
+        count++;
+      }
+    }
+    setMemoCount(images.length);
+    setPhotoCount(count);
+  }
 
   const getAccountPage = () => {
     if (page === "account") {
@@ -24,7 +55,7 @@ const Account = () => {
           <div className="account-options">
             <div className="account-page-option">
               <div className="option-icon-container">
-                <FiCreditCard className="account-page-option-icon"/>
+              <FiUser className="account-page-option-icon"/>
               </div>
               <div className="vertical-divider"/>
               <div className="option-container">
@@ -32,21 +63,7 @@ const Account = () => {
                   Full Name
                 </div>
                 <div className="option-value">
-                  Ella Smith
-                </div>
-              </div>
-            </div>
-            <div className="account-page-option">
-              <div className="option-icon-container">
-                <FiUser className="account-page-option-icon"/>
-              </div>
-              <div className="vertical-divider"/>
-              <div className="option-container">
-                <div className="option-label">
-                  Username
-                </div>
-                <div className="option-value">
-                  @hiking.ella
+                  { name }
                 </div>
               </div>
             </div>
@@ -60,7 +77,7 @@ const Account = () => {
                   Email
                 </div>
                 <div className="option-value">
-                  ellasmith@gmail.com
+                  {email}
                 </div>
               </div>
             </div>
@@ -83,19 +100,19 @@ const Account = () => {
               <FiEdit2 className="edit-image-icon"/>
             </div>
           </div>
-          <h2 className="section">Ella Smith</h2>
-          <h6 className="section username">@hiking.ella</h6>
+          <h2 className="section">{ name }</h2>
+          <h6 className="section username">@memtrail.{name?.toLowerCase().replace(' ', '.')}</h6>
           <div className="section delay-1 user-stats">
             <div className="stats-container">
-              <div className="stats-number">54</div>
+              <div className="stats-number">{hikeData.length}</div>
               <div className="stats-label">hikes</div>
             </div>
             <div className="stats-container">
-              <div className="stats-number">100</div>
+              <div className="stats-number">{memoCount}</div>
               <div className="stats-label">memos</div>
             </div>
             <div className="stats-container">
-              <div className="stats-number">26</div>
+              <div className="stats-number">{photoCount}</div>
               <div className="stats-label">photos</div>
             </div>
           </div>
@@ -118,10 +135,10 @@ const Account = () => {
                 Terms &amp; Conditions 
               </h5>
             </div>
-            <a href="/login" className="logout">
+            <div onClick={logout} className="logout">
               <FiLogOut className="logout-icon"/>
               Log Out
-            </a>
+            </div>
           </div>
         </div>
       )
