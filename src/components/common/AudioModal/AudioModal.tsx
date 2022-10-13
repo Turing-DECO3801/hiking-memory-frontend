@@ -3,8 +3,8 @@ import { FiImage, FiEdit3, FiFileText, FiHeadphones, FiChevronLeft, FiX, FiSave 
 import { useSwipeable, DOWN, SwipeEventData } from 'react-swipeable'; 
 import { AuthContext } from '../../../contexts/AuthContext';
 import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
-import { updateMemoNotes, updateImage } from '../../../api';
-
+import { updateMemoNotes, updateImage, updateMemoTranscription } from '../../../api';
+import { getTranscript, checkTranscriptionStatus } from '../../../api/Transcript';
 import "./AudioModal.scss"
 
 interface Props {
@@ -17,13 +17,16 @@ interface Props {
     transcript: string,
 }
 
+const refreshInterval = 5000
+
+
 function AudioModal( { show, handleClose, id, audioFile, imageFile, notes,
-                      transcript }: Props) {
+  transcript }: Props) {
 
   /**
    * Email and Password references for API 
    */
-  const { email, password } = useContext(AuthContext)
+  const { email, password } = useContext(AuthContext);
 
   /**
    * Use State hooks for display changes
@@ -36,11 +39,38 @@ function AudioModal( { show, handleClose, id, audioFile, imageFile, notes,
   const [image, setImage] = useState<any>(null);
   const [imagePopup, setImagePopup] = useState(false);
   const [notesText, setNotesText] = useState("");
+  const [transcriptText, setTranscriptText] = useState("Loading...");
 
   /**
    * Reference for height changes of the Notes input section
    */
   const notesRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (audioFile !== "hello" && transcript === null && audioFile !== null) {
+      attemptTranscript(audioFile);
+    }
+  }, [audioFile])
+
+  const attemptTranscript = async (audioURL: string) => {
+    // Send the audio file URL off to attempt to 
+    const response = await getTranscript(audioURL);
+
+    const transcriptionId = response.data.id;
+  
+    // Interval for checking transcript completion
+    const checkCompletionInterval = setInterval(async () => {
+      const transcript = await checkTranscriptionStatus(transcriptionId);
+      const transcriptStatus = transcript.data.status
+    
+      if (transcriptStatus === "completed") {
+        let transcriptText = transcript.data.text
+        setTranscriptText(transcriptText);
+        updateMemoTranscription(transcriptText, id, email as string, password as string);
+        clearInterval(checkCompletionInterval)
+      }
+    }, refreshInterval)
+  }
 
   /**
    * Updates the currently set value of the notes section one keyboard
@@ -284,6 +314,14 @@ function AudioModal( { show, handleClose, id, audioFile, imageFile, notes,
     );
   }
 
+  const getTranscriptionText = () => {
+    if (transcript === null || transcript === "") {
+      return transcriptText;
+    } else {
+      return transcript;
+    }
+  }
+
   /**
    * React Component for the Audio Transcript Tab
    * 
@@ -305,7 +343,9 @@ function AudioModal( { show, handleClose, id, audioFile, imageFile, notes,
             <h5>Audio Transcript</h5>
           </div>
           <div className="audio-modal-notes audio-modal-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae tincidunt velit. Suspendisse elementum ex eget fermentum hendrerit... 
+            {
+              getTranscriptionText()
+            }
           </div>
         </div>
       </>

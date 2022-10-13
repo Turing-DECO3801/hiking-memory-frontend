@@ -166,6 +166,30 @@ export const updateMemoNotes = async (value: string, memoId: number, email: stri
     return data;
 }
 
+export const updateMemoTranscription = async (value: string, memoId: number, email: string, password: string) => {
+    let data = {};
+
+    await axios.post(`${URL}memos/${memoId}/transcription`, 
+        {
+            value: value
+        },
+        {
+            headers: {
+                email: email,
+                password: password,
+            }
+        }
+    )
+    .then((res) => {
+        data = res.data;
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
+    return data;
+}
+
 export const updateImage = async (value: any, memoId: number, email: string, password: string) => {
     let data = {};
 

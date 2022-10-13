@@ -103,27 +103,29 @@ function Map(mapInfo: MapProps) {
           });
           
           const position = mapInfo.audio[i].location;
-          const memoId = mapInfo.audio[i].id;
-          const aFile = mapInfo.audio[i].audioFile;
-          const iFile = mapInfo.audio[i].imageFile;
-          const notes = mapInfo.audio[i].notes;
-          const transcript = mapInfo.audio[i].transcript;
+          // const memoId = mapInfo.audio[i].id;
+          // const aFile = mapInfo.audio[i].audioFile;
+          // const iFile = mapInfo.audio[i].imageFile;
+          // const notes = mapInfo.audio[i].notes;
+          // const transcript = mapInfo.audio[i].transcript;
           volumeMarker.addListener("click", () => {
             if (selectionRef !== null && selectionRef.current !== null) {
               selectionRef.current.setIcon(SVGMarker);
             }
-            setMemoId(memoId);
-            setAudioFile(aFile);
-            setImageFile(iFile);
-            setNotes(notes);
-            setTranscript(transcript);
-            setShow(true);
-            marker.setIcon(selectedSVGMarker);
-            setCurrentSelection(marker);
-            const zoomlat = position.lat - 0.00175;
-            const zoomlng = position.lng;
-            map.setZoom(17);
-            map.setCenter({lat: zoomlat, lng: zoomlng});
+            if (mapInfo.audio !== undefined) {
+              setMemoId(mapInfo.audio[i].id);
+              setAudioFile(mapInfo.audio[i].audioFile);
+              setImageFile(mapInfo.audio[i].imageFile);
+              setNotes(mapInfo.audio[i].notes);
+              setTranscript(mapInfo.audio[i].transcript);
+              setShow(true);
+              marker.setIcon(selectedSVGMarker);
+              setCurrentSelection(marker);
+              const zoomlat = position.lat - 0.00175;
+              const zoomlng = position.lng;
+              map.setZoom(17);
+              map.setCenter({lat: zoomlat, lng: zoomlng});
+            }
           })
       }
     }

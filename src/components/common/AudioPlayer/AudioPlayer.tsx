@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { BsArrowLeftShort } from "react-icons/bs"
-import { BsArrowRightShort } from "react-icons/bs"
 import { FaPlay } from "react-icons/fa"
 import { FaPause } from "react-icons/fa"
 
@@ -62,9 +60,11 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
   }
 
   const whilePlaying = () => {
-    progressBar.current.value = audioPlayer.current!.currentTime;
-    changePlayerCurrentTime();
-    animationRef.current = requestAnimationFrame(whilePlaying);
+    if (audioPlayer.current !== undefined) {
+      progressBar.current.value = audioPlayer.current!.currentTime;
+      changePlayerCurrentTime();
+      animationRef.current = requestAnimationFrame(whilePlaying);
+    }
   }
 
   const changeRange = () => {

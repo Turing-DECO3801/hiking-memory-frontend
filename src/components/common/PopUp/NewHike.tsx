@@ -57,8 +57,6 @@ const NewHike = ({ close }: NewHikeProps) => {
   const getMap = () => {
     if (path.length !== 0) {
       return (<Map path={path} containerStyle={containerStyle} mini={true}/>)
-    } else {
-      return <Loading />
     }
   }
 

@@ -57,7 +57,7 @@ const Noitifications = () => {
             <div>
               {
                 hikeData
-                .filter(hike => hike.date.getDate() > currentDate.getDate())
+                .filter(hike => hike.date.getDate() >= currentDate.getDate())
                 .filter(hike => hike.path_name === null)
                 .length
               }
@@ -76,7 +76,7 @@ const Noitifications = () => {
             <div>
             {
                 hikeData
-                .filter(hike => hike.date.getDate() <= currentDate.getDate())
+                .filter(hike => hike.date.getDate() < currentDate.getDate())
                 .filter(hike => hike.path_name === null)
                 .length
               }

@@ -59,7 +59,6 @@ const PhotoCollection = () => {
       if (!map[image.path_name] && image.path_name !== null && image.imageUrl !== undefined) {
         map[image.path_name] = true;
         filteredImages.push(image);
-        console.log(image);
       }
     }
 
