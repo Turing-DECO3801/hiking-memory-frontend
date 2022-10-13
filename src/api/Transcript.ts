@@ -1,11 +1,10 @@
 import axios from "axios";
+import { transcriptURL, API_KEY } from "../constants";
 
-const URL = "https://api.assemblyai.com/v2";
-
-const API_KEY = "bbb21a36f52e4d1b96ede3bf9f41f963";
+const URL = transcriptURL;
 
 const assembly = axios.create({
-    baseURL: "https://api.assemblyai.com/v2",
+    baseURL: transcriptURL,
     headers: {
       authorization: API_KEY,
       "content-type": "application/json",
