@@ -71,19 +71,19 @@ The account page will provide some basic statistics about the account such as th
 # Running Locally
 
 
-### Requirements
+## Requirements
 
 - npm v8.19.2
 - NodeJS v16.13.0
 
-### Notes
+## Notes
 The data will obtain information from AWS services such as S3 for Audio, Image and CSV store and RDS for data. It is not possible to manually upload information through the web application as it requires the device for upload but there is mocked data that already exists in a testing account. 
 
 ### `Username: test1@gmail.com`
 
 ### `Password: test`
 
-### Scripts
+## Scripts
 
 ### `npm i`
 
