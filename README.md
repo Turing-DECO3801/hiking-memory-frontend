@@ -42,18 +42,33 @@ From the home page, you'll be able to navigate to a collection of all of the pho
 ## Notifications
 The notifications page will store all notifications about hikes that haven't been named. You will be able to name the hike directly from here or if needed, have a look at the path by clicking on it. Once it has been viewed, the orange circle will disappear.
 
+![image](https://user-images.githubusercontent.com/86467852/195753294-d52f7de8-1d72-4827-a746-706210bf705e.png)
+
+
 ## All Hikes Page
 Once your hike has been named in the home or notifications page, it will be viewable on the All Hikes page which is a collection of all of the hikes that has been taken. The hikes can be searched or sorted in a variety of different ways such as looking through all of the favourited hikes.
 
 ![image](https://user-images.githubusercontent.com/86467852/195619096-f708fc4f-df14-49b6-ad31-a33d7533d3f3.png)
 
 ## Single Hike Page
-The Single Hike page will show all information about one of the hikes and can be navigated to by the home, notification or all hikes page. This page will provide a GPS path of the hike, including any audio memos that you've taken throughout the journey. A pop up tab will appear once an audio bubble is tapped on, providing options to add an image to the memo, store some additional notes, play back the audio and view an auto-generated transcription.
+The Single Hike page will show all information about one of the hikes and can be navigated to by the home, notification or all hikes page. This page will provide a GPS path of the hike, including any audio memos that you've taken throughout the journey.
+
+![image](https://user-images.githubusercontent.com/86467852/195753386-99a35478-c096-4548-99a6-9bdb4b308360.png)
+
+A pop up tab will appear once an audio bubble is tapped on, providing options to add an image to the memo, store some additional notes, play back the audio and view an auto-generated transcription.
+
+![image](https://user-images.githubusercontent.com/86467852/195753551-08fe9e83-3f19-40a2-9190-aac7486b7cd4.png)
+
+![image](https://user-images.githubusercontent.com/86467852/195753607-dcb7f29f-0f18-4a49-9461-cbdc699beff7.png)
+
 
 ## Account
 The account page will provide some basic statistics about the account such as the total number of hikes made, images stored and audio messages recorded. Although not functional, we would add security information and options for changing account details. This page also allows users to log out of their account and return to the login page.
 
-## Running Locally
+![image](https://user-images.githubusercontent.com/86467852/195753704-99ecf599-3ee7-47aa-a5ad-563f3f51ce83.png)
+
+
+# Running Locally
 
 
 ### Requirements
