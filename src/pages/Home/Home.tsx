@@ -39,14 +39,6 @@ const Home = () => {
     const images = await getImageCollection(email as string, password as string) as ImageInfo[];
 
     setImageCollection(images);
-    // for (const image of images) {
-    //   const img = new Image();
-    //   img.src = image.imageUrl;
-    //   img.onload = () => {
-    //     console.log(img.height);
-    //     console.log(img.width);
-    //   }
-    // }
   }
 
   /**
@@ -115,7 +107,7 @@ const Home = () => {
         <PhotoCollection images={imageCollection}/>
       </div>
       {
-        latestHike === undefined || (latestHike?.viewed !== null && latestHike?.path_name === null) ? 
+        latestHike === undefined || (latestHike?.viewed === 1) || (latestHike?.path_name !== null) ? 
          null : <PopUp show={true} type="new"/>
       }
     </div>

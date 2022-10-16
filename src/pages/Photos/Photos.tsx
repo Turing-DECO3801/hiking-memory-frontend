@@ -48,6 +48,8 @@ const PhotoCollection = () => {
   const storeImages = async () => {
     const images = await getImageCollection(email as string, password as string) as ImageInfo[];
 
+    console.log(images);
+
     setImageCollection(images);
 
     const filteredImages = [];
@@ -56,7 +58,8 @@ const PhotoCollection = () => {
 
     for (const image of images.reverse()) {
       // The path does not yet exist
-      if (!map[image.path_name] && image.path_name !== null && image.imageUrl !== undefined) {
+      if (!map[image.path_name] && image.path_name !== null && image.imageUrl !== undefined
+        && image.image !== null) {
         map[image.path_name] = true;
         filteredImages.push(image);
       }
@@ -82,7 +85,7 @@ const PhotoCollection = () => {
       if (!sortMap[image.path_name] && image.path_name !== null && image.imageUrl !== undefined) {
         sortMap[image.path_name] = [];
       }
-      if (sortMap[image.path_name] !== undefined) {
+      if (sortMap[image.path_name] !== undefined && image.image !== null) {
         const imageInfo = {
           src: image.imageUrl,
           caption: image.path_name,
@@ -141,6 +144,7 @@ const PhotoCollection = () => {
     setSelectionIndex(index);
     if (assortedImages !== undefined) {
       setImages(assortedImages[index])
+      console.log(assortedImages[index])
     }
   }
 

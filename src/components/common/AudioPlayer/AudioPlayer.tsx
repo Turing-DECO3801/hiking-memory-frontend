@@ -20,9 +20,6 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
 
   useEffect(() => {
     setIsPlaying(false);
-  }, [audioFile])
-
-  useEffect(() => {
     if (audioPlayer.current !== undefined) {
       const timer = setInterval(() => {
         if (audioPlayer.current === null) {
@@ -35,9 +32,9 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
             progressBar.current.max = seconds;
             clearTimeout(timer);
         }
-    }, 10)
+      }, 10)
     }
-  }, []);
+  }, [audioFile])
 
   const calculateTime = (secs: number) => {
     const minutes = Math.floor(secs / 60);
@@ -60,7 +57,7 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
   }
 
   const whilePlaying = () => {
-    if (audioPlayer.current !== undefined) {
+    if (audioPlayer.current !== undefined && audioPlayer.current !== null) {
       progressBar.current.value = audioPlayer.current!.currentTime;
       changePlayerCurrentTime();
       animationRef.current = requestAnimationFrame(whilePlaying);
@@ -68,8 +65,10 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
   }
 
   const changeRange = () => {
-    audioPlayer.current!.currentTime = progressBar.current.value;
-    changePlayerCurrentTime();
+    if (audioPlayer.current !== undefined && audioPlayer.current !== null) {
+      audioPlayer.current!.currentTime = progressBar.current.value;
+      changePlayerCurrentTime();
+    }
   }
 
   const changePlayerCurrentTime = () => {
