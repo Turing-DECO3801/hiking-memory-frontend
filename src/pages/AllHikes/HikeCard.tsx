@@ -63,6 +63,11 @@ const HikeCard = ({ hike, displayPopUp, selected }: HikeCardProps) => {
     navigate("/singleview")
   }
 
+  const deletePopup = () => {
+    setHikeData(hike);
+    displayPopUp(true)
+  }
+
   const handleSwiped = (eventData: SwipeEventData) => {
     if (eventData.dir === LEFT) {
       if (swiped) {
@@ -88,7 +93,7 @@ const HikeCard = ({ hike, displayPopUp, selected }: HikeCardProps) => {
     <div className="hike-card-container">
       <div className="hike-card-delete">
         <FiX className="delete-icon"
-          onClick={() => displayPopUp(true)}
+          onClick={() => deletePopup()}
         />
       </div>
       <div
