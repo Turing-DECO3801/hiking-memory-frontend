@@ -9,6 +9,16 @@
     flex-direction: column;
 }
 
+.loading-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transform: scale(400%);
+}
+
 .link {
     text-decoration: none;
 }
