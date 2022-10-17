@@ -10,6 +10,7 @@ import AllHikes from '../pages/AllHikes/AllHikes';
 import Account from '../pages/Account/Account';
 import Noitifications from '../pages/Notifications/Notifications';
 import SignUp from '../pages/SignUp/SignUp';
+import LoadingPage from '../pages/Login/LoadingPage';
 
 
 /** All routes */
@@ -75,6 +76,13 @@ export const routes: RouteConfig[] = [
     name: 'SignUp',
     exact: true,
     Component: SignUp,
+    secured: false
+  },
+  {
+    path: '/loading',
+    name: 'Loading',
+    exact: true,
+    Component: LoadingPage,
     secured: false
   }
 ];
