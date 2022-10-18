@@ -12,6 +12,7 @@ import { getHikes, getImageCollection } from '../../api';
 import { AuthContext } from '../../contexts/AuthContext';
 import { HikeContext } from '../../contexts/HikeContext';
 import { PhotosContext } from '../../contexts/PhotosContext';
+import Loading from '../../components/common/Loading/Loading';
 
 const Home = () => { 
 
@@ -31,6 +32,15 @@ const Home = () => {
 
   const getHikeData = async () => {
     const hikes = await getHikes(email as string, password as string) as HikeData[];
+
+    for (const hike of hikes) {
+      hike.date = new Date(hike.start_time);
+    }
+
+    hikes.sort((a, b) => {
+      return a.date.getTime() - b.date.getTime();
+    })     
+
     setLatestHike(hikes[hikes.length - 1]);
     setHikeData(hikes[hikes.length - 1]);
     setAllHikes(hikes);
@@ -58,58 +68,64 @@ const Home = () => {
 
   return (
     <div className="home">
-      <Navbar />
-      <br />
-      <h2 className="section">Welcome Back {name}!</h2>
-      <br />
-      {/** Latest Hike Tab, could be abstracted later */}
-      <div className="latest-hike section delay-1">
-        <div className="left-half">
-          <h5>View your latest hike</h5>
-          <div className="thin-text latest-hike-name">
-            {
-              latestHike?.path_name === null ? "Unnamed " : `${latestHike?.path_name} `
-            }
-            {
-              latestHike?.date === undefined ? "" : latestHike?.date.toLocaleDateString()
-            }
-          </div>
-        </div>
-        <div className="notification-button" onClick={() => openHike()}>
-          <FiArrowRight className="arrow-right"/>
-        </div>
-        <div className="icons">
-          <div className="camera-icon-container">
-            <FiCamera className="camera-icon" />
-          </div>
-          <div className="sound-icon-container">
-            <FiVolume2 className="volume-icon" />
-          </div>
-        </div>
-      </div>
-
-      <br />
-      <br />
-
-      {/** Highlights Tab */}
-      <div className="section delay-2">
-        <div className="section-header">
-          <h4>Highlights</h4>
-        </div>
-        <Highlights hikes={allHikes}/>
-      </div>
-      <br />
-      <div className="section delay-3">
-        <div className="section-header">
-          <h4>Photo Collections</h4>
-          <div className="link" onClick={() => openAllPhotos()}>see all</div>
-        </div>
-        <PhotoCollection images={imageCollection}/>
+      {/* <div className={`page-loading-container ${latestHike === undefined ? "" : "loading-inactive"}`}>
+        <Loading />
       </div>
       {
-        latestHike === undefined || (latestHike?.viewed === 1) || (latestHike?.path_name !== null) ? 
-         null : <PopUp show={true} type="new"/>
-      }
+        latestHike === undefined ? <></>
+        : 
+        <>         */}
+          <Navbar />
+          <br />
+          <h2 className="section">Welcome Back {name}!</h2>
+          <br />
+          <div className="latest-hike section delay-1">
+            <div className="left-half">
+              <h5>View your latest hike</h5>
+              <div className="thin-text latest-hike-name">
+                {
+                  latestHike?.path_name === null ? "Unnamed " : `${latestHike?.path_name} `
+                }
+                {
+                  latestHike?.date === undefined ? "" : latestHike?.date.toLocaleDateString()
+                }
+              </div>
+            </div>
+            <div className="notification-button" onClick={() => openHike()}>
+              <FiArrowRight className="arrow-right"/>
+            </div>
+            <div className="icons">
+              <div className="camera-icon-container">
+                <FiCamera className="camera-icon" />
+              </div>
+              <div className="sound-icon-container">
+                <FiVolume2 className="volume-icon" />
+              </div>
+            </div>
+          </div>
+          <br />
+          <br />
+          <div className="section delay-2">
+            <div className="section-header">
+              <h4>Highlights</h4>
+            </div>
+            <Highlights hikes={allHikes}/>
+          </div>
+          <br />
+          <div className="section delay-3">
+            <div className="section-header">
+              <h4>Photo Collections</h4>
+              <div className="link" onClick={() => openAllPhotos()}>see all</div>
+            </div>
+            <PhotoCollection images={imageCollection}/>
+          </div>
+          {
+            latestHike === undefined || (latestHike?.viewed === 1) || (latestHike?.path_name !== null) ? 
+            null : <PopUp show={true} type="new"/>
+          }
+        {/* </>
+      } */}
+
     </div>
   );
   
