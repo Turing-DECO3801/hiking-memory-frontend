@@ -13,16 +13,26 @@ interface ImageData {
 
 const Account = () => {
   
+  /**
+   * Use State hooks for rendering for page changes
+   */
   const { logout, email, password, name } = useContext(AuthContext);
   const [page, setPage] = useState("default");
   const [hikeData, setHikeData] = useState(Array<HikeData>);
   const [memoCount, setMemoCount] = useState(0);
   const [photoCount, setPhotoCount] = useState(0);
   
+  /**
+   * Gets the hike data only on page load
+   */
   useEffect(() => {
     getHikeData()
   }, [])
   
+  /**
+   * Asynchronously loads the hike data and updates statistics based on the amount of
+   * hikes, image and audio memo count
+   */
   const getHikeData = async () => {
     const hikes = await getHikes(email as string, password as string) as HikeData[];
     setHikeData(hikes);

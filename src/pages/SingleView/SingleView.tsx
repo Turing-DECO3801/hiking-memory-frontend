@@ -91,14 +91,23 @@ const SingleView = () => {
     }
   }
 
+  /**
+   * Updates the value of the distance if it has not been calculated before
+   */
   useEffect(() => {
     if (hike?.distance === null && path.length !== 0 && isLoaded && google.maps.geometry !== undefined) {
       const calculatedDistance = google.maps.geometry.spherical.computeLength(path);
       setHikeLength(calculatedDistance);
+      hike.distance = calculatedDistance;
       setDistance(calculatedDistance, hike?.id as number, email as string, password as string) as any;
     }
   }, [isLoaded, path])
 
+  /**
+   * Updates the favourited status of the current hike
+   * 
+   * @param event Mouse Event 
+   */
   const onFavouritedPress = (event: React.MouseEvent<HTMLElement>) => {
     setFavourite(favourited === true ? 0 : 1, hike?.id as number, email as string, password as string);
     setFavourited(!favourited);
@@ -106,6 +115,9 @@ const SingleView = () => {
     event.stopPropagation();
   }
 
+  /**
+   * Styling of the Google Maps API
+   */
   const containerStyle = {
     width: '110vw',
     height: '110vh'

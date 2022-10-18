@@ -1,15 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import './PopUp.scss';
 import { FiTrash2 } from 'react-icons/fi';
 import { HikeContext } from '../../../contexts/HikeContext';
 
 interface DeleteHikeProps {
-  hikeName: string,
-  date: string,
   close: () => void
 }
 
-const DeleteHike = ({ hikeName, date, close }: DeleteHikeProps) => {
+const DeleteHike = ({ close }: DeleteHikeProps) => {
 
   const { hike } = useContext(HikeContext);
 

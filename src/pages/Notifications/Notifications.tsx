@@ -1,8 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
-import { FiChevronLeft } from 'react-icons/fi/'
 import "./Notifications.scss"
-import { useNavigate } from 'react-router-dom';
 import Notification from './Notification';
 import PopUp from '../../components/common/PopUp/PopUp';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -16,8 +14,9 @@ const Noitifications = () => {
   const [hikeData, setHikeData] = useState(Array<HikeData>);
   const currentDate = new Date()
 
-  const navigate = useNavigate();
-
+  /**
+   * Gets all hike data for the current user and will order it by date
+   */
   const getHikeData = async () => {
     const hikes = await getHikes(email as string, password as string) as Array<HikeData>;
 
@@ -32,11 +31,14 @@ const Noitifications = () => {
     setHikeData(hikes);
   }
 
-  // Fetch the data on page load
+  /**
+   * Fetch the data on page load
+   */
   useEffect(() => {
     getHikeData();
   }, [])
   
+  // Sets the current date to be a month before to partition the data
   currentDate.setDate(currentDate.getDate() - 30);
 
   return (

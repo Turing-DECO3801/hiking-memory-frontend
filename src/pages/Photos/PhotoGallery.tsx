@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import "./Photos.scss";
 import { Gallery } from "react-grid-gallery";
-import { images as IMAGES } from "./images";
 import { Image } from 'react-grid-gallery';
 
 interface PhotoGalleryProps {
@@ -13,6 +12,11 @@ const PhotoGallery = ({ onClick, collection }: PhotoGalleryProps) => {
 
   const [images, setImages] = useState<Image[]>(collection);
 
+  /**
+   * Gets the name of the hike to be displayed for the collectioon
+   * 
+   * @returns 
+   */
   const getName = () => {
     if (collection !== undefined && collection.length != 0) {
       return collection[0].caption;

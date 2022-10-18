@@ -314,6 +314,12 @@ function AudioModal( { show, handleClose, id, audioFile, imageFile, notes,
     );
   }
 
+  /**
+   * Checks if a transcript already exists, if it does show it,
+   * if not, send a request to transcribe the audio
+   * 
+   * @returns The Transcript text to be displayed
+   */
   const getTranscriptionText = () => {
     if (transcript === null || transcript === "") {
       return transcriptText;

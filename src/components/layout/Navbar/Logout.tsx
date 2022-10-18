@@ -3,7 +3,10 @@ import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthContext';
 
 const Logout = () => {
-  // Logout functionality here
+  
+  /**
+   * Functionality to handle the logging out of a user
+   */
   const { logout } = useContext(AuthContext);
   function performLogout(e: { preventDefault: () => void }) {
     e.preventDefault();

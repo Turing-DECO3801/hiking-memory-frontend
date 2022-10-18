@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { HikeContext } from '../../contexts/HikeContext';
 import { FiPlus } from 'react-icons/fi';
 
-
 interface NotificationProps {
   hike: HikeData
   openPopup: () => void;

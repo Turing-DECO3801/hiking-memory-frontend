@@ -15,10 +15,20 @@ const EditHike = ({ close }: EditHikeProps) => {
   const { email, password } = useContext(AuthContext);
   const [hikeName, setHikeName] = useState("");
 
+  /**
+   * Keeps track of the current value of the input form for the name change
+   * of a Hike
+   * 
+   * @param event Input Change Event
+   */
   const onNameChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     setHikeName(event.currentTarget.value);
   }
   
+  /**
+   * On Submit of the name change for the Hike will send a request to the
+   * database to store the new hike name
+   */
   const updateName = () => {
     updateHikePath(hikeName);
     updateHikeName(hikeName, hike?.id as number, email as string, password as string);

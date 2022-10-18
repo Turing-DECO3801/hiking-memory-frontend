@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import './PopUp.scss';
-
 import { FiTrendingUp } from 'react-icons/fi';
 import { GiPathDistance, GiBootPrints } from 'react-icons/gi'
-
+import { HikeContext } from '../../../contexts/HikeContext';
 interface HikeSummaryProps {
   steps: string,
   distance: string,
@@ -11,7 +10,35 @@ interface HikeSummaryProps {
   close: () => void,
 }
 
-const HikeSummary = ({ steps, distance, altitude, close }: HikeSummaryProps) => {
+const HikeSummary = ({ steps, altitude, close }: HikeSummaryProps) => {
+
+  const { hike } = useContext(HikeContext);
+
+  /**
+   * Returns a formatted string of the distance value
+   * 
+   * @returns Formatted distance
+   */
+  const getDistance = () => {
+    if (hike !== null && hike !== undefined) {
+      if (hike.distance !== null) {
+        return (hike.distance / 1000).toFixed(2) 
+      }
+    }
+  }
+
+  /**
+   * Returns a formatted string of the step count
+   * 
+   * @returns Formatted step count
+   */
+     const getStepCount = () => {
+      if (hike !== null && hike !== undefined) {
+        if (hike.distance !== null) {
+          return (hike.distance / 0.66).toFixed(0) 
+        }
+      }
+    }
 
   return (
     <div className="popup-content">
@@ -20,13 +47,13 @@ const HikeSummary = ({ steps, distance, altitude, close }: HikeSummaryProps) => 
           <div className="stats-icon-container">
             <GiBootPrints className="stats-icon"/>
           </div>
-          { steps } steps
+          { getStepCount() } steps
         </div>
         <div className="stats">
           <div className="stats-icon-container">
             <GiPathDistance className="stats-icon"/>
           </div>
-          { distance }km travelled
+            { getDistance() } km travelled
         </div>
         <div className="stats">
           <div className="stats-icon-container">

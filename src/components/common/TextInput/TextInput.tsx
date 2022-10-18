@@ -1,7 +1,6 @@
 import React from 'react';
 import './TextInput.scss';
 import { FiUser, FiLock } from 'react-icons/fi/'
-        
 
 interface TextInputProps {
   icon?: string
@@ -12,6 +11,11 @@ interface TextInputProps {
 
 const TextInput = ({ icon, placeholder, type, onChange }: TextInputProps) => {
 
+  /**
+   * Returns the icon of the text input depending on the type
+   * 
+   * @returns The Icon for the Text Input
+   */
   const getIcon = () => {
     if (icon === "user") {
       return <FiUser className="icon"/>
@@ -20,6 +24,11 @@ const TextInput = ({ icon, placeholder, type, onChange }: TextInputProps) => {
     }
   }
 
+  /**
+   * Checks if the text input should have a placeholder
+   * 
+   * @returns Placeholder Text if exists
+   */
   const getByPlaceholderText = () => {
     if (placeholder) {
       return placeholder;

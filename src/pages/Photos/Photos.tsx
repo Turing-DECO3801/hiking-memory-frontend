@@ -2,18 +2,15 @@ import React, { useState, useContext, useEffect } from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
 import LightBox from './Lightbox';
 import { images as IMAGES } from "./images";
-
 import PhotoCard from './PhotoCard';
 import PhotoGallery from './PhotoGallery';
 import "./Photos.scss"
 import { useNavigate } from 'react-router-dom';
 import { FiChevronLeft } from 'react-icons/fi';
-import { getHikes, getImageCollection } from '../../api';
+import { getImageCollection } from '../../api';
 import { AuthContext } from '../../contexts/AuthContext';
-import { HikeContext } from '../../contexts/HikeContext';
 import { PhotosContext } from '../../contexts/PhotosContext';
 import { Image as ImageType } from 'react-grid-gallery'
-import Loading from '../../components/common/Loading/Loading';
 
 const PhotoCollection = () => {
   
@@ -25,7 +22,6 @@ const PhotoCollection = () => {
   const [galleryDisplayed, setGalleryDisplayed] = useState(false);
   const [images, setImages] = useState(IMAGES);
   const [orderedImages, setOrderedImages] = useState(images);
-  const [imageIndex, setImageIndex] = useState(0);
   const [imageCollection, setImageCollection] = useState<ImageInfo[]>();
   const [imageThumbnails, setImageThumbnails] = useState<ImageInfo[]>();
   const [assortedImages, setAssortedImages] = useState<ImageType[][]>();
@@ -40,15 +36,19 @@ const PhotoCollection = () => {
     storeImages();
   }, [])
 
+  /**
+   * Updates Context stored status of the photo gallery
+   */
   const updateConfig = () => {
     setSelectionIndex(galleryIndex);
     setSelected(gallerySelected);
   }
 
+  /**
+   * Stores the images and their size data for the gallery collage
+   */
   const storeImages = async () => {
     const images = await getImageCollection(email as string, password as string) as ImageInfo[];
-
-    console.log(images);
 
     setImageCollection(images);
 
@@ -139,6 +139,11 @@ const PhotoCollection = () => {
     }
   }
 
+  /**
+   * Selects the current gallery to be displayed
+   * 
+   * @param index Index of the gallery to display
+   */
   const selectCollection = (index: number) => {
     setSelected(true);
     setSelectionIndex(index);
@@ -148,6 +153,12 @@ const PhotoCollection = () => {
     }
   }
 
+  /**
+   * Shows the lightbox of the image based on the image that
+   * was selected
+   * 
+   * @param index Index of the image to display
+   */
   const displayGallery = (index: number) => {
     const start = images.slice(index, images.length);
     const end = images.slice(0, index);
@@ -155,8 +166,12 @@ const PhotoCollection = () => {
     setGalleryDisplayed(true);
   }
 
-  const getCollection = () => {
-    
+  /**
+   * Gets the collection to be shown based on the collection index
+   * 
+   * @returns The gallery of the current index
+   */
+  const getCollection = () => {    
     if (assortedImages !== undefined && loaded) {
       return (
         assortedImages.map((collection, index) => {
