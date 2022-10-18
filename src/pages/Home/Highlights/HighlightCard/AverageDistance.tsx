@@ -9,6 +9,10 @@ const AverageDistance = ( { hikes }: HighlightCardProps) => {
 
   const [distance, setDistance] = useState(0);
  
+  /**
+   * Calculates the average distance of the all of the hikes that
+   * currently have a distance associated with them
+   */
   useEffect(() => {
     let totalDistance = 0;
     let count = 0;

@@ -8,8 +8,14 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   
+  /**
+   * Current Page URL object containing data
+   */
   const location = useLocation();
 
+  /**
+   * Functionality to change the current page
+   */
   const navigate = useNavigate();
 
   return (
