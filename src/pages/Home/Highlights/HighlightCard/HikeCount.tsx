@@ -31,7 +31,6 @@ const HikeCount = ({ hikes }: HighlightCardProps) => {
           === currentDate?.toLocaleDateString('default', { month: "long" })
       )
     }).length
-
     setCurrentCount (currentLength);
 
     const previousLength = hikes?.filter(hike => {

@@ -13,12 +13,12 @@
 }
 
 .profile-image {
-    margin-top: 60px;
-    width: 150px;
-    height: 150px;
+    margin-top: 30px;
+    width: 130px;
+    height: 130px;
     border-radius: 100%;
     background: $dark-blue;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     box-shadow: 0px 4px 4px $low-opacity-black;
 }
 
@@ -68,8 +68,8 @@
 
 .stats-container {
     margin: 20px 0px;
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     background: $off-white;
     box-shadow: 0px 4px 4px $low-opacity-black;
     border-radius: 10px;
@@ -80,28 +80,34 @@
 }
 
 .stats-number {
-    font-size: 30px;
+    font-size: 25px;
     color: $orange;
     line-height: 35px;
 }
 
 .stats-label {
-    font-size: 15px;
+    font-size: 12px;
     color: $dark-grey;
 }
 
 .account-options .account-option {
     display: flex;
-    margin: 20px 0px;    
-    font-size: 18px;
+    align-items: center;
+    margin: 10px 0px;    
+    font-size: 16px;
     width: 85%;
     color: $dark-blue;
 }
 
+.account-option h5 {
+    font-size: 16px;
+}
+
 .account-option-icon {
-    font-size: 30px;
+    font-size: 25px;
     margin-right: 20px;
     margin-bottom: 5px;
+    margin-left: 10px;
 }
 
 .logout {

@@ -47,7 +47,7 @@
 }
 
 .modal-section {
-    height: 64px;
+    height: 50px;
     overflow: hidden;
     transition: height 0.5s ease;
 }
@@ -62,7 +62,7 @@
 
 .image-container .modal-image {
     width: 100%;
-    max-height: 300px;
+    max-height: 130px;
     height: auto;
     transform: scale(108%);
     object-fit: cover;
@@ -97,7 +97,7 @@
     display: flex;
     align-items: center;
 
-    height: 64px;
+    height: 50px;
 }
 
 .modal-option-icon {
@@ -106,7 +106,7 @@
 }
 
 .modal-option h5 {
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 0;
 }
 
