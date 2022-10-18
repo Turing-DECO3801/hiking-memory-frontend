@@ -1,10 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
-import TextInput from '../../components/common/TextInput/TextInput';
 import Logo from '../../components/common/Logo/Logo';
 import Button from '../../components/common/Button/Button';
 import "./SignUp.scss"
-import Loading from '../../components/common/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
@@ -18,18 +16,38 @@ const SignUp = () => {
   const [error, setError] = useState(false);
   const [attempting, setAttempting] = useState(false);
 
+  /**
+   * Updates the variable for the name when the text input box has changed
+   * 
+   * @param event On Change event
+   */
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.currentTarget.value);
   }
 
+  /**
+   * Updates the variable for the email when the text input box has changed
+   * 
+   * @param event On Change event
+   */
   const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.currentTarget.value);
   }
 
+  /**
+   * Updates the variable for the password when the text input box has changed
+   * 
+   * @param event On Change event
+   */
   const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);
   }
 
+  /**
+   * Shows an error if the sign up request has failed
+   * 
+   * @returns Error to be displayed
+   */
   const showError = () => {
     if (error) {
       return (
@@ -40,6 +58,10 @@ const SignUp = () => {
     }
   }
 
+  /**
+   * Makes an API request with the current email, password and name values
+   * to create a new account
+   */
   const attemptSignup = async () => {
     setAttempting(true);
     if (!await signup(email, password, name)) {

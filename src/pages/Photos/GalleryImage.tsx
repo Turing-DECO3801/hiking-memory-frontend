@@ -11,9 +11,6 @@ const GalleryImage = ({ image, onClick }: GalleryImageProps) => {
 
   return (
     <div className="gallery-card" onClick={onClick}>
-      {/* <div className="gallery-image-caption">
-        Hello
-      </div> */}
       <img src={image.src} onClick={(e) => e.stopPropagation()}/>
     </div>
   );
