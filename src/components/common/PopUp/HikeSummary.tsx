@@ -27,6 +27,19 @@ const HikeSummary = ({ steps, altitude, close }: HikeSummaryProps) => {
     }
   }
 
+  /**
+   * Returns a formatted string of the step count
+   * 
+   * @returns Formatted step count
+   */
+     const getStepCount = () => {
+      if (hike !== null && hike !== undefined) {
+        if (hike.distance !== null) {
+          return (hike.distance / 0.66).toFixed(0) 
+        }
+      }
+    }
+
   return (
     <div className="popup-content">
       <h3>Hike Summary<FiTrendingUp className="title-icon"/></h3>
@@ -34,7 +47,7 @@ const HikeSummary = ({ steps, altitude, close }: HikeSummaryProps) => {
           <div className="stats-icon-container">
             <GiBootPrints className="stats-icon"/>
           </div>
-          { steps } steps
+          { getStepCount() } steps
         </div>
         <div className="stats">
           <div className="stats-icon-container">
