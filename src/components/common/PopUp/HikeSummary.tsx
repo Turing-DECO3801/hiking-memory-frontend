@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './PopUp.scss';
 
 import { FiTrendingUp } from 'react-icons/fi';

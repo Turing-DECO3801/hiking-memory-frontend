@@ -4,8 +4,6 @@ import { HikeContext } from '../../../contexts/HikeContext';
 import { updateHikeName, getAHike } from '../../../api';
 import Map from '../Map/Map';
 import './PopUp.scss';
-import Loading from '../Loading/Loading';
-
 
 interface NewHikeProps {
   close: () => void,
@@ -13,27 +11,46 @@ interface NewHikeProps {
 
 const NewHike = ({ close }: NewHikeProps) => {
   
+  /**
+   * Contexts for shared information between components
+   */
   const { hike, updateHikePath } = useContext(HikeContext);
   const { email, password } = useContext(AuthContext);
 
   const [hikeName, setHikeName] = useState("");
   const [path, setPath] = useState(Array<PathType>);
 
+  /**
+   * Keeps track of the current value of the input form for the name change
+   * of a Hike
+   * 
+   * @param event Input Change Event
+   */
   const onNameChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     setHikeName(event.currentTarget.value);
   }
 
+  /**
+   * On Submit of the name change for the Hike will send a request to the
+   * database to store the new hike name
+   */
   const submitChange = () => {
     updateHikePath(hikeName);
     updateHikeName(hikeName, hike?.id as number, email as string, password as string);
     close();
   }
 
-
+  /**
+   * Loads the Hike Data on page load
+   */
   useEffect(() => {
     loadHikeData()
   }, [])
 
+  /**
+   * Loads the hike data and parses the raw data for the Map API to display 
+   * the path on screen
+   */
   const loadHikeData = async () => {
     const data = await getAHike(hike?.id as number, email as string, password as string) as any;
       
@@ -54,19 +71,24 @@ const NewHike = ({ close }: NewHikeProps) => {
     setPath(hikePath);
   }
 
+  /**
+   * Container Styling for Google Maps API in pop up
+   */
+     const containerStyle = {
+      width: '100%',
+      height: '200px'
+    };
+
+  /**
+   * Checks if the Hike Path is valid and will display the map if it is
+   * 
+   * @returns Google Maps Map
+   */
   const getMap = () => {
     if (path.length !== 0) {
       return (<Map path={path} containerStyle={containerStyle} mini={true}/>)
     }
   }
-
-  /**
-   * Container Styling for Google Maps API in pop up
-   */
-  const containerStyle = {
-    width: '100%',
-    height: '200px'
-  };
 
   return (
     <div className="popup-content">

@@ -40,6 +40,13 @@ export const useAuthState = (): AuthState => {
     }
   };
 
+  /**
+   * Attempts to login with the provided credentials
+   * 
+   * @param email User Email for identification
+   * @param password User Password for identification
+   * @returns Status of the Login requests
+   */
   const login = async (email: string, password: string) => {
     let success = false;
     const data = await axios.post(`${serverURL}auth/login`,
@@ -53,7 +60,8 @@ export const useAuthState = (): AuthState => {
         setEmail(res.data.user.email);
         setPassword(res.data.user.password);
         setName(res.data.user.name);
-        // Save login details
+
+        // Save login details in local storage to prevent relogging
         localStorage.setItem('email', res.data.user.email);
         localStorage.setItem('password', res.data.user.password);
         localStorage.setItem('name', res.data.user.name);
@@ -67,6 +75,9 @@ export const useAuthState = (): AuthState => {
     return success;
   };
 
+  /**
+   * Logs the user out of their account and removes the locally stored items
+   */
   const logout = () => {
     setAuthed(false);
     setEmail(undefined);
@@ -76,6 +87,14 @@ export const useAuthState = (): AuthState => {
     localStorage.removeItem('name');
   };
 
+  /**
+   * Attempts to create a new user in the database and log them in
+   * 
+   * @param email Email the user is signing up with
+   * @param password Password the user is signing up with
+   * @param name Name the user is signing up with
+   * @returns Status of the Sign Up request
+   */
   const signup = async (email: string, password: string, name: string) => {
     let success = false;
 
