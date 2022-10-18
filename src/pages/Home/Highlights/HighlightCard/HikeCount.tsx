@@ -13,6 +13,9 @@ const HikeCount = ({ hikes }: HighlightCardProps) => {
   const [currentCount, setCurrentCount] = useState(0);
   const [previousCount, setPreviousCount] = useState(0);
 
+  /**
+   * Instantiates dates for reference
+   */
   useEffect(() => {
     const date = new Date();
     const previousDate = new Date();
@@ -23,6 +26,9 @@ const HikeCount = ({ hikes }: HighlightCardProps) => {
     setPreviousDate(previousDate);
   }, [])
 
+  /**
+   * Counts all the hikes within the matching month ranges
+   */
   useEffect(() => {
     if (hikes === undefined) return;
     const currentLength = hikes?.filter(hike => {
@@ -31,7 +37,6 @@ const HikeCount = ({ hikes }: HighlightCardProps) => {
           === currentDate?.toLocaleDateString('default', { month: "long" })
       )
     }).length
-
     setCurrentCount (currentLength);
 
     const previousLength = hikes?.filter(hike => {
@@ -74,6 +79,11 @@ const HikeCount = ({ hikes }: HighlightCardProps) => {
     }
   }
 
+  /**
+   * Gets the width of the current month hikes bar
+   * 
+   * @returns String of the width property
+   */
   const getCurrentWidth = () => {
     if (currentCount >= previousCount) {
       return "75%";
@@ -82,6 +92,11 @@ const HikeCount = ({ hikes }: HighlightCardProps) => {
     }
   }
 
+  /**
+   * Gets the width of the previous month hikes bar
+
+   * @returns String of the width property
+   */
   const getPreviousWidth = () => {
     if (previousCount >= currentCount) {
       return "75%";

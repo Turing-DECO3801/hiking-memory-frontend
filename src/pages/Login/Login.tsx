@@ -12,19 +12,38 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  /**
+   * Use State hooks for rerendering on variable change
+   */
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [attempting, setAttempting] = useState(false);
   
+  /**
+   * Updates the current stored value of the email when the input has changed
+   * 
+   * @param event On Change Event
+   */
   const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.currentTarget.value);
   }
 
+  /**
+   * Updates the current stored value of the password when the input has changed
+   * 
+   * @param event On Change Event
+   */
   const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);
   }
 
+  /**
+   * Displays an error message to the user if the log in attempt
+   * was unsuccessful
+   * 
+   * @returns The element to be displayed on fail
+   */
   const showError = () => {
     if (error) {
       return (
@@ -35,6 +54,10 @@ const Login = () => {
     }
   }
 
+  /**
+   * Attempt to login and update the loading animation while
+   * the request is processing
+   */
   const attemptLogin = async () => {
     setAttempting(true);
     if (!await login(email, password)) {

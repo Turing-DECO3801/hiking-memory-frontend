@@ -9,6 +9,10 @@ const TotalDistance = ({ hikes }: HighlightCardProps) => {
 
   const [distance, setDistance] = useState(0);
 
+  /**
+   * Updates the value of the total distance hiked for the current month
+   * whenever the hike data changes
+   */
   useEffect(() => {
     const date = new Date();
 
@@ -26,9 +30,7 @@ const TotalDistance = ({ hikes }: HighlightCardProps) => {
         totalDistance += hike.distance
       }
     }
-
     setDistance(totalDistance / 1000);
-
   }, [hikes])
 
   return (

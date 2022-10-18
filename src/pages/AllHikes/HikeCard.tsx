@@ -1,7 +1,6 @@
 import React, {  useState, useEffect, useContext } from 'react';
 import "./AllHikes.scss"
 import { useSwipeable, LEFT, RIGHT, SwipeEventData } from 'react-swipeable'; 
-import Map from '../../components/common/Map/Map';
 import { FiX, FiHeart } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom';
 import { setFavourite } from '../../api';
@@ -58,16 +57,27 @@ const HikeCard = ({ hike, displayPopUp, selected }: HikeCardProps) => {
     event.stopPropagation();
   }
 
+  /**
+   * Navigatess to the particular hike if it is selected
+   */
   const openSingleHike = () => {
     setHikeData(hike);
     navigate("/singleview")
   }
 
+  /**
+   * Opens the delete hike popup
+   */
   const deletePopup = () => {
     setHikeData(hike);
     displayPopUp(true)
   }
 
+  /**
+   * Opens the delete option on card swipe
+   * 
+   * @param eventData Information provided with the current swipe
+   */
   const handleSwiped = (eventData: SwipeEventData) => {
     if (eventData.dir === LEFT) {
       if (swiped) {

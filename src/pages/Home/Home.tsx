@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
 import { FiArrowRight, FiVolume2, FiCamera } from 'react-icons/fi/'
-import { Pagination, Navigation } from "swiper";
 import "./Home.scss"
 import Highlights from './Highlights/Highlights';
 import PhotoCollection from './PhotoCollection/PhotoCollection';
@@ -15,10 +14,16 @@ import { PhotosContext } from '../../contexts/PhotosContext';
 
 const Home = () => { 
 
+  /**
+   * Contexts for sharing information to other components
+   */
   const { name, email, password } = useContext(AuthContext);
   const { setHikeData } = useContext(HikeContext);
   const { updateSelectedGallery, setGalleryStatus } = useContext(PhotosContext);
 
+  /**
+   * Use State hooks for rerendering on variable change
+   */
   const [latestHike, setLatestHike] = useState<HikeData>();
   const [allHikes, setAllHikes] = useState<HikeData[]>();
   const [imageCollection, setImageCollection] = useState<ImageInfo[]>();
@@ -29,9 +34,21 @@ const Home = () => {
     getHikeData()
   }, [])
 
+  /**
+   * Asynchronous function to call updated hike data and
+   * sets the value fo the latest hike for calculations and page renders
+   */
   const getHikeData = async () => {
     const hikes = await getHikes(email as string, password as string) as HikeData[];
-    console.log(hikes);
+
+    for (const hike of hikes) {
+      hike.date = new Date(hike.start_time);
+    }
+
+    hikes.sort((a, b) => {
+      return a.date.getTime() - b.date.getTime();
+    })     
+
     setLatestHike(hikes[hikes.length - 1]);
     setHikeData(hikes[hikes.length - 1]);
     setAllHikes(hikes);
@@ -51,6 +68,10 @@ const Home = () => {
     navigate('/singleview')
   }
 
+  /**
+   * Navigates to the photo gallery and sets the current index and 
+   * status of gallery opened to be 0 and false respectively
+   */
   const openAllPhotos = () => {
     updateSelectedGallery(0);
     setGalleryStatus(false);
@@ -63,7 +84,6 @@ const Home = () => {
       <br />
       <h2 className="section">Welcome Back {name}!</h2>
       <br />
-      {/** Latest Hike Tab, could be abstracted later */}
       <div className="latest-hike section delay-1">
         <div className="left-half">
           <h5>View your latest hike</h5>
@@ -88,11 +108,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-
       <br />
       <br />
-
-      {/** Highlights Tab */}
       <div className="section delay-2">
         <div className="section-header">
           <h4>Highlights</h4>
@@ -109,7 +126,7 @@ const Home = () => {
       </div>
       {
         latestHike === undefined || (latestHike?.viewed === 1) || (latestHike?.path_name !== null) ? 
-         null : <PopUp show={true} type="new"/>
+        null : <PopUp show={true} type="new"/>
       }
     </div>
   );

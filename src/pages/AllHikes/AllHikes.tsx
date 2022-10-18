@@ -1,19 +1,20 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
-import { HikeContext } from '../../contexts/HikeContext';
 import "./AllHikes.scss"
 import { FiSearch, FiCheck } from 'react-icons/fi/'
 import HikeCard from './HikeCard';
 import PopUp from '../../components/common/PopUp/PopUp';
-import { FiChevronLeft } from 'react-icons/fi/'
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import { getHikes } from '../../api';
 
 const AllHikes = () => { 
   
-  const { email, password  } = useContext(AuthContext);
+  // Auth Contexts for User ID 
+  const { email, password } = useContext(AuthContext);
 
+  /**
+   * Use State hooks for render updates on variable changes
+   */
   const [selectionType, setSelectionType] = useState("all");
   const [sortType, setSortType] = useState("recent");
   const [searchOpen, setSearchOpen] = useState(false);
@@ -23,20 +24,16 @@ const AllHikes = () => {
   const [selected, setSelected] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  // Fetch the data on page load
+  /**
+   * Fetch the data on page load
+   */
   useEffect(() => {
     getHikeData();
   }, [])
 
-  const navigate = useNavigate();
-
-  const pathExample = [
-    { lat: 37, lng: -122 },
-    { lat: 37, lng: -121 },
-    { lat: 38, lng: -121 },
-    { lat: 38, lng: -122 }
-  ];
-
+  /**
+   * Gets all of the hike data and sorts them based on time
+   */
   const getHikeData = async () => {
     const hikes = await getHikes(email as string, password as string) as Array<HikeData>;
     for (const hike of hikes) {
@@ -71,6 +68,9 @@ const AllHikes = () => {
     }
   }, [debouncedSearch]);
 
+  /**
+   * Updates the order of the hikes list based on the current sorting method
+   */
   useEffect(() => {
     
     const newHikes = [...hikeData];
@@ -112,10 +112,18 @@ const AllHikes = () => {
 
   }, [sortType])
 
-  const handleClick = (event: any) => {
+  /**
+   * Alternates the status of whether the hikes should be shown or not
+   */
+  const handleClick = () => {
     setIsShown(current => !current);
   };
 
+  /**
+   * Gets the PopUp to be displayed if a user decides to delete a hiek
+   * 
+   * @returns PopUp JSX Element with the Delete Type
+   */
   const getPopUp = () => {
     return <PopUp show={displayPopUp} type={"delete"} closeHandler={() => setDisplayPopUp(false)}/>
   }

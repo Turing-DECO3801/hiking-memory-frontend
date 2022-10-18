@@ -35,7 +35,6 @@ const PopularHike = ({ hikes }: HighlightCardProps) => {
     }
 
     setPopularHike(mostCommonPath);
-
   }, [hikes])
 
   return (

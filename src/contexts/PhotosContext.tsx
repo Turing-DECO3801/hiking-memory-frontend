@@ -18,10 +18,21 @@ export const usePhotosState = (): PhotosContext => {
   const [galleryIndex, setGalleryIndex] = useState<number>(0);
   const [gallerySelected, setGallerySelected] = useState<boolean>(false);
 
+  /**
+   * Updates the index of the currently selected gallery for stored
+   * information on page changes
+   * 
+   * @param index Index of the currently selected image gallery
+   */
   const updateSelectedGallery = (index: number) => {
     setGalleryIndex(index);
   };
 
+  /**
+   * Updates the status of the gallery
+   * 
+   * @param status Whether the gallery should be displayed
+   */
   const setGalleryStatus = (status: boolean) => {
     setGallerySelected(status);
   }
