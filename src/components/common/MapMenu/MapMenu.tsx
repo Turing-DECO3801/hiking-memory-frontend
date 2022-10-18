@@ -3,15 +3,20 @@ import './MapMenu.scss';
 
 import { FiList, FiEdit, FiTrash2, FiTrendingUp, FiX } from 'react-icons/fi';
 import PopUp from '../PopUp/PopUp';
-import { GiConsoleController } from 'react-icons/gi';
-
 
 const MapMenu = () => {
 
+  /**
+   * States for the Hike Menu for rerendering of the screen
+   */
   const [menuState, setMenuState] = useState(false);
   const [displayPopUp, setDisplayPopUp] = useState(false);
   const [popUpType, setPopUpType] = useState("");
 
+  /**
+   * Checks the current status to determine what the functionality of the
+   * menu button should be 
+   */
   const getMenuButton = () =>  {
     if (!menuState) {
       return (
@@ -24,17 +29,34 @@ const MapMenu = () => {
     }
   }
 
+  /**
+   * Opens the popup screen to the correct type on click
+   * 
+   * @param event On Click Mouse event
+   * @param type Popup Type
+   */
   const openPopUp = (event:React.MouseEvent<HTMLDivElement>, type:string) => {   
     setDisplayPopUp(!displayPopUp);
     setPopUpType(type);
     event.stopPropagation();
   }
 
+  /**
+   * Opens or closes the Map Menu based on the previous state
+   * 
+   * @param event On Click Mouse event
+   */
   const menuButtonClick = (event:React.MouseEvent<HTMLDivElement>) => {
     setMenuState(!menuState);
     event.stopPropagation();
   }
 
+  /**
+   * Returns the PopUp JSX Element to the displayed to the screen if the
+   * user chooses to click on a menu option
+   * 
+   * @returns The PopUp JSX Element
+   */
   const getPopUp = () => {
     return <PopUp show={displayPopUp} type={popUpType} closeHandler={() => setDisplayPopUp(false)}/>
   }

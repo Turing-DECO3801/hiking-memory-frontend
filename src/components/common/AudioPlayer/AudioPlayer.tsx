@@ -18,6 +18,11 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
   const progressBar = useRef<any>(null);   // reference our progress bar
   const animationRef = useRef<any>(null);  // reference the animation
 
+  /**
+   * Updates the settings of the audio file every time the
+   * audio file plays so it returns back to the starting configuration
+   * for visual functionality.
+   */
   useEffect(() => {
     setIsPlaying(false);
     if (audioPlayer.current !== undefined) {
@@ -36,6 +41,12 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
     }
   }, [audioFile])
 
+  /**
+   * Calculates the formatted time
+   * 
+   * @param secs Number of seconds
+   * @returns Minute and second formatted string
+   */
   const calculateTime = (secs: number) => {
     const minutes = Math.floor(secs / 60);
     const returnedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
@@ -44,6 +55,9 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
     return `${returnedMinutes}:${returnedSeconds}`;
   }
 
+  /**
+   * Toggles the current state of the play/pause button
+   */
   const togglePlayPause = () => {
     const prevValue = isPlaying;
     setIsPlaying(!prevValue);
@@ -56,6 +70,9 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
     }
   }
 
+  /**
+   * Repeated updates to the styling and progress bar of the audio player
+   */
   const whilePlaying = () => {
     if (audioPlayer.current !== undefined && audioPlayer.current !== null) {
       progressBar.current.value = audioPlayer.current!.currentTime;
@@ -64,6 +81,9 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
     }
   }
 
+  /**
+   * Updates the range of the progress bar
+   */
   const changeRange = () => {
     if (audioPlayer.current !== undefined && audioPlayer.current !== null) {
       audioPlayer.current!.currentTime = progressBar.current.value;
@@ -71,6 +91,9 @@ const AudioPlayer = ({ audioFile }: AudioPlayerProps) => {
     }
   }
 
+  /**
+   * Changes the current time shown on the audio memo player
+   */
   const changePlayerCurrentTime = () => {
     progressBar.current.style.setProperty('--progress', `${progressBar.current.value / duration * 100}%`)
     setCurrentTime(progressBar.current.value);
