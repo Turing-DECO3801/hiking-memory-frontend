@@ -31,6 +31,7 @@ const Home = () => {
 
   const getHikeData = async () => {
     const hikes = await getHikes(email as string, password as string) as HikeData[];
+    console.log(hikes);
     setLatestHike(hikes[hikes.length - 1]);
     setHikeData(hikes[hikes.length - 1]);
     setAllHikes(hikes);
