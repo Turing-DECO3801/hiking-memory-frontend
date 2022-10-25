@@ -10,7 +10,7 @@ interface HikeSummaryProps {
   close: () => void,
 }
 
-const HikeSummary = ({ steps, altitude, close }: HikeSummaryProps) => {
+const HikeSummary = ({ altitude, close }: HikeSummaryProps) => {
 
   const { hike } = useContext(HikeContext);
 
