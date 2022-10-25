@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { setFavourite } from '../../api';
 import { AuthContext } from '../../contexts/AuthContext';
 import { HikeContext } from '../../contexts/HikeContext';
+import Map from '../../components/common/Map/Map';
 
 
 interface HikeCardProps {
@@ -32,7 +33,7 @@ const HikeCard = ({ hike, displayPopUp, selected }: HikeCardProps) => {
    * Container used for the map API thumbnail
    */
   const containerStyle = {
-    width: '100%',
+    width: '20%',
     height: '110px'
   };
 
@@ -90,6 +91,10 @@ const HikeCard = ({ hike, displayPopUp, selected }: HikeCardProps) => {
     }
   }
 
+  // const pathExample = [
+  //   { lat: 37, lng: -122 },
+  // ];
+
   /**
    * Swipe Handler for select to delete functionaliy on left swip
    */
@@ -122,7 +127,7 @@ const HikeCard = ({ hike, displayPopUp, selected }: HikeCardProps) => {
         onClick={openSingleHike}
       >
         <div className="hike-map">
-          {/* <Map path={hike.path} containerStyle={containerStyle} mini={true}/> */}
+          {/* <Map path={pathExample} containerStyle={containerStyle} mini={true}/> */}
         </div>
         <div className="hike-info">
           <div className="hike-date-time"> 
