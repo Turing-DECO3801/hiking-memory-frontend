@@ -99,6 +99,17 @@ const HikeCard = ({ hike, displayPopUp, selected }: HikeCardProps) => {
     preventScrollOnSwipe: false,
   });
 
+  const getTime = () => {
+    if (hike.date.getHours() === 12) {
+      return (
+        `12:${hike.date.getMinutes()}${hike.date.getHours() < 12 ? "am" : "pm"}`
+      )
+    }
+    return (
+      `${hike.date.getHours() % 12}:${hike.date.getMinutes()}${hike.date.getHours() < 12 ? "am" : "pm"}`
+    )
+  }
+
   return( 
     <div className="hike-card-container">
       <div className="hike-card-delete">
@@ -124,7 +135,9 @@ const HikeCard = ({ hike, displayPopUp, selected }: HikeCardProps) => {
             <div className="hike-time">
                 {/** Formatting of Time */}
               <span>
-                {`${hike.date.getHours() % 12}:${hike.date.getMinutes()}${hike.date.getHours() < 12 ? "am" : "pm"}`}
+                {
+                  getTime()
+                }
               </span>
             </div>
           </div>

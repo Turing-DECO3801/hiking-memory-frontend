@@ -33,6 +33,17 @@ const Noitification = ({ hike, openPopup }: NotificationProps) => {
     navigate('/singleview')
   }
 
+  const getTime = () => {
+    if (hike.date.getHours() === 12) {
+      return (
+        `12:${hike.date.getMinutes()}${hike.date.getHours() < 12 ? "am" : "pm"}`
+      )
+    }
+    return (
+      `${hike.date.getHours() % 12}:${hike.date.getMinutes()}${hike.date.getHours() < 12 ? "am" : "pm"}`
+    )
+  }
+
   return (
     <div className={`notification`}>
       {
@@ -45,7 +56,9 @@ const Noitification = ({ hike, openPopup }: NotificationProps) => {
         }
         </div>
         <div className="notification-time">
-          {`${hike.date.toLocaleTimeString('default', { hour12: true, hour: '2-digit', minute: '2-digit' })}`}
+          {
+            getTime()
+          }
         </div>
       </div>
       <div className="notification-options">
